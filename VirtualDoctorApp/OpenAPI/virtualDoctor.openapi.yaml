@@ -1,0 +1,10 @@
+openapi: 3.0.1
+info:
+  title: VirtualDoctor API
+  description: VirtualDoctor API
+  version: 1.0.0
+paths:
+  /api/v1/evaluation/evaluate:
+    $ref: './evaluator.yaml'
+  /api/v1/user/new-user:
+    $ref: './user.yaml'

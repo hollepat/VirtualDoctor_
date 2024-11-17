@@ -1,0 +1,14 @@
+# Pycharm settings files
+.idea
+
+# Python virtual environment
+.venv
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints
+
+# Python cache
+__pycache__
+
+# Mac OS X hidden files
+.DS_Store

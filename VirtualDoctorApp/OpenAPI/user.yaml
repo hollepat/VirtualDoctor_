@@ -1,0 +1,14 @@
+post:
+  summary: "POST api/v1/user/new-user"
+  tags:
+    - User
+  operationId: "createUser"
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: "components.yaml#/components/schemas/UserDTO"
+    required: true
+  responses:
+    "200":
+      description: "OK"

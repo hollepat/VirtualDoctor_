@@ -1,0 +1,71 @@
+{
+  "info": {
+    "_postman_id": "9d145e3c-f3ab-4dc9-9030-13a3cd2f1476",
+    "name": "VirtualDoctor",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "34498898"
+  },
+  "item": [
+    {
+      "name": "Get Symptoms",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/v1/symptoms/all",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8085",
+          "path": [
+            "api",
+            "v1",
+            "symptoms",
+            "all"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Evaluation Request",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"user\": \"username\",\n    \"localDateTime\": \"2024-05-04T10:15:30\",\n    \"symptoms\": [\n        \"Headache\"\n    ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8085/api/v1/evaluation/evaluate",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8085",
+          "path": [
+            "api",
+            "v1",
+            "evaluation",
+            "evaluate"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Register User",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    }
+  ]
+}

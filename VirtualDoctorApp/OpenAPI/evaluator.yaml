@@ -1,0 +1,18 @@
+post:
+  summary: "POST api/v1/evaluation/evaluate"
+  tags:
+    - Evaluation
+  operationId: "evaluateDiagnosis"
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: 'components.yaml#/components/schemas/UserInputDTO'
+    required: true
+  responses:
+    "200":
+      description: "OK"
+      content:
+        application/json:
+          schema:
+            $ref: 'components.yaml#/components/schemas/DiagnosisDTO'
