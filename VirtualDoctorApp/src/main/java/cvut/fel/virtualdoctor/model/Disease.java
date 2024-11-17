@@ -23,19 +23,14 @@ public class Disease {
     private String descriptionLong;
     private List<Symptom> symptoms;
 
-    /* TODO Implement the following:
-    *   Application will evaluate the doctor for a given disease, and it's emergency level by
-    *   checking most probable diseases and which doctor is most suitable for the disease and
-    *   how urgent the disease is.
-    * */
     private DoctorType doctor;
-    private EmergencyType emergency;
 
-    public Disease(String name, String descriptionShort, String descriptionLong, List<Symptom> symptoms) {
+    public Disease(String name, String descriptionShort, String descriptionLong, List<Symptom> symptoms, DoctorType doctor) {
         this.name = name;
         this.descriptionShort = descriptionShort;
         this.descriptionLong = descriptionLong;
         this.symptoms = symptoms;
+        this.doctor = doctor;
     }
 
     // Ensure proper comparison and hashing for use in a Map

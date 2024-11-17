@@ -22,7 +22,7 @@ public class DiagnosisMapper {
         return new DiagnosisDTO(
             diagnosis.getSwVersion(),
             diagnosis.getTimeAndDate(),
-            diagnosis.getDoctorToVisit(),
+            diagnosis.getDoctorsToVisit(),
             getBestPredictions(diagnosis.getDifferentialList()),
             diagnosis.getEmergency()
         );

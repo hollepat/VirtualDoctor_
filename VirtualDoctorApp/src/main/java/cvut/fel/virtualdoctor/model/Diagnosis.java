@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Document(collection = "diagnosis")
@@ -24,19 +25,19 @@ public class Diagnosis {
     private EmergencyType emergency;
 
     // doctorToVisit is a flag that indicates which doctor should the patient visit
-    private DoctorType doctorToVisit;
+    private List<DoctorType> doctorsToVisit;
 
     public Diagnosis(
         String swVersion,
         LocalDateTime timeAndDate,
         DifferentialList differentialList,
-        DoctorType doctorToVisit,
+        List<DoctorType> doctorToVisit,
         EmergencyType emergency
     ) {
         this.swVersion = swVersion;
         this.timeAndDate = timeAndDate;
         this.differentialList = differentialList;
-        this.doctorToVisit = doctorToVisit;
+        this.doctorsToVisit = doctorToVisit;
         this.emergency = emergency;
     }
 
@@ -46,7 +47,7 @@ public class Diagnosis {
                 "timeAndDate=" + timeAndDate +
                 ", differentialDiagnosis=" + differentialList +
                 ", emergency=" + emergency +
-                ", doctorToVisit=" + doctorToVisit +
+                ", doctorToVisit=" + doctorsToVisit +
                 '}';
     }
 }

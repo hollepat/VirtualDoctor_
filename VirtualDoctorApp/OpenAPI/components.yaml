@@ -71,10 +71,12 @@ components:
           description: Time and date of the diagnosis.
           example: 2000-01-23T04:56:07.000+00:00
         doctorToVisit:
-          type: string
-          description: Doctor to visit.
-          enum: [GeneralPractitioner, Pediatrician, Dentist, Orthopedic, Psychiatrist, Ophthalmology]
-          example: GeneralPractitioner
+          type: array
+          items:
+              type: string
+              enum: [GeneralPractitioner, Pediatrician, Dentist, Orthopedic, Psychiatrist, Ophthalmology]
+          description: List of doctors to visit in order of priority.
+          example: [GeneralPractitioner, Pediatrician]
         disease:
           type: DDX
           example: { "Influenza": 0.8, "CommonCold": 0.2 }
