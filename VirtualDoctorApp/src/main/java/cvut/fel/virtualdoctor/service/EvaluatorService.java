@@ -98,7 +98,7 @@ public class EvaluatorService implements IEvaluatorService {
         return future.thenApply(response -> {
             logger.info("Response from Classifier: {}", response);
             DifferentialList differentialList = new DifferentialList(response.predictions());
-            return diagnosisService.createDiagnosis(response.version(), differentialList);
+            return diagnosisService.createDiagnosis(userInput, response.version(), differentialList);
         });
     }
 }

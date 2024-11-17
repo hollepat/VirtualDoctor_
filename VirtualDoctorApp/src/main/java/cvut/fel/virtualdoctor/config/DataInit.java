@@ -26,14 +26,15 @@ public class DataInit {
         return args -> {
             // User
             createUser("john-doe", 18, 170, 70, userRepository);
+            createUser("jane-doe", 25, 160, 60, userRepository);
 
             // Symptoms
-            createSymptom("Headache", "Pain in the head or upper neck.", symptomRepository);
-            createSymptom("Fever", "A temporary increase in your body temperature, often due to an illness.", symptomRepository);
-            createSymptom("Cough", "A sudden expulsion of air from the lungs that clears the air passages.", symptomRepository);
-            createSymptom("Fatigue", "A feeling of tiredness or exhaustion or a need to rest because of lack of energy or strength.", symptomRepository);
-            createSymptom("Difficulty breathing", "A feeling of not being able to get enough air.", symptomRepository);
-
+            createSymptom("Headache", EmergencyType.NORMAL,"Pain in the head or upper neck.", symptomRepository);
+            createSymptom("Fever", EmergencyType.STAY_AT_HOME, "A temporary increase in your body temperature, often due to an illness.", symptomRepository);
+            createSymptom("Cough", EmergencyType.NORMAL,"A sudden expulsion of air from the lungs that clears the air passages.", symptomRepository);
+            createSymptom("Fatigue", EmergencyType.NORMAL,"A feeling of tiredness or exhaustion or a need to rest because of lack of energy or strength.", symptomRepository);
+            createSymptom("Difficulty breathing", EmergencyType.LIFE_THREATENING, "A feeling of not being able to get enough air.", symptomRepository);
+            createSymptom("Severe chest pain", EmergencyType.LIFE_THREATENING, "A feeling of pressure, squeezing, or fullness in the chest.", symptomRepository);
 
 
             // Diseases
@@ -101,11 +102,9 @@ public class DataInit {
         };
     }
 
-    @Transactional
-    protected void createSymptom(String name, String description, SymptomRepository symptomRepository) {
-        Symptom symptom = new Symptom(name, description);
+    protected void createSymptom(String name, EmergencyType emergencyType,String description, SymptomRepository symptomRepository) {
+        Symptom symptom = new Symptom(name, emergencyType, description);
 
-        // usingMongoTemplateAndQuery(symptomRepository, mongoTemplate, name, symptom);
         symptomRepository.findByName(name)
                 .ifPresentOrElse(
                         s -> logger.warn("Symptom already exists: " + s.getName()),
@@ -116,7 +115,6 @@ public class DataInit {
                 );
     }
 
-    @Transactional
     protected void createDisease(
             String name,
             String descriptionShort,
@@ -137,7 +135,6 @@ public class DataInit {
                 );
     }
 
-    @Transactional
     protected void createUser(String username, int age, int height, int weight, UserRepository userRepository) {
         User user = new User(username, age, height, weight, Gender.MALE, Location.EUROPE, Lifestyle.ACTIVE);
         userRepository.findByUsername(user.getUsername())

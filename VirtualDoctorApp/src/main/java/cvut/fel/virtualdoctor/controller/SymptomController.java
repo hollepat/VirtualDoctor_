@@ -2,6 +2,7 @@ package cvut.fel.virtualdoctor.controller;
 
 import cvut.fel.virtualdoctor.dto.SymptomDTO;
 import cvut.fel.virtualdoctor.model.Symptom;
+import cvut.fel.virtualdoctor.repository.SymptomRepository;
 import cvut.fel.virtualdoctor.service.SymptomService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class SymptomController {
     @PostMapping("/new-symptom")
     public void addSymptom(@RequestBody SymptomDTO symptomDTO) {
         // convert DTO to entity
-        Symptom symptom = new Symptom(symptomDTO.name(), symptomDTO.description());
+        Symptom symptom = new Symptom(symptomDTO.name(), symptomDTO.emergency(), symptomDTO.description());
         // call service
         symptomService.addSymptom(symptom);
     }
@@ -33,10 +34,7 @@ public class SymptomController {
     // Service endpoint for deleting a symptom
     @DeleteMapping("/delete-symptom")
     public void deleteSymptom(@RequestBody SymptomDTO symptomDTO) {
-        // convert DTO to entity
-        Symptom symptom = new Symptom(symptomDTO.name(), symptomDTO.description());
-        // call service
-        symptomService.deleteSymptom(symptom);
+        symptomService.deleteSymptom(symptomDTO);
     }
 
 }

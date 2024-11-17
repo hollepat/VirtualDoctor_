@@ -74,13 +74,13 @@ components:
           type: array
           items:
               type: string
-              enum: [GeneralPractitioner, Pediatrician, Dentist, Orthopedic, Psychiatrist, Ophthalmology]
+              enum: [ GENERAL_PRACTITIONER, PEDIATRICIAN, CARDIOLOGIST, DERMATOLOGIST ]
           description: List of doctors to visit in order of priority.
-          example: [GeneralPractitioner, Pediatrician]
+          example: [GENERAL_PRACTITIONER, PEDIATRICIAN]
         disease:
           type: DDX
           example: { "Influenza": 0.8, "CommonCold": 0.2 }
         emergency:
           type: string
-          enum: [LOW, MEDIUM, HIGH]
-          example: LOW
+          enum: [ NORMAL, STAY_AT_HOME, LIFE_THREATENING ]
+          example: NORMAL

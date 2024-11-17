@@ -16,6 +16,7 @@ public class Diagnosis {
     @Id
     private String id;
 
+    private UserInput userInput;
     private String swVersion;
     private LocalDateTime timeAndDate;
 

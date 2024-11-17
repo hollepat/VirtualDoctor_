@@ -20,9 +20,11 @@ public class Symptom {
 
     // TODO each symptom should have a emergency flag --> which can be used to determine if the
     //  patient should be seen immediately
+    private EmergencyType emergency;
 
-    public Symptom(String name, String description) {
+    public Symptom(String name, EmergencyType emergency, String description) {
         this.name = name;
+        this.emergency = emergency;
         this.description = description;
     }
 }

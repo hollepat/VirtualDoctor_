@@ -23,9 +23,26 @@ public class DiagnosisService implements IDiagnosisService {
     DiseaseRepository diseaseRepository;
     DiagnosisRepository diagnosisRepository;
 
-    public Diagnosis createDiagnosis(String swVersion, DifferentialList differentialList) {
+    /**
+     * Creates a diagnosis based on the user input and the differential list.
+     *
+     * @param userInput user input
+     * @param swVersion classifying software version
+     * @param differentialList list of diseases and their probabilities
+     * @return the created diagnosis
+     */
+    public Diagnosis createDiagnosis(UserInput userInput, String swVersion, DifferentialList differentialList) {
         List<DoctorType> doctorToVisit = retrieveDoctorToVisit(differentialList);
-        return new Diagnosis(swVersion, LocalDateTime.now(), differentialList, doctorToVisit, EmergencyType.LOW);
+        EmergencyType emergency = determineEmergency(userInput);
+
+        return new Diagnosis(swVersion, LocalDateTime.now(), differentialList, doctorToVisit, emergency);
+    }
+
+    private EmergencyType determineEmergency(UserInput userInput) {
+        return userInput.getSymptoms().stream()
+                .map(Symptom::getEmergency)
+                .max(EmergencyType.LEVEL_COMPARATOR)
+                .orElse(EmergencyType.NORMAL);
     }
 
     private List<DoctorType> retrieveDoctorToVisit(DifferentialList differentialList) {

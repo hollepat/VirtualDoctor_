@@ -1,5 +1,6 @@
 package cvut.fel.virtualdoctor.service;
 
+import cvut.fel.virtualdoctor.dto.SymptomDTO;
 import cvut.fel.virtualdoctor.model.Symptom;
 import cvut.fel.virtualdoctor.repository.SymptomRepository;
 import lombok.AllArgsConstructor;
@@ -26,9 +27,9 @@ public class SymptomService implements ISymptomService {
         symptomRepository.save(symptom);
     }
 
-    public void deleteSymptom(Symptom symptom) {
-        Symptom symptomToDelete = symptomRepository.findByName(symptom.getName()).orElseThrow(
-                () -> new IllegalArgumentException("Symptom with name " + symptom.getName() + " does not exist")
+    public void deleteSymptom(SymptomDTO symptomDTO) {
+        Symptom symptomToDelete = symptomRepository.findByName(symptomDTO.name()).orElseThrow(
+                () -> new IllegalArgumentException("Symptom with name " + symptomDTO.name() + " does not exist")
         );
         symptomRepository.delete(symptomToDelete);
     }
