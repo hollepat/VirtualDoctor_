@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
 @RestController
 @RequestMapping("/api/v1/evaluation")
 @AllArgsConstructor
-public class EvaluatorController {
+public class EvaluatorController implements IEvaluatorController {
 
     private static final Logger logger = LoggerFactory.getLogger(EvaluatorController.class);
     private final EvaluatorService evaluatorServiceImpl;
