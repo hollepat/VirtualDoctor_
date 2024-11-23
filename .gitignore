@@ -1,2 +1,8 @@
 # Mac OS X hidden files
 .DS_Store
+
+# IntelliJ
+.idea
+*.iws
+*.iml
+*.ipr:
