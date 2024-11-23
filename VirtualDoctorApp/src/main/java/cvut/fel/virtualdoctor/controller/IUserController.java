@@ -1,17 +1,11 @@
 package cvut.fel.virtualdoctor.controller;
 
-import cvut.fel.virtualdoctor.dto.UserMetaDataDTO;
-import org.springframework.web.bind.annotation.GetMapping;
+import cvut.fel.virtualdoctor.dto.UserDTO;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 public interface IUserController {
 
-    @PostMapping("/register")
-    void registerUser();
-
-    @PostMapping("/login")
-    void loginUser();
-
-    @GetMapping("/get-user-metadata")
-    UserMetaDataDTO getUserMetadata();
+    @PostMapping("/new-user")
+    void createUser(@RequestBody UserDTO userDTO);
 }
