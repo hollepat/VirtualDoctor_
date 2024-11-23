@@ -20,3 +20,9 @@ You can run the emulator by running the following command:
 cd <path_to_android_sdk>/emulator
 ./emulator -avd wearos_avd
 ```
+## FAQs
+
+Display running emulators:
+```
+ps aux | grep qemu
+```

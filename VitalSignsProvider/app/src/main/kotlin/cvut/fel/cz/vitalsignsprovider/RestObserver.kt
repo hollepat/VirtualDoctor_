@@ -19,14 +19,15 @@ class RestObserver(private val url: String) : Observer {
     private val client = OkHttpClient()
     private val scope = CoroutineScope(Dispatchers.IO)
 
-//    init {
-//        // Optional: Add logging to see request details during development
+    init {
+        Log.d("RestObserver", "Created RestObserver with URL: $url")
+        // Optional: Add logging to see request details during development
 //        val logging = HttpLoggingInterceptor()
 //        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 //        client = OkHttpClient.Builder()
 //            .addInterceptor(logging)
 //            .build()
-//    }
+    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun update(healthDataSnapshot: HealthDataSnapshot) {

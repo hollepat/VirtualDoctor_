@@ -11,9 +11,9 @@ data class HealthDataSnapshot(
 ) {
     fun toJson(): JSONObject =
         JSONObject().apply {
-            put("heartbeat", heartRate)
             put("skinTemperature", skinTemperature)
             put("bloodPressure", bloodPressure)
+            put("heartRate", heartRate)
             put("time", time.toString())
         }
 

@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import androidx.appcompat.app.AppCompatActivity
+import java.util.Properties
 
 class MainActivity : AppCompatActivity() {
         private var healthDataService: HealthDataService? = null
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity() {
             val binder = service as HealthDataService.LocalBinder
             healthDataService = binder.getService()
             isBound = true
-            val url = "http://10.0.2.2:8085/api/v1/vitalSignsObserver/vitalSigns" // TODO move to configuration
+            val url =  loadUrlFromConfig()
             healthDataService?.registerObserver(RestObserver(url))
         }
 
@@ -48,5 +49,12 @@ class MainActivity : AppCompatActivity() {
             unbindService(connection)
             isBound = false
         }
+    }
+
+    private fun loadUrlFromConfig(): String {
+        val properties = Properties()
+        val inputStream = resources.openRawResource(R.raw.config)
+        properties.load(inputStream)
+        return properties.getProperty("url")
     }
 }
