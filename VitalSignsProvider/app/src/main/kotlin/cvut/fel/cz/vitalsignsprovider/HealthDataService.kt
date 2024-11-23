@@ -12,15 +12,13 @@ import android.os.Handler
 import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import fi.iki.elonen.NanoHTTPD
 import kotlin.random.Random
 
 class HealthDataService : Service(), Subject {
     private val binder = LocalBinder()
     private val random = Random
     private val handler = Handler()
-    private var heartbeat: Int = 0
-    private var stepCount: Int = 0
+    private var healthDataSnapshot = HealthDataSnapshot(0.0, 0.0, 0)
     private val observers = mutableListOf<Observer>()
 
     inner class LocalBinder : Binder() {
@@ -40,36 +38,27 @@ class HealthDataService : Service(), Subject {
     }
 
     /**
-     * TODO investigate how this works
+     * Simulates the data by generating random values for heartbeat.
      */
     private fun simulateData() {
         handler.postDelayed(object : Runnable {
             override fun run() {
-                heartbeat = 60 + random.nextInt(41)
-                stepCount = random.nextInt(5000)
+                val heartbeat = 60 + random.nextInt(41)
+                val bloodPressure = 80.0 + random.nextDouble() * 40
+                val skinTemperature = 36.0 + random.nextDouble() * 2
+                healthDataSnapshot = HealthDataSnapshot(skinTemperature, bloodPressure, heartbeat)
                 notifyObservers()
-                Log.d("HealthDataService", "Heartbeat: $heartbeat bpm, Steps: $stepCount")
+                Log.d("HealthDataService", "Heartbeat: $heartbeat bpm, Blood pressure: $bloodPressure mmHg, Skin temperature: $skinTemperature °C")
                 handler.postDelayed(this, 5000)
             }
         }, 5000)
     }
 
-    /**
-     * TODO
-     */
     override fun onDestroy() {
         super.onDestroy()
         handler.removeCallbacksAndMessages(null)
 
         Log.d("HealthDataService", "Service destroyed")
-    }
-
-    // Inner class for the HTTP server
-    private inner class SimpleHttpServer(port: Int) : NanoHTTPD(port) {
-        override fun serve(session: IHTTPSession): Response {
-            val responseJson = """{"heartbeat": $heartbeat, "stepCount": $stepCount}"""
-            return newFixedLengthResponse(Response.Status.OK, "application/json", responseJson)
-        }
     }
 
     private fun createNotification(): Notification {
@@ -102,8 +91,7 @@ class HealthDataService : Service(), Subject {
 
     override fun notifyObservers() {
         for (observer in observers) {
-            // TODO create some kind of a snapshot of the current state rather then passing the values separately
-            observer.update(heartbeat, stepCount)
+            observer.update(healthDataSnapshot)
         }
     }
 }

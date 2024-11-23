@@ -67,8 +67,8 @@ components:
           example: 1.0.0
         timeAndDate:
           type: string
-          format: date-time
-          description: Time and date of the diagnosis.
+          format: time-time
+          description: Time and time of the diagnosis.
           example: 2000-01-23T04:56:07.000+00:00
         doctorToVisit:
           type: array

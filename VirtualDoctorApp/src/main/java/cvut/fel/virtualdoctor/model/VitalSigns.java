@@ -15,10 +15,11 @@ public class VitalSigns {
     private LocalDateTime localDateTime;
 
     private User user;
+    private int heartRate;
     private double temperature;
+    private double bloodPressure;
     private double cholesterolLevel;
     private double bmi;
-    private double bloodPressure;
 
 // TODO not used
 //    private double heartRate;

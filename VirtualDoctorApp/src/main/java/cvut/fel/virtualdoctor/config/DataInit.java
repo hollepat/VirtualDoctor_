@@ -30,7 +30,7 @@ public class DataInit {
 
             // Symptoms
             createSymptom("Headache", EmergencyType.NORMAL,"Pain in the head or upper neck.", symptomRepository);
-            createSymptom("Fever", EmergencyType.STAY_AT_HOME, "A temporary increase in your body temperature, often due to an illness.", symptomRepository);
+            createSymptom("Fever", EmergencyType.STAY_AT_HOME, "A temporary increase in your body skinTemperature, often due to an illness.", symptomRepository);
             createSymptom("Cough", EmergencyType.NORMAL,"A sudden expulsion of air from the lungs that clears the air passages.", symptomRepository);
             createSymptom("Fatigue", EmergencyType.NORMAL,"A feeling of tiredness or exhaustion or a need to rest because of lack of energy or strength.", symptomRepository);
             createSymptom("Difficulty breathing", EmergencyType.LIFE_THREATENING, "A feeling of not being able to get enough air.", symptomRepository);

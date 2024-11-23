@@ -29,16 +29,12 @@ class RestObserver(private val url: String) : Observer {
 //    }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun update(heartBeat: Int, stepCount: Int) {
+    override fun update(healthDataSnapshot: HealthDataSnapshot) {
         scope.launch {
-            Log.d("RestObserver", "Sending update: heartBeat=$heartBeat, stepCount=$stepCount")
+            Log.d("RestObserver", "Sending update: $healthDataSnapshot")
 
-            // Build the URL
-//        val requestUrl = "$url?heartbeat=$heartBeat&stepCount=$stepCount"
             // Create JSON object to send
-            val jsonObject = JSONObject()
-            jsonObject.put("heartbeat", heartBeat.toString())
-            jsonObject.put("date", LocalDateTime.now().toString())
+            val jsonObject = healthDataSnapshot.toJson()
 
             // Convert JSON object to RequestBody
             val mediaType = "application/json; charset=utf-8".toMediaTypeOrNull()
