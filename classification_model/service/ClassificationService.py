@@ -30,7 +30,7 @@ Angina: 6.08%
 # Output should in total sum up to 100%.
 
 # Step 1: Load the dataset
-url = Path("../datasets/kaggle/Disease Symptoms and Patient Profile Dataset_filtered.csv")
+url = Path("../datasets/kaggle/Disease Symptoms and Patient Profile Dataset_balanced.csv")
 data = pd.read_csv(url)
 
 data_preprocessing = DataPreprocessor(data)
