@@ -72,7 +72,7 @@ public class VitalSignsObserver implements IVitalSignsObserver {
         return new VitalSigns(
                 vitalSigns.get(0).getPatient(),
                 LocalDateTime.now(),
-                vitalSigns.stream().mapToDouble(VitalSigns::getTemperature).average().orElse(0),
+                vitalSigns.stream().mapToDouble(VitalSigns::getSkinTemperature).average().orElse(0),
                 vitalSigns.stream().mapToDouble(VitalSigns::getBloodPressure).average().orElse(0),
                 vitalSigns.get(vitalSigns.size()-1).getBmi(), 
                 vitalSigns.stream().mapToDouble(VitalSigns::getCholesterolLevel).average().orElse(0),

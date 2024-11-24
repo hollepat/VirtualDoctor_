@@ -41,7 +41,7 @@ public class ClassifierMapper {
         Map<String, Double> vitalSignsJson = new HashMap<>();
         vitalSignsJson.put("Blood Pressure", vitalSigns.getBloodPressure());
         vitalSignsJson.put("Cholesterol Level", vitalSigns.getCholesterolLevel());
-        vitalSignsJson.put("Temperature", vitalSigns.getTemperature());
+        vitalSignsJson.put("Temperature", vitalSigns.getSkinTemperature());
         vitalSignsJson.put("BMI", vitalSigns.getBmi());
         return vitalSignsJson;
     }

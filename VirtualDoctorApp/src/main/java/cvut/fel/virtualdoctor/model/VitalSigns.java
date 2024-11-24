@@ -16,7 +16,7 @@ public class VitalSigns {
     private LocalDateTime localDateTime;
     private Patient patient;
     private int heartRate;
-    private double temperature;
+    private double skinTemperature;
     private double bloodPressure;
     private double cholesterolLevel;
     private double bmi;
@@ -28,7 +28,7 @@ public class VitalSigns {
     public VitalSigns(
         Patient patient,
         LocalDateTime localDateTime,
-        double temperature, // TODO rename to skinTemperature
+        double skinTemperature,
         double bloodPressure,
         double bmi,
         double cholesterolLevel,
@@ -36,7 +36,7 @@ public class VitalSigns {
     ) {
         this.patient = patient;
         this.localDateTime = localDateTime;
-        this.temperature = temperature;
+        this.skinTemperature = skinTemperature;
         this.bloodPressure = bloodPressure;
         this.cholesterolLevel = cholesterolLevel;
         this.bmi = bmi;
