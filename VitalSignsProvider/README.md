@@ -26,3 +26,13 @@ Display running emulators:
 ```
 ps aux | grep qemu
 ```
+
+Kill running emulators:
+```
+kill <PID>
+```
+
+Remove any leftover lock files to prevent potential issues:
+```
+rm -rf ~/.android/avd/wearos_avd.avd/*.lock
+```

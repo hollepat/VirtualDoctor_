@@ -18,6 +18,7 @@ import java.time.LocalDateTime
 class RestObserver(private val url: String) : Observer {
     private val client = OkHttpClient()
     private val scope = CoroutineScope(Dispatchers.IO)
+    private val username = "john-doe"
 
     init {
         Log.d("RestObserver", "Created RestObserver with URL: $url")
@@ -36,6 +37,7 @@ class RestObserver(private val url: String) : Observer {
 
             // Create JSON object to send
             val jsonObject = healthDataSnapshot.toJson()
+            jsonObject.put("username", username) // to match user in dbs
 
             // Convert JSON object to RequestBody
             val mediaType = "application/json; charset=utf-8".toMediaTypeOrNull()

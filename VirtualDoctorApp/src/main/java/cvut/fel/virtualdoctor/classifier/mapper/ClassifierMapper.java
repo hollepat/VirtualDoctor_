@@ -56,19 +56,4 @@ public class ClassifierMapper {
         vitalSignsJson.put("BMI", vitalSigns.getBmi());
         return vitalSignsJson;
     }
-
-    // TODO probably delete this method
-//    public DifferentialList mapEvaluatorOutputToDifferentialList(ClassifierOutput output) {
-//        Map<Disease, Double> differentialDiagnosis = output.predictions().entrySet().stream()
-//                .map(entry -> diseaseRepository.findDiseaseByName(entry.getKey())
-//                        .map(disease -> Map.entry(disease, entry.getValue()))
-//                        .orElseGet(() -> {
-//                            logger.error("Disease not found: {}", entry.getKey());
-//                            return null; // or you could return an Optional.empty() or a default entry
-//                        }))
-//                .filter(Objects::nonNull) // Filter out null values
-//                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-//        return new DifferentialList(differentialDiagnosis);
-//    }
-
 }

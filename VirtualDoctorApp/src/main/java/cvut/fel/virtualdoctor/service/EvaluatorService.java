@@ -29,6 +29,7 @@ public class EvaluatorService implements IEvaluatorService {
 
     private static final Logger logger = LoggerFactory.getLogger(EvaluatorService.class);
 
+    // TODO revise this --> seams like a lot of dependencies and lot of responsibility
     SymptomService symptomService;
     DiagnosisService diagnosisService;
     DiseaseRepository diseaseRepository;
@@ -39,6 +40,7 @@ public class EvaluatorService implements IEvaluatorService {
     ClassifierMapper classifierMapper;
     ObjectMapper objectMapper;
     DiagnosisMapper diagnosisMapper;
+    VitalSignsObserver vitalSignsObserver;
 
     /**
      * @param userInputDTO The user input to evaluate for diagnosis
@@ -48,26 +50,21 @@ public class EvaluatorService implements IEvaluatorService {
     @Async
     public CompletableFuture<DiagnosisDTO> evaluateUserInput(UserInputDTO userInputDTO) {
 
+        // TODO move to service
         User user = userRepository.findByUsername(userInputDTO.user())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
+        // TODO move to service
         List<Symptom> symptoms = userInputDTO.symptoms().stream().map(
                 symptomName -> symptomRepository.findByName(symptomName)
                         .orElseThrow(() -> new RuntimeException("Symptom not found"))
         ).toList();
 
-        // TODO: get vital signs for the user from specific service --> In question where should
-        //  the source of this data.
-        VitalSigns vitalSigns = new VitalSigns(
-                LocalDateTime.now(),
-                36.6,
-                120,
-                25,
-                37.5
-        );
+        VitalSigns vitalSigns = vitalSignsObserver.provideVitalSigns(user);
 
         UserInput userInput = new UserInput(user, symptoms, vitalSigns);
         try {
+            // TODO move to service
             userInput = userInputRepository.save(userInput);
         } catch (Exception e) {
             logger.error("Failed to save user input to database: {}", e.getMessage());

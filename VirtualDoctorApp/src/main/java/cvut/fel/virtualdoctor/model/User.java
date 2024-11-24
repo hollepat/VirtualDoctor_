@@ -18,8 +18,8 @@ public class User {
 
     // metadata about User
     private int age;
-    private int height;
-    private int weight;
+    private int height; // in cm
+    private int weight; // in kg
     private Gender gender;
     private Location location;
     private Lifestyle lifestyle;
@@ -31,6 +31,10 @@ public class User {
         this.height = height;
         this.weight = weight;
         this.gender = gender;
+    }
 
+    public double getBmi() {
+        double height_in_m = (double) height / 100;
+        return (double) weight / (height_in_m * height_in_m);
     }
 }
