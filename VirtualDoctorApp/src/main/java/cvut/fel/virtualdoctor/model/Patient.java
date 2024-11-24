@@ -7,14 +7,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
 
 @Data
-@Document(collection = "user")
-public class User {
+@Document(collection = "patient")
+public class Patient {
 
     @Id
     private String id;
 
-    //@Indexed(unique = true)
-    private String username;
+    //@Indexed(unique = true) TODO don't know how to handle this
+    private String name;
 
     // metadata about User
     private int age;
@@ -25,8 +25,8 @@ public class User {
     private Lifestyle lifestyle;
     private List<Diagnosis> historyOfDiagnoses;
 
-    public User(String username, int age, int height, int weight, Gender gender, Location location, Lifestyle lifestyle) {
-        this.username = username;
+    public Patient(String name, int age, int height, int weight, Gender gender, Location location, Lifestyle lifestyle) {
+        this.name = name;
         this.age = age;
         this.height = height;
         this.weight = weight;

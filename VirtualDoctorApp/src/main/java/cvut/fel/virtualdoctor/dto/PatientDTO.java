@@ -4,8 +4,8 @@ import cvut.fel.virtualdoctor.model.Gender;
 import cvut.fel.virtualdoctor.model.Lifestyle;
 import cvut.fel.virtualdoctor.model.Location;
 
-public record UserDTO(
-    String username,
+public record PatientDTO(
+    String name,
     int age,
     int height,
     int weight,

@@ -1,7 +1,7 @@
 package cvut.fel.virtualdoctor.controller;
 
 import cvut.fel.virtualdoctor.dto.DiagnosisDTO;
-import cvut.fel.virtualdoctor.dto.UserInputDTO;
+import cvut.fel.virtualdoctor.dto.PatientInputDTO;
 import cvut.fel.virtualdoctor.service.EvaluatorService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -23,11 +23,11 @@ public class EvaluatorController implements IEvaluatorController {
     private final EvaluatorService evaluatorServiceImpl;
 
     @PostMapping("/evaluate")
-    public CompletableFuture<ResponseEntity<DiagnosisDTO>> evaluateDiagnosis(@RequestBody UserInputDTO userInputDTO) {
+    public CompletableFuture<ResponseEntity<DiagnosisDTO>> evaluateDiagnosis(@RequestBody PatientInputDTO patientInputDTO) {
         logger.info("Received request to evaluate diagnosis");
 
         // Evaluate diagnosis
-        return evaluatorServiceImpl.evaluateUserInput(userInputDTO).thenApply(diagnosisDTO -> {
+        return evaluatorServiceImpl.evaluateUserInput(patientInputDTO).thenApply(diagnosisDTO -> {
             logger.info("Diagnosis sent: {}", diagnosisDTO.toString());
             return ResponseEntity.ok(diagnosisDTO);
         });

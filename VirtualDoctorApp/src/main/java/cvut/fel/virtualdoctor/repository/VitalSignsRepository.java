@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface VitalSignsRepository extends MongoRepository<VitalSigns, String> {
 
-    @Query("{ 'user.username' : ?0 }") // ?0 refers to the first parameter
-    List<VitalSigns> findByUsername(String username);
+    @Query("{ 'patient.name' : ?0 }") // ?0 refers to the first parameter
+    List<VitalSigns> findByName(String username);
 }

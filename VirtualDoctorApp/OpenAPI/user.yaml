@@ -1,5 +1,5 @@
 post:
-  summary: "POST api/v1/user/new-user"
+  summary: "POST api/v1/name/new-name"
   tags:
     - User
   operationId: "createUser"

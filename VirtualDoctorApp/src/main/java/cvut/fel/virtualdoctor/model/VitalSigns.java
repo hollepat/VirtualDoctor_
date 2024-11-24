@@ -10,12 +10,11 @@ import java.time.LocalDateTime;
 @Document(collection = "vital_signs")
 public class VitalSigns {
 
-    // id will be a timestamp which will identify also the time it was taken
     @Id
     private String id;
 
     private LocalDateTime localDateTime;
-    private User user;
+    private Patient patient;
     private int heartRate;
     private double temperature;
     private double bloodPressure;
@@ -27,7 +26,7 @@ public class VitalSigns {
 //    private double respiratoryRate;
 
     public VitalSigns(
-        User user,
+        Patient patient,
         LocalDateTime localDateTime,
         double temperature, // TODO rename to skinTemperature
         double bloodPressure,
@@ -35,7 +34,7 @@ public class VitalSigns {
         double cholesterolLevel,
         int heartRate
     ) {
-        this.user = user;
+        this.patient = patient;
         this.localDateTime = localDateTime;
         this.temperature = temperature;
         this.bloodPressure = bloodPressure;

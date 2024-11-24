@@ -28,7 +28,7 @@ Use the following data source
 #DataSourceSettings#
 #LocalDataSource: @localhost
 #BEGIN#
-<data-source source="LOCAL" name="@localhost" uuid="d350722f-dc95-4d99-98ff-d66eff00ac30"><database-info product="Mongo DB" version="7.0.8" jdbc-version="4.2" driver-name="MongoDB JDBC Driver" driver-version="1.18" dbms="MONGO" exact-version="7.0.8" exact-driver-version="1.18"/><case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed"/><driver-ref>mongo</driver-ref><synchronize>true</synchronize><jdbc-driver>com.dbschema.MongoJdbcDriver</jdbc-driver><jdbc-url>mongodb://localhost:27017</jdbc-url><jdbc-additional-properties><property name="com.intellij.clouds.kubernetes.db.host.port"/><property name="com.intellij.clouds.kubernetes.db.enabled" value="false"/><property name="com.intellij.clouds.kubernetes.db.container.port"/></jdbc-additional-properties><secret-storage>master_key</secret-storage><user-name>rootuser</user-name><schema-mapping><introspection-scope><node kind="schema" negative="1"/></introspection-scope></schema-mapping><working-dir>$ProjectFileDir$</working-dir></data-source>
+<data-source source="LOCAL" name="@localhost" uuid="d350722f-dc95-4d99-98ff-d66eff00ac30"><database-info product="Mongo DB" version="7.0.8" jdbc-version="4.2" driver-name="MongoDB JDBC Driver" driver-version="1.18" dbms="MONGO" exact-version="7.0.8" exact-driver-version="1.18"/><case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed"/><driver-ref>mongo</driver-ref><synchronize>true</synchronize><jdbc-driver>com.dbschema.MongoJdbcDriver</jdbc-driver><jdbc-url>mongodb://localhost:27017</jdbc-url><jdbc-additional-properties><property name="com.intellij.clouds.kubernetes.db.host.port"/><property name="com.intellij.clouds.kubernetes.db.enabled" value="false"/><property name="com.intellij.clouds.kubernetes.db.container.port"/></jdbc-additional-properties><secret-storage>master_key</secret-storage><patient-name>rootuser</patient-name><schema-mapping><introspection-scope><node kind="schema" negative="1"/></introspection-scope></schema-mapping><working-dir>$ProjectFileDir$</working-dir></data-source>
 #END#
 ```
 ## Login Management
@@ -48,7 +48,7 @@ To add a login mechanism to your Spring Boot application, you can use Spring Sec
 </dependency>
 ```
 
-2. Create a `UserDetails` service. This service retrieves user-related data. It is used by Spring Security to handle user information.
+2. Create a `UserDetails` service. This service retrieves patient-related data. It is used by Spring Security to handle patient information.
 
 ```java
 import org.springframework.security.core.userdetails.UserDetails;
@@ -59,18 +59,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final UserRepository patientRepository;
 
-    public UserDetailsServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserDetailsServiceImpl(UserRepository patientRepository) {
+        this.patientRepository = patientRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
+        User patient = patientRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with name: " + username));
 
-        return UserDetailsImpl.build(user);
+        return UserDetailsImpl.build(patient);
     }
 }
 ```
@@ -98,10 +98,10 @@ public class UserDetailsImpl implements UserDetails {
         this.password = password;
     }
 
-    public static UserDetailsImpl build(User user) {
+    public static UserDetailsImpl build(User patient) {
         return new UserDetailsImpl(
-                user.getUsername(),
-                user.getPassword());
+                patient.getUsername(),
+                patient.getPassword());
     }
 
     @Override
@@ -185,7 +185,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/v1/user/login").permitAll()
+                .antMatchers("/api/v1/patient/login").permitAll()
                 .anyRequest().authenticated();
     }
 }

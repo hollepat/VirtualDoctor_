@@ -1,8 +1,6 @@
 package cvut.fel.virtualdoctor.model;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -16,7 +14,7 @@ public class Diagnosis {
     @Id
     private String id;
 
-    private UserInput userInput;
+    private PatientInput patientInput;
     private String swVersion;
     private LocalDateTime timeAndDate;
 

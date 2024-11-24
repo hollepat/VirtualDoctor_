@@ -2,7 +2,7 @@ package cvut.fel.virtualdoctor.service;
 
 import cvut.fel.virtualdoctor.dto.VitalSignsDTO;
 import cvut.fel.virtualdoctor.exception.MissingHealthData;
-import cvut.fel.virtualdoctor.model.User;
+import cvut.fel.virtualdoctor.model.Patient;
 import cvut.fel.virtualdoctor.model.VitalSigns;
 import cvut.fel.virtualdoctor.repository.VitalSignsRepository;
 import lombok.AllArgsConstructor;
@@ -21,19 +21,19 @@ public class VitalSignsObserver implements IVitalSignsObserver {
     private final Logger logger = LoggerFactory.getLogger(VitalSignsObserver.class);
 
     VitalSignsRepository vitalSignsRepository;
-    UserService userService;
+    PatientService patientService;
 
     @Override
     public void update(VitalSignsDTO vitalSignsDTO) {
         logger.info("Vital signs updated: " + vitalSignsDTO.toString());
-        User user = userService.getUser(vitalSignsDTO.username());
+        Patient patient = patientService.getUser(vitalSignsDTO.name());
 
         VitalSigns vitalSigns = new VitalSigns(
-                user,
+                patient,
                 LocalDateTime.now(),
                 vitalSignsDTO.skinTemperature(),
                 vitalSignsDTO.bloodPressure(),
-                user.getBmi(),
+                patient.getBmi(),
                 150, // TODO resolve how to input this value --> shouldn't be from smart watch
                 vitalSignsDTO.heartRate()
         );
@@ -42,22 +42,22 @@ public class VitalSignsObserver implements IVitalSignsObserver {
     }
 
     /**
-     * Provide vital signs for a user by computing the average of all the vital signs taken for that user
+     * Provide vital signs for a name by computing the average of all the vital signs taken for that name
      * from today.
-     * @param user user for which vital signs are needed
+     * @param patient name for which vital signs are needed
      * @return average of vital signs taken today
      */
     @Override
-    public VitalSigns provideVitalSigns(User user) throws MissingHealthData {
+    public VitalSigns provideVitalSigns(Patient patient) throws MissingHealthData {
         LocalDate today = LocalDate.now();
-        logger.info("Providing vital signs for user: " + user.toString());
-        List<VitalSigns> recentVitalSigns = vitalSignsRepository.findByUsername(user.getUsername()).stream()
+        logger.info("Providing vital signs for name: " + patient.toString());
+        List<VitalSigns> recentVitalSigns = vitalSignsRepository.findByName(patient.getName()).stream()
                 .filter(vitalSign -> vitalSign.getLocalDateTime().toLocalDate().equals(today))
                 .toList();
 
 
         if (recentVitalSigns.isEmpty()) {
-            throw new MissingHealthData("No vital signs taken today for user: " + user.getUsername());
+            throw new MissingHealthData("No vital signs taken today for name: " + patient.getName());
         }
 
         return transformVitalSigns(recentVitalSigns);
@@ -70,7 +70,7 @@ public class VitalSignsObserver implements IVitalSignsObserver {
      */
     private VitalSigns transformVitalSigns(List<VitalSigns> vitalSigns) {
         return new VitalSigns(
-                vitalSigns.get(0).getUser(),
+                vitalSigns.get(0).getPatient(),
                 LocalDateTime.now(),
                 vitalSigns.stream().mapToDouble(VitalSigns::getTemperature).average().orElse(0),
                 vitalSigns.stream().mapToDouble(VitalSigns::getBloodPressure).average().orElse(0),

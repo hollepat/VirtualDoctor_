@@ -3,7 +3,7 @@ package cvut.fel.virtualdoctor.config;
 import cvut.fel.virtualdoctor.model.*;
 import cvut.fel.virtualdoctor.repository.DiseaseRepository;
 import cvut.fel.virtualdoctor.repository.SymptomRepository;
-import cvut.fel.virtualdoctor.repository.UserRepository;
+import cvut.fel.virtualdoctor.repository.PatientRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,11 +21,11 @@ public class DataInit {
     private static final Logger logger = LoggerFactory.getLogger(DataInit.class);
 
     @Bean
-    CommandLineRunner runner(DiseaseRepository diseaseRepository, SymptomRepository symptomRepository, UserRepository userRepository, MongoTemplate mongoTemplate) {
+    CommandLineRunner runner(DiseaseRepository diseaseRepository, SymptomRepository symptomRepository, PatientRepository patientRepository) {
         return args -> {
             // User
-            createUser("john-doe", 18, 170, 70, userRepository);
-            createUser("jane-doe", 25, 160, 60, userRepository);
+            createPatient("john-doe", 18, 170, 70, patientRepository);
+            createPatient("jane-doe", 25, 160, 60, patientRepository);
 
             // Symptoms
             createSymptom("Headache", EmergencyType.NORMAL,"Pain in the head or upper neck.", symptomRepository);
@@ -135,32 +134,32 @@ public class DataInit {
                 );
     }
 
-    protected void createUser(String username, int age, int height, int weight, UserRepository userRepository) {
-        User user = new User(username, age, height, weight, Gender.MALE, Location.EUROPE, Lifestyle.ACTIVE);
-        userRepository.findByUsername(user.getUsername())
+    protected void createPatient(String username, int age, int height, int weight, PatientRepository patientRepository) {
+        Patient patient = new Patient(username, age, height, weight, Gender.MALE, Location.EUROPE, Lifestyle.ACTIVE);
+        patientRepository.findByName(patient.getName())
             .ifPresentOrElse(
-                u -> logger.warn("User already exists: " + u.getUsername()),
+                u -> logger.warn("User already exists: " + u.getName()),
                 () -> {
-                    logger.info("Inserting user: " + user.getUsername());
-                    userRepository.insert(user);
+                    logger.info("Inserting name: " + patient.getName());
+                    patientRepository.insert(patient);
                 }
             );
     }
 
 
-    private static void usingMongoTemplateAndQuery(SymptomRepository symptomRepository, MongoTemplate mongoTemplate, String name, Symptom symptom) {
-        Query query = new Query();
-        query.addCriteria(Criteria.where("name").is(name));
-        List<Symptom> symptomList = mongoTemplate.find(query, Symptom.class);
-        if (symptomList.size() > 1) {
-            throw new IllegalStateException("Multiple symptoms with the same name found.");
-        }
-
-        if (symptomList.isEmpty()) {
-            logger.info("Inserting symptom: " + symptom.getName());
-            symptomRepository.insert(symptom);
-        } else {
-            logger.warn("Symptom already exists: " + symptom.getName());
-        }
-    }
+//    private static void usingMongoTemplateAndQuery(SymptomRepository symptomRepository, MongoTemplate mongoTemplate, String name, Symptom symptom) {
+//        Query query = new Query();
+//        query.addCriteria(Criteria.where("name").is(name));
+//        List<Symptom> symptomList = mongoTemplate.find(query, Symptom.class);
+//        if (symptomList.size() > 1) {
+//            throw new IllegalStateException("Multiple symptoms with the same name found.");
+//        }
+//
+//        if (symptomList.isEmpty()) {
+//            logger.info("Inserting symptom: " + symptom.getName());
+//            symptomRepository.insert(symptom);
+//        } else {
+//            logger.warn("Symptom already exists: " + symptom.getName());
+//        }
+//    }
 }
