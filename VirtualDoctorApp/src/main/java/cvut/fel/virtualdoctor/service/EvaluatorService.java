@@ -8,7 +8,6 @@ import cvut.fel.virtualdoctor.model.Diagnosis;
 import cvut.fel.virtualdoctor.model.DifferentialList;
 import cvut.fel.virtualdoctor.model.PatientInput;
 import cvut.fel.virtualdoctor.model.VitalSigns;
-import cvut.fel.virtualdoctor.repository.PatientInputRepository;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +25,7 @@ public class EvaluatorService implements IEvaluatorService {
     // TODO revise this --> seams like a lot of dependencies and lot of responsibility
     SymptomService symptomService;
     DiagnosisService diagnosisService;
-    PatientInputRepository patientInputRepository;
+    PatientInputService patientInputService;
     ClassifierClientRest classifierClientRest;
     ClassifierMapper classifierMapper;
     VitalSignsObserver vitalSignsObserver;
@@ -40,8 +39,7 @@ public class EvaluatorService implements IEvaluatorService {
     public CompletableFuture<Diagnosis> evaluateUserInput(PatientInput patientInput) {
 
         try {
-            // TODO move to service
-            patientInput = patientInputRepository.save(patientInput);
+            patientInput = patientInputService.save(patientInput);
         } catch (Exception e) {
             logger.error("Failed to save name input to database: {}", e.getMessage());
             return CompletableFuture.failedFuture(e);

@@ -1,8 +1,10 @@
 package cvut.fel.virtualdoctor.service;
 
-import cvut.fel.virtualdoctor.dto.PatientDTO;
+import cvut.fel.virtualdoctor.model.Patient;
 
 public interface IPatientService {
 
-    void createUser(PatientDTO patientDTO);
+    Patient createPatient(Patient patient);
+
+    Patient findByName(String name);
 }

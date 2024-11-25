@@ -33,4 +33,10 @@ public class SymptomService implements ISymptomService {
         );
         symptomRepository.delete(symptomToDelete);
     }
+
+    public Symptom findByName(String name) {
+        return symptomRepository.findByName(name).orElseThrow(
+                () -> new IllegalArgumentException("Symptom with name " + name + " does not exist")
+        );
+    }
 }

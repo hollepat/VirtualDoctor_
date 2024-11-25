@@ -1,6 +1,5 @@
 package cvut.fel.virtualdoctor.service;
 
-import cvut.fel.virtualdoctor.dto.VitalSignsDTO;
 import cvut.fel.virtualdoctor.model.Patient;
 import cvut.fel.virtualdoctor.model.VitalSigns;
 
@@ -9,9 +8,9 @@ public interface IVitalSignsObserver {
     /**
      * Update vital signs in database.
      *
-     * @param vitalSignsDTO vital signs from subject (data source like smartwatch, mobile app etc.)
+     * @param vitalSigns vital signs from subject (data source like smartwatch, mobile app etc.)
      */
-    void update(VitalSignsDTO vitalSignsDTO);
+    void update(VitalSigns vitalSigns);
 
     /**
      * Provide vital signs in needed format for other services e.g. EvaluatorService to evaluate

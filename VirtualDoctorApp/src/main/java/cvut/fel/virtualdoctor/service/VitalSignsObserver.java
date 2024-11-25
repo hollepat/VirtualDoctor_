@@ -1,6 +1,5 @@
 package cvut.fel.virtualdoctor.service;
 
-import cvut.fel.virtualdoctor.dto.VitalSignsDTO;
 import cvut.fel.virtualdoctor.exception.MissingHealthData;
 import cvut.fel.virtualdoctor.model.Patient;
 import cvut.fel.virtualdoctor.model.VitalSigns;
@@ -24,20 +23,9 @@ public class VitalSignsObserver implements IVitalSignsObserver {
     PatientService patientService;
 
     @Override
-    public void update(VitalSignsDTO vitalSignsDTO) {
-        logger.info("Vital signs updated: " + vitalSignsDTO.toString());
-        Patient patient = patientService.getUser(vitalSignsDTO.name());
-
-        VitalSigns vitalSigns = new VitalSigns(
-                patient,
-                LocalDateTime.now(),
-                vitalSignsDTO.skinTemperature(),
-                vitalSignsDTO.bloodPressure(),
-                patient.getBmi(),
-                vitalSignsDTO.heartRate()
-        );
-
+    public void update(VitalSigns vitalSigns) {
         vitalSignsRepository.save(vitalSigns);
+        logger.info("Vital signs updated: " + vitalSigns);
     }
 
     /**

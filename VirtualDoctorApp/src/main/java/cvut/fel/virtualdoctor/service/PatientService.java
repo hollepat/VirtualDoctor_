@@ -16,21 +16,12 @@ public class PatientService implements IPatientService {
 
     PatientRepository patientRepository;
 
-    public void createUser(PatientDTO patientDTO) {
+    public Patient createPatient(Patient patient) {
         logger.info("Creating new name...");
-        Patient patient = new Patient(
-                patientDTO.name(),
-                patientDTO.age(),
-                patientDTO.height(),
-                patientDTO.weight(),
-                patientDTO.gender(),
-                patientDTO.location(),
-                patientDTO.lifestyle()
-        );
-        patientRepository.save(patient);
+        return patientRepository.save(patient);
     }
 
-    public Patient getUser(String name) {
+    public Patient findByName(String name) {
         logger.info("Getting name...");
         return patientRepository.findByName(name).orElseThrow(
                 () -> new RuntimeException("User not found")
