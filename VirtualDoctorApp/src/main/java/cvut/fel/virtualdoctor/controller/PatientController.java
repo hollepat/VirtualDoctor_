@@ -5,7 +5,7 @@ import cvut.fel.virtualdoctor.service.PatientService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("patient")
 public class PatientController implements IPatientController {
 
     private final PatientService patientService;
@@ -14,7 +14,7 @@ public class PatientController implements IPatientController {
         this.patientService = patientService;
     }
 
-    @PostMapping("/new-user")
+    @PostMapping("/new-patient")
     public void createUser(@RequestBody PatientDTO patientDTO) {
         patientService.createUser(patientDTO);
     }

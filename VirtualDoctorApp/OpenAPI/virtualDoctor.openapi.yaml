@@ -7,4 +7,4 @@ paths:
   /api/v1/evaluation/evaluate:
     $ref: './evaluator.yaml'
   /api/v1/user/new-user:
-    $ref: './user.yaml'
+    $ref: './patient.yaml'

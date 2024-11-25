@@ -1,5 +1,5 @@
 post:
-  summary: "POST api/v1/evaluation/evaluate"
+  summary: "POST evaluation/evaluate"
   tags:
     - Evaluation
   operationId: "evaluateDiagnosis"

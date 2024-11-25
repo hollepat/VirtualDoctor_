@@ -1,8 +1,8 @@
 post:
-  summary: "POST api/v1/name/new-name"
+  summary: "POST patient/new-patient"
   tags:
     - User
-  operationId: "createUser"
+  operationId: "createPatient"
   requestBody:
     content:
       application/json:

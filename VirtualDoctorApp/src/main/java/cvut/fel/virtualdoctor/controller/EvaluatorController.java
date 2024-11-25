@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
-@RequestMapping("/api/v1/evaluation")
+@RequestMapping("evaluation")
 @AllArgsConstructor
 public class EvaluatorController implements IEvaluatorController {
 

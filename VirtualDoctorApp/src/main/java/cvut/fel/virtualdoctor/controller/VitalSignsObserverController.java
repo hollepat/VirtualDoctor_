@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/vitalSignsObserver")
+@RequestMapping("vitalSignsObserver")
 @AllArgsConstructor
 public class VitalSignsObserverController implements IVitalSignsObserverController {
 
