@@ -1,6 +1,7 @@
 import logging
 
 from sklearn.preprocessing import LabelEncoder, OrdinalEncoder
+from tensorflow.lite.python.convert import convert
 
 # TODO add to the dataset if possible
 # life_styles = ['ACTIVE', 'SEDENTARY', 'MODERATE', 'ATHLETE']
@@ -94,16 +95,17 @@ class DataPreprocessor:
             if symptom in input_dict:
                 input_dict[symptom] = 'Yes'
 
-        for vital_signs in json_data['vitalSigns'].keys():
-            if vital_signs in input_dict:   # If classification model considers the vital sign
-                value = json_data['vitalSigns'][vital_signs]
-                input_dict[vital_signs] = convert_vital_sign(vital_signs, value)
+        for vital_sign in json_data['vitalSigns'].keys():
+            if vital_sign in input_dict:   # If classification model considers the vital sign
+                value = json_data['vitalSigns'][vital_sign]
+                input_dict[vital_sign] = convert_vital_sign(vital_sign, value)
 
         # Add other necessary fields from the JSON data
         input_dict['Age'] = json_data['age']
         input_dict['Gender'] = json_data['gender']
         input_dict['Temperature'] = json_data['vitalSigns']['Temperature']
         input_dict['BMI'] = json_data['vitalSigns']['BMI']
+        input_dict['Cholesterol Level'] = convert_vital_sign('cholesterolLevel', json_data['cholesterolLevel'])
 
         return input_dict
 

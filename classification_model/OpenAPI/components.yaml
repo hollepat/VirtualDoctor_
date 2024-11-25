@@ -29,19 +29,19 @@ components:
           items:
             type: string
           example: ["Fever", "Cough", "Difficulty breathing"]
+        Cholesterol Level:
+          type: number
+          example: 37.5
         vitalSigns:
           type: object
           properties:
-            Cholesterol Level:  # Corrected property key to follow a consistent naming convention
-              type: number
-              example: 37.5
-            Temperature:  # Corrected property key to remove spaces
+            Temperature:
               type: number
               example: 36.6
-            BMI:  # Corrected property key to remove spaces
+            BMI:
               type: number
               example: 24.7
-            Blood Pressure:  # Corrected property key to remove spaces
+            Blood Pressure:
               type: number
               example: 120
     ClassifierOutput:
