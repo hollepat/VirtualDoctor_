@@ -7,7 +7,7 @@ post:
     content:
       application/json:
         schema:
-          $ref: 'components.yaml#/components/schemas/UserInputDTO'
+          $ref: 'components.yaml#/components/schemas/PatientInputDTO'
     required: true
   responses:
     "200":

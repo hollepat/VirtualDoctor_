@@ -1,6 +1,6 @@
 components:
   schemas:
-    UserInputDTO:
+    PatientInputDTO:
       type: object
       properties:
         user:
@@ -11,8 +11,12 @@ components:
           items:
             type: string
           example: ["Fever", "Cough", "Difficulty breathing"]
+        cholesterolLevel:
+          type: number
+          format: double
+          example: 130.5
 
-    UserDTO:
+    PatientDTO:
       type: object
       required:
         - username
