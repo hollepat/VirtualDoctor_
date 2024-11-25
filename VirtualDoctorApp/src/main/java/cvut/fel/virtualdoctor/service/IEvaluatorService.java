@@ -1,10 +1,10 @@
 package cvut.fel.virtualdoctor.service;
 
-import cvut.fel.virtualdoctor.dto.DiagnosisDTO;
-import cvut.fel.virtualdoctor.dto.PatientInputDTO;
+import cvut.fel.virtualdoctor.model.Diagnosis;
+import cvut.fel.virtualdoctor.model.PatientInput;
 
 import java.util.concurrent.CompletableFuture;
 
 public interface IEvaluatorService {
-    CompletableFuture<DiagnosisDTO> evaluateUserInput(PatientInputDTO patientInputDTO);
+    CompletableFuture<Diagnosis> evaluateUserInput(PatientInput patientInput);
 }

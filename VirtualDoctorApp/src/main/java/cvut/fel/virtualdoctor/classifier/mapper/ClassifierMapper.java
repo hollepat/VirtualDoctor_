@@ -19,20 +19,18 @@ public class ClassifierMapper {
      * @param patientInput the name input
      * @return the classifier input
      */
-    public ClassifierInput mapUserInputToEvaluatorInput(PatientInput patientInput) {
+    public ClassifierInput mapUserInputToEvaluatorInput(PatientInput patientInput, VitalSigns vitalSigns) {
 
         // map Vital Signs to JSON
-        VitalSigns vitalSigns = patientInput.getVitalSigns();
         Map<String, Double> vitalSignsJson = vitalsToMap(vitalSigns);
 
         return new ClassifierInput(
                 patientInput.getPatient().getAge(),
-                patientInput.getPatient().getHeight(),
-                patientInput.getPatient().getWeight(),
                 patientInput.getPatient().getLifestyle(),
                 patientInput.getPatient().getGender(),
                 patientInput.getPatient().getLocation(),
                 patientInput.getSymptoms().stream().map(Symptom::getName).toList(),
+                patientInput.getCholesterolLevel(),
                 vitalSignsJson
         );
     }
@@ -40,7 +38,6 @@ public class ClassifierMapper {
     private Map<String, Double> vitalsToMap(VitalSigns vitalSigns) {
         Map<String, Double> vitalSignsJson = new HashMap<>();
         vitalSignsJson.put("Blood Pressure", vitalSigns.getBloodPressure());
-        vitalSignsJson.put("Cholesterol Level", vitalSigns.getCholesterolLevel());
         vitalSignsJson.put("Temperature", vitalSigns.getSkinTemperature());
         vitalSignsJson.put("BMI", vitalSigns.getBmi());
         return vitalSignsJson;

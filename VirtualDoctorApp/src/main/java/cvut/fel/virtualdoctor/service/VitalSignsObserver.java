@@ -34,7 +34,6 @@ public class VitalSignsObserver implements IVitalSignsObserver {
                 vitalSignsDTO.skinTemperature(),
                 vitalSignsDTO.bloodPressure(),
                 patient.getBmi(),
-                150, // TODO resolve how to input this value --> shouldn't be from smart watch
                 vitalSignsDTO.heartRate()
         );
 
@@ -75,7 +74,6 @@ public class VitalSignsObserver implements IVitalSignsObserver {
                 vitalSigns.stream().mapToDouble(VitalSigns::getSkinTemperature).average().orElse(0),
                 vitalSigns.stream().mapToDouble(VitalSigns::getBloodPressure).average().orElse(0),
                 vitalSigns.get(vitalSigns.size()-1).getBmi(), 
-                vitalSigns.stream().mapToDouble(VitalSigns::getCholesterolLevel).average().orElse(0),
                 (int) vitalSigns.stream().mapToDouble(VitalSigns::getHeartRate).average().orElse(0)
         );
     }

@@ -9,12 +9,11 @@ import java.util.Map;
 
 public record ClassifierInput(
         int age,
-        int height,
-        int weight,
         Lifestyle lifestyle,
         Gender gender,
         Location location,
         List<String> symptoms,
+        double cholesterolLevel,
         Map<String, Double> vitalSigns
 ) {
 }

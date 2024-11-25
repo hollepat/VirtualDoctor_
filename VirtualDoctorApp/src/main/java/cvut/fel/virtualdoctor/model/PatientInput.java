@@ -19,6 +19,7 @@ public class PatientInput {
     private Patient patient;
     private LocalDateTime localDateTime;
     private List<Symptom> symptoms;
+    private Double cholesterolLevel;
 
     /**
      * It should be average value of the last measurements.
@@ -30,12 +31,13 @@ public class PatientInput {
      * type on input??? Which would take periodically the data from the device and store it in the
      * database. Once the name inputs the data, the system should take the last data from the device.
      */
-    private VitalSigns vitalSigns;
+//    private VitalSigns vitalSigns;
 
-    public PatientInput(Patient patient, List<Symptom> symptoms, VitalSigns vitalSigns) {
+    public PatientInput(Patient patient, List<Symptom> symptoms, Double cholesterolLevel) {
         this.patient = patient;
         this.localDateTime = LocalDateTime.now();
         this.symptoms = symptoms;
-        this.vitalSigns = vitalSigns;
+        this.cholesterolLevel = cholesterolLevel;
+//        this.vitalSigns = vitalSigns;
     }
 }

@@ -18,7 +18,6 @@ public class VitalSigns {
     private int heartRate;
     private double skinTemperature;
     private double bloodPressure;
-    private double cholesterolLevel;
     private double bmi;
 
 // not used
@@ -31,14 +30,12 @@ public class VitalSigns {
         double skinTemperature,
         double bloodPressure,
         double bmi,
-        double cholesterolLevel,
         int heartRate
     ) {
         this.patient = patient;
         this.localDateTime = localDateTime;
         this.skinTemperature = skinTemperature;
         this.bloodPressure = bloodPressure;
-        this.cholesterolLevel = cholesterolLevel;
         this.bmi = bmi;
         this.heartRate = heartRate;
     }
