@@ -1,6 +1,5 @@
 package cvut.fel.virtualdoctor.service;
 
-import cvut.fel.virtualdoctor.dto.PatientDTO;
 import cvut.fel.virtualdoctor.model.Patient;
 import cvut.fel.virtualdoctor.repository.PatientRepository;
 import lombok.AllArgsConstructor;
