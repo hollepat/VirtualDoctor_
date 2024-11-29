@@ -16,7 +16,8 @@ public class ClassifierMapper {
      * Maps the name input to the classifier input. This allows to adapt the name input to the classifier input e.g.
      * by adding additional information or by changing the format of the data such as naming.
      *
-     * @param patientInput the name input
+     * @param patientInput input from patient
+     * @param vitalSigns the vital signs of the patient
      * @return the classifier input
      */
     public ClassifierInput mapUserInputToEvaluatorInput(PatientInput patientInput, VitalSigns vitalSigns) {

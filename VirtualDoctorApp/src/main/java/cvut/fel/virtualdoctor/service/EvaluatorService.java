@@ -22,12 +22,10 @@ public class EvaluatorService implements IEvaluatorService {
 
     private static final Logger logger = LoggerFactory.getLogger(EvaluatorService.class);
 
-    // TODO revise this --> seams like a lot of dependencies and lot of responsibility
     SymptomService symptomService;
     DiagnosisService diagnosisService;
     PatientInputService patientInputService;
     ClassifierClientRest classifierClientRest;
-    ClassifierMapper classifierMapper;
     VitalSignsObserver vitalSignsObserver;
 
     /**
@@ -36,42 +34,22 @@ public class EvaluatorService implements IEvaluatorService {
      * the process is asynchronous.
      */
     @Async
-    public CompletableFuture<Diagnosis> evaluateUserInput(PatientInput patientInput) {
-
-        try {
-            patientInput = patientInputService.save(patientInput);
-        } catch (Exception e) {
-            logger.error("Failed to save name input to database: {}", e.getMessage());
-            return CompletableFuture.failedFuture(e);
-        }
-
-        CompletableFuture<Diagnosis> diagnosis = classify(patientInput);
-
-        diagnosis.thenAccept(d -> {
-            try {
-                diagnosisService.saveDiagnosis(d);
-            } catch (Exception e) {
-                logger.error("Error saving diagnosis: {}", e.getMessage());
-            }
-        });
-
-        return diagnosis;
+    public CompletableFuture<Diagnosis> evaluatePatientInput(PatientInput patientInput) {
+        patientInput = patientInputService.save(patientInput);
+        return classify(patientInput);
     }
 
     private CompletableFuture<Diagnosis> classify(PatientInput patientInput) {
         logger.info("Evaluating diagnosis...");
         VitalSigns vitalSigns = vitalSignsObserver.provideVitalSigns(patientInput.getPatient());
 
-        ClassifierInput classifierInput = classifierMapper.mapUserInputToEvaluatorInput(patientInput, vitalSigns);
-
         // Send request to Python Evaluator Service endpoint
-        CompletableFuture<ClassifierOutput> future = classifierClientRest.getPrediction(classifierInput);
+        CompletableFuture<ClassifierOutput> future = classifierClientRest.getPrediction(patientInput, vitalSigns);
 
         // Wait for process to finish and return result
         return future.thenApply(response -> {
             logger.info("Response from Classifier: {}", response);
-            DifferentialList differentialList = new DifferentialList(response.predictions());
-            return diagnosisService.createDiagnosis(patientInput, response.version(), differentialList);
+            return diagnosisService.createDiagnosis(patientInput, response);
         });
     }
 }

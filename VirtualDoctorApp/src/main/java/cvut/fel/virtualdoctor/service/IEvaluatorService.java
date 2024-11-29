@@ -6,5 +6,5 @@ import cvut.fel.virtualdoctor.model.PatientInput;
 import java.util.concurrent.CompletableFuture;
 
 public interface IEvaluatorService {
-    CompletableFuture<Diagnosis> evaluateUserInput(PatientInput patientInput);
+    CompletableFuture<Diagnosis> evaluatePatientInput(PatientInput patientInput);
 }

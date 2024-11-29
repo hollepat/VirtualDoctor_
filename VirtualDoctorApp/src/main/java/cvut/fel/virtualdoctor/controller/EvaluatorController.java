@@ -6,7 +6,6 @@ import cvut.fel.virtualdoctor.dto.mapper.DiagnosisMapper;
 import cvut.fel.virtualdoctor.model.Patient;
 import cvut.fel.virtualdoctor.model.PatientInput;
 import cvut.fel.virtualdoctor.model.Symptom;
-import cvut.fel.virtualdoctor.repository.SymptomRepository;
 import cvut.fel.virtualdoctor.service.EvaluatorService;
 import cvut.fel.virtualdoctor.service.PatientService;
 import cvut.fel.virtualdoctor.service.SymptomService;
@@ -21,8 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-
-import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping("evaluation")
@@ -43,8 +40,8 @@ public class EvaluatorController implements IEvaluatorController {
         List<Symptom> symptoms = patientInputDTO.symptoms().stream().map(symptomService::findByName).toList();
         PatientInput patientInput = new PatientInput(patient, symptoms, patientInputDTO.cholesterolLevel());
 
-        // Evaluate diagnosis
-        return evaluatorService.evaluateUserInput(patientInput).thenApply(diagnosis -> {
+        // Evaluate diagnosis asynchronously
+        return evaluatorService.evaluatePatientInput(patientInput).thenApply(diagnosis -> { // TODO: how to model in sequence diagram?
             DiagnosisDTO diagnosisDTO = diagnosisMapper.toDTO(diagnosis);
             logger.info("Diagnosis sent: {}", diagnosisDTO.toString());
             return ResponseEntity.ok(diagnosisDTO);
