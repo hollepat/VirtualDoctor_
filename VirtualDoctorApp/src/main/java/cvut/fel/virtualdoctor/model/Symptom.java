@@ -1,23 +1,27 @@
 package cvut.fel.virtualdoctor.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
 
-@Setter @Getter
-@Document
+import java.util.UUID;
+
+@NoArgsConstructor
+@Data
+@Entity
+@Table(name = "symptom")
 public class Symptom {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)  // AUTO will let the JPA provider handle UUID generation
+    private UUID id;  // Change from Long to UUID
 
-    //@Indexed(unique = true)
+    @Column(unique = true)
     private String name;
 
     private String description;
 
+    @Enumerated(EnumType.STRING)
     private EmergencyType emergency;
 
     public Symptom(String name, EmergencyType emergency, String description) {

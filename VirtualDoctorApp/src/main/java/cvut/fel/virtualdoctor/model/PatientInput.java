@@ -1,43 +1,43 @@
 package cvut.fel.virtualdoctor.model;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
+@NoArgsConstructor
 @Data
-@Document(collection = "patient_input")
+@Entity
+@Table(name = "patient_input")
 public class PatientInput {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)  // AUTO will let the JPA provider handle UUID generation
+    private UUID id;  // Change from Long to UUID
 
-    @DBRef
+    @ManyToOne
+    @JoinColumn(name = "patient_id")
     private Patient patient;
-    private LocalDateTime localDateTime;
-    private List<Symptom> symptoms;
-    private Double cholesterolLevel;
 
-    /**
-     * It should be average value of the last measurements.
-     * This is optional, as the name may not have the necessary equipment to measure these.
-     * If the name does have the equipment, they can provide the data.
-     * <br>
-     * <br>
-     * NOTE: In case of taking data from a device that measures vital signs. Shouldn't be a different
-     * type on input??? Which would take periodically the data from the device and store it in the
-     * database. Once the name inputs the data, the system should take the last data from the device.
-     */
-//    private VitalSigns vitalSigns;
+    private LocalDateTime localDateTime;
+
+    @ManyToMany
+    @JoinTable(
+            name = "patient_input_symptom",
+            joinColumns = @JoinColumn(name = "patient_input_id"),
+            inverseJoinColumns = @JoinColumn(name = "symptom_id")
+    )
+    private List<Symptom> symptoms;
+
+    private Double cholesterolLevel;
 
     public PatientInput(Patient patient, List<Symptom> symptoms, Double cholesterolLevel) {
         this.patient = patient;
         this.localDateTime = LocalDateTime.now();
         this.symptoms = symptoms;
         this.cholesterolLevel = cholesterolLevel;
-//        this.vitalSigns = vitalSigns;
     }
 }

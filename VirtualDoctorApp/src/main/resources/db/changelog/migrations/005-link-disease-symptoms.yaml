@@ -1,0 +1,217 @@
+databaseChangeLog:
+  - changeSet:
+      id: 005-001-insert-disease-symptom-links
+      author: Patrik Holler
+      changes:
+        # Influenza - Symptoms: Headache, Fever, Cough
+        - insert:
+            tableName: disease_symptom
+            columns:
+              - column:
+                  name: disease_id
+                  value: "2f89e2c3-df1d-4e5d-9f53-b207ad7fdd21"  # Influenza UUID
+              - column:
+                  name: symptom_id
+                  value: "9e937f93-89ba-4403-9f83-592378282e47"  # Headache UUID
+        - insert:
+            tableName: disease_symptom
+            columns:
+              - column:
+                  name: disease_id
+                  value: "2f89e2c3-df1d-4e5d-9f53-b207ad7fdd21"  # Influenza UUID
+              - column:
+                  name: symptom_id
+                  value: "6a52a5ad-38a2-4218-8773-c5c5f257fdc5"  # Fever UUID
+        - insert:
+            tableName: disease_symptom
+            columns:
+              - column:
+                  name: disease_id
+                  value: "2f89e2c3-df1d-4e5d-9f53-b207ad7fdd21"  # Influenza UUID
+              - column:
+                  name: symptom_id
+                  value: "d9a18b0b-0c55-4ff6-9fbd-c92606303525"  # Cough UUID
+
+        # Allergic Rhinitis - Symptoms: Cough, Difficulty breathing
+        - insert:
+            tableName: disease_symptom
+            columns:
+              - column:
+                  name: disease_id
+                  value: "689f9e42-ec95-4b43-9289-b7b96c19f8e0"  # Allergic Rhinitis UUID
+              - column:
+                  name: symptom_id
+                  value: "d9a18b0b-0c55-4ff6-9fbd-c92606303525"  # Cough UUID
+        - insert:
+            tableName: disease_symptom
+            columns:
+              - column:
+                  name: disease_id
+                  value: "689f9e42-ec95-4b43-9289-b7b96c19f8e0"  # Allergic Rhinitis UUID
+              - column:
+                  name: symptom_id
+                  value: "eaf906e3-8e7d-46de-97a5-27965e6c7795"  # Difficulty breathing UUID
+
+        # Malaria - Symptoms: Fever, Fatigue
+        - insert:
+            tableName: disease_symptom
+            columns:
+              - column:
+                  name: disease_id
+                  value: "bb8a752b-76d9-428d-b212-7a2cd1e0c85f"  # Malaria UUID
+              - column:
+                  name: symptom_id
+                  value: "6a52a5ad-38a2-4218-8773-c5c5f257fdc5"  # Fever UUID
+        - insert:
+            tableName: disease_symptom
+            columns:
+              - column:
+                  name: disease_id
+                  value: "bb8a752b-76d9-428d-b212-7a2cd1e0c85f"  # Malaria UUID
+              - column:
+                  name: symptom_id
+                  value: "5c3fa0db-e9ea-4ab9-bb67-4c5575acced7"  # Fatigue UUID
+
+        # Depression - Symptoms: Fatigue
+        - insert:
+            tableName: disease_symptom
+            columns:
+              - column:
+                  name: disease_id
+                  value: "967c44d0-0fe9-4b36-a6f1-91c6b0e9c6f0"  # Depression UUID
+              - column:
+                  name: symptom_id
+                  value: "5c3fa0db-e9ea-4ab9-bb67-4c5575acced7"  # Fatigue UUID
+
+        # Asthma - Symptoms: Difficulty breathing, Cough
+        - insert:
+            tableName: disease_symptom
+            columns:
+              - column:
+                  name: disease_id
+                  value: "f5d0881d-85f7-4d99-b080-38f5f9d4a6b1"  # Asthma UUID
+              - column:
+                  name: symptom_id
+                  value: "eaf906e3-8e7d-46de-97a5-27965e6c7795"  # Difficulty breathing UUID
+        - insert:
+            tableName: disease_symptom
+            columns:
+              - column:
+                  name: disease_id
+                  value: "f5d0881d-85f7-4d99-b080-38f5f9d4a6b1"  # Asthma UUID
+              - column:
+                  name: symptom_id
+                  value: "d9a18b0b-0c55-4ff6-9fbd-c92606303525"  # Cough UUID
+
+        # Bronchitis - Symptoms: Cough, Fatigue
+        - insert:
+            tableName: disease_symptom
+            columns:
+              - column:
+                  name: disease_id
+                  value: "417d5f4a-cc9f-4a8d-ae55-10e0e3ab0f6f"  # Bronchitis UUID
+              - column:
+                  name: symptom_id
+                  value: "d9a18b0b-0c55-4ff6-9fbd-c92606303525"  # Cough UUID
+        - insert:
+            tableName: disease_symptom
+            columns:
+              - column:
+                  name: disease_id
+                  value: "417d5f4a-cc9f-4a8d-ae55-10e0e3ab0f6f"  # Bronchitis UUID
+              - column:
+                  name: symptom_id
+                  value: "5c3fa0db-e9ea-4ab9-bb67-4c5575acced7"  # Fatigue UUID
+
+        # Diabetes - Symptoms: Fatigue
+        - insert:
+            tableName: disease_symptom
+            columns:
+              - column:
+                  name: disease_id
+                  value: "d57d524b-b3fc-40db-babf-bff8e4e043f5"  # Diabetes UUID
+              - column:
+                  name: symptom_id
+                  value: "5c3fa0db-e9ea-4ab9-bb67-4c5575acced7"  # Fatigue UUID
+
+        # Hyperthyroidism - Symptoms: Fatigue
+        - insert:
+            tableName: disease_symptom
+            columns:
+              - column:
+                  name: disease_id
+                  value: "e2e7a651-e10e-4c34-a3f9-c20b5bc0f497"  # Hyperthyroidism UUID
+              - column:
+                  name: symptom_id
+                  value: "5c3fa0db-e9ea-4ab9-bb67-4c5575acced7"  # Fatigue UUID
+
+        # Migraine - Symptoms: Headache
+        - insert:
+            tableName: disease_symptom
+            columns:
+              - column:
+                  name: disease_id
+                  value: "3a9a80fa-7b66-4695-a3b7-9d6ae94fdbbb"  # Migraine UUID
+              - column:
+                  name: symptom_id
+                  value: "9e937f93-89ba-4403-9f83-592378282e47"  # Headache UUID
+
+        # Osteoporosis - Symptoms: Fatigue
+        - insert:
+            tableName: disease_symptom
+            columns:
+              - column:
+                  name: disease_id
+                  value: "57a9a4ea-1d22-4ccf-8d9f-09c3f560bce6"  # Osteoporosis UUID
+              - column:
+                  name: symptom_id
+                  value: "5c3fa0db-e9ea-4ab9-bb67-4c5575acced7"  # Fatigue UUID
+
+        # Pneumonia - Symptoms: Cough, Fever, Difficulty breathing
+        - insert:
+            tableName: disease_symptom
+            columns:
+              - column:
+                  name: disease_id
+                  value: "2f9ffdb4-8de0-4299-b0b4-df66aab128b5"  # Pneumonia UUID
+              - column:
+                  name: symptom_id
+                  value: "d9a18b0b-0c55-4ff6-9fbd-c92606303525"  # Cough UUID
+        - insert:
+            tableName: disease_symptom
+            columns:
+              - column:
+                  name: disease_id
+                  value: "2f9ffdb4-8de0-4299-b0b4-df66aab128b5"  # Pneumonia UUID
+              - column:
+                  name: symptom_id
+                  value: "6a52a5ad-38a2-4218-8773-c5c5f257fdc5"  # Fever UUID
+        - insert:
+            tableName: disease_symptom
+            columns:
+              - column:
+                  name: disease_id
+                  value: "2f9ffdb4-8de0-4299-b0b4-df66aab128b5"  # Pneumonia UUID
+              - column:
+                  name: symptom_id
+                  value: "eaf906e3-8e7d-46de-97a5-27965e6c7795"  # Difficulty breathing UUID
+
+        # Stroke - Symptoms: Headache, Fatigue
+        - insert:
+            tableName: disease_symptom
+            columns:
+              - column:
+                  name: disease_id
+                  value: "f0f073ad-5d57-42c3-a826-4622cb85e1a6"  # Stroke UUID
+              - column:
+                  name: symptom_id
+                  value: "9e937f93-89ba-4403-9f83-592378282e47"  # Headache UUID
+        - insert:
+            tableName: disease_symptom
+            columns:
+              - column:
+                  name: disease_id
+                  value: "f0f073ad-5d57-42c3-a826-4622cb85e1a6"  # Stroke UUID
+              - column:
+                  name: symptom_id
+                  value: "5c3fa0db-e9ea-4ab9-bb67-4c5575acced7"  # Fatigue UUID

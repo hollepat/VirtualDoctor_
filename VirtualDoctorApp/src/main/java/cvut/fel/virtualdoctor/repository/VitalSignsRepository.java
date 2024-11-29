@@ -1,13 +1,11 @@
 package cvut.fel.virtualdoctor.repository;
 
 import cvut.fel.virtualdoctor.model.VitalSigns;
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface VitalSignsRepository extends MongoRepository<VitalSigns, String> {
+public interface VitalSignsRepository extends JpaRepository<VitalSigns, String> {
 
-    @Query("{ 'patient.name' : ?0 }") // ?0 refers to the first parameter
-    List<VitalSigns> findByName(String username);
+    List<VitalSigns> findByPatientName(String username); // TODO check if works
 }

@@ -1,0 +1,288 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-001-create-patient-table
+      author: Patrik Holler
+      changes:
+        - createTable:
+            tableName: patient
+            schemaName: disease
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                  defaultValueComputed: "gen_random_uuid()"  # Use PostgreSQL UUID generation function
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: age
+                  type: INT
+              - column:
+                  name: height
+                  type: INT
+              - column:
+                  name: weight
+                  type: INT
+              - column:
+                  name: gender
+                  type: VARCHAR(255)
+              - column:
+                  name: location
+                  type: VARCHAR(255)
+              - column:
+                  name: lifestyle
+                  type: VARCHAR(255)
+
+  - changeSet:
+      id: 001-002-create-diagnosis-table
+      author: Patrik Holler
+      changes:
+        - createTable:
+            tableName: diagnosis
+            schemaName: disease
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                  defaultValueComputed: "gen_random_uuid()"  # Use PostgreSQL UUID generation function
+              - column:
+                  name: patient_input_id
+                  type: UUID
+              - column:
+                  name: sw_version
+                  type: VARCHAR(255)
+              - column:
+                  name: time_and_date
+                  type: TIMESTAMP
+              - column:
+                  name: differential_list_id
+                  type: UUID
+              - column:
+                  name: emergency
+                  type: VARCHAR(255)
+
+  - changeSet:
+      id: 001-003-create-differential_list-table
+      author: Patrik Holler
+      changes:
+        - createTable:
+            tableName: differential_list
+            schemaName: disease
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                  defaultValueComputed: "gen_random_uuid()"  # Use PostgreSQL UUID generation function
+
+  - changeSet:
+      id: 001-004-create-differential-list-ddx-table
+      author: Patrik Holler
+      changes:
+        - createTable:
+            tableName: differential_list_ddx
+            schemaName: disease
+            columns:
+              - column:
+                  name: differential_list_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_differential_list_ddx_differential_list
+                    references: differential_list(id)
+              - column:
+                  name: disease
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: probability
+                  type: DOUBLE PRECISION
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: differential_list_ddx
+            columnNames: differential_list_id, disease
+            constraintName: pk_differential_list_ddx
+
+  - changeSet:
+      id: 001-005-create-disease-table
+      author: Patrik Holler
+      changes:
+        - createTable:
+            tableName: disease
+            schemaName: disease
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                  defaultValueComputed: "gen_random_uuid()"  # Use PostgreSQL UUID generation function
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: description_short
+                  type: VARCHAR(255)
+              - column:
+                  name: description_long
+                  type: TEXT
+              - column:
+                  name: doctor
+                  type: VARCHAR(255)
+
+  - changeSet:
+      id: 001-006-create-symptom-table
+      author: Patrik Holler
+      changes:
+        - createTable:
+            tableName: symptom
+            schemaName: disease
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                  defaultValueComputed: "gen_random_uuid()"  # Use PostgreSQL UUID generation function
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  name: emergency
+                  type: VARCHAR(255)
+
+  - changeSet:
+      id: 001-007-create-disease-symptom-table
+      author: Patrik Holler
+      changes:
+        - createTable:
+            tableName: disease_symptom
+            columns:
+              - column:
+                  name: disease_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_disease_symptom_disease
+                    references: disease(id)
+              - column:
+                  name: symptom_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_disease_symptom_symptom
+                    references: symptom(id)
+        - addPrimaryKey:
+            tableName: disease_symptom
+            columnNames: disease_id, symptom_id
+            constraintName: pk_disease_symptom
+
+  - changeSet:
+      id: 001-008-create-patient-input-table
+      author: Patrik Holler
+      changes:
+        - createTable:
+            tableName: patient_input
+            schemaName: disease
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                  defaultValueComputed: "gen_random_uuid()"  # Use PostgreSQL UUID generation function
+              - column:
+                  name: patient_id
+                  type: UUID
+              - column:
+                  name: local_date_time
+                  type: TIMESTAMP
+              - column:
+                  name: cholesterol_level
+                  type: DOUBLE
+
+  - changeSet:
+      id: 001-009-create-patient-input-symptom-table
+      author: Patrik Holler
+      changes:
+        - createTable:
+            tableName: patient_input_symptom
+            schemaName: disease
+            columns:
+              - column:
+                  name: patient_input_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_patient_input_symptom_patient_input
+                    references: patient_input(id)
+              - column:
+                  name: symptom_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_patient_input_symptom_symptom
+                    references: symptom(id)
+        - addPrimaryKey:
+            tableName: patient_input_symptom
+            columnNames: patient_input_id, symptom_id
+            constraintName: pk_patient_input_symptom
+
+  - changeSet:
+      id: 001-010-create-vital-signs-table
+      author: Patrik Holler
+      changes:
+        - createTable:
+            tableName: vital_signs
+            schemaName: disease
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                  defaultValueComputed: "gen_random_uuid()"  # Use PostgreSQL UUID generation function
+              - column:
+                  name: local_date_time
+                  type: TIMESTAMP
+              - column:
+                  name: patient_id
+                  type: UUID
+              - column:
+                  name: heart_rate
+                  type: INT
+              - column:
+                  name: skin_temperature
+                  type: DOUBLE
+              - column:
+                  name: blood_pressure
+                  type: DOUBLE
+              - column:
+                  name: bmi
+                  type: DOUBLE

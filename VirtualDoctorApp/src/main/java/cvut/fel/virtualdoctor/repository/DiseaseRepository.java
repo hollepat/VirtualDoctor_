@@ -1,11 +1,11 @@
 package cvut.fel.virtualdoctor.repository;
 
 import cvut.fel.virtualdoctor.model.Disease;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface DiseaseRepository extends MongoRepository<Disease, String> {
+public interface DiseaseRepository extends JpaRepository<Disease, String> {
 
     Optional<Disease> findDiseaseByName(String name);
 }

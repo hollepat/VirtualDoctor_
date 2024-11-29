@@ -1,7 +1,7 @@
 package cvut.fel.virtualdoctor.repository;
 
 import cvut.fel.virtualdoctor.model.PatientInput;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PatientInputRepository extends MongoRepository<PatientInput, String> {
+public interface PatientInputRepository extends JpaRepository<PatientInput, String> {
 }

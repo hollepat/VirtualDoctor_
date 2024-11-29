@@ -1,11 +1,11 @@
 package cvut.fel.virtualdoctor.repository;
 
 import cvut.fel.virtualdoctor.model.Symptom;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface SymptomRepository extends MongoRepository<Symptom, String> {
+public interface SymptomRepository extends JpaRepository<Symptom, String> {
 
     Optional<Symptom> findByName(String name);
 

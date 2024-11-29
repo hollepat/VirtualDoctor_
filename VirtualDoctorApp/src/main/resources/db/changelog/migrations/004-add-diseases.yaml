@@ -1,0 +1,257 @@
+databaseChangeLog:
+  - changeSet:
+      id: 004-001-insert-diseases
+      author: Patrik Holler
+      changes:
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "2f89e2c3-df1d-4e5d-9f53-b207ad7fdd21"
+              - column:
+                  name: name
+                  value: "Influenza"
+              - column:
+                  name: description_short
+                  value: "A viral infection that attacks your respiratory system."
+              - column:
+                  name: description_long
+                  value: "Influenza is a viral infection that attacks your respiratory system — your nose, throat and lungs."
+              - column:
+                  name: doctor
+                  value: "GENERAL_PRACTITIONER"
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "b619c04e-d99b-4e43-81b5-6b8bc2187b4b"
+              - column:
+                  name: name
+                  value: "Acne"
+              - column:
+                  name: description_short
+                  value: "A skin condition that occurs when your hair follicles become plugged with oil and dead skin cells."
+              - column:
+                  name: description_long
+                  value: "Acne is a skin condition that occurs when your hair follicles become plugged with oil and dead skin cells."
+              - column:
+                  name: doctor
+                  value: "DERMATOLOGY"
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "689f9e42-ec95-4b43-9289-b7b96c19f8e0"
+              - column:
+                  name: name
+                  value: "Allergic Rhinitis"
+              - column:
+                  name: description_short
+                  value: "An allergic reaction to airborne allergens that causes cold-like symptoms."
+              - column:
+                  name: description_long
+                  value: "Allergic rhinitis is a collection of symptoms, predominantly in the nose and eyes, caused by airborne particles of dust, dander, or plant pollens in people who are allergic to these substances."
+              - column:
+                  name: doctor
+                  value: "ALLERGY_AND_IMMUNOLOGY"
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "bb8a752b-76d9-428d-b212-7a2cd1e0c85f"
+              - column:
+                  name: name
+                  value: "Malaria"
+              - column:
+                  name: description_short
+                  value: "A disease caused by a plasmodium parasite, transmitted by the bite of infected mosquitoes."
+              - column:
+                  name: description_long
+                  value: "Malaria is a disease caused by a plasmodium parasite, transmitted by the bite of infected mosquitoes."
+              - column:
+                  name: doctor
+                  value: "GENERAL_PRACTITIONER"
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "967c44d0-0fe9-4b36-a6f1-91c6b0e9c6f0"
+              - column:
+                  name: name
+                  value: "Depression"
+              - column:
+                  name: description_short
+                  value: "A mental health disorder characterized by persistently depressed mood or loss of interest in activities."
+              - column:
+                  name: description_long
+                  value: "Depression is a mental health disorder characterized by persistently depressed mood or loss of interest in activities, causing significant impairment in daily life."
+              - column:
+                  name: doctor
+                  value: "PSYCHIATRIST"
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "f5d0881d-85f7-4d99-b080-38f5f9d4a6b1"
+              - column:
+                  name: name
+                  value: "Asthma"
+              - column:
+                  name: description_short
+                  value: "A condition in which your airways narrow and swell and may produce extra mucus."
+              - column:
+                  name: description_long
+                  value: "Asthma is a condition in which your airways narrow and swell and may produce extra mucus, making breathing difficult."
+              - column:
+                  name: doctor
+                  value: "PULMONOLOGY"
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "417d5f4a-cc9f-4a8d-ae55-10e0e3ab0f6f"
+              - column:
+                  name: name
+                  value: "Bronchitis"
+              - column:
+                  name: description_short
+                  value: "An inflammation of the lining of your bronchial tubes."
+              - column:
+                  name: description_long
+                  value: "Bronchitis is an inflammation of the lining of your bronchial tubes, which carry air to and from your lungs."
+              - column:
+                  name: doctor
+                  value: "PULMONOLOGY"
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "d57d524b-b3fc-40db-babf-bff8e4e043f5"
+              - column:
+                  name: name
+                  value: "Diabetes"
+              - column:
+                  name: description_short
+                  value: "A disease that occurs when your blood glucose is too high."
+              - column:
+                  name: description_long
+                  value: "Diabetes is a disease that occurs when your blood glucose, also called blood sugar, is too high."
+              - column:
+                  name: doctor
+                  value: "ENDOCRINOLOGY"
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "b14362ac-dc75-4388-bb16-8e9a87de2e3d"
+              - column:
+                  name: name
+                  value: "Hypertension"
+              - column:
+                  name: description_short
+                  value: "A condition in which the force of the blood against your artery walls is too high."
+              - column:
+                  name: description_long
+                  value: "Hypertension is a condition in which the force of the blood against your artery walls is high enough that it may eventually cause health problems, such as heart disease."
+              - column:
+                  name: doctor
+                  value: "CARDIOLOGY"
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "e2e7a651-e10e-4c34-a3f9-c20b5bc0f497"
+              - column:
+                  name: name
+                  value: "Hyperthyroidism"
+              - column:
+                  name: description_short
+                  value: "A condition in which the thyroid gland produces too much thyroid hormone."
+              - column:
+                  name: description_long
+                  value: "Hyperthyroidism occurs when the thyroid gland produces too much thyroxine, accelerating your body's metabolism significantly."
+              - column:
+                  name: doctor
+                  value: "ENDOCRINOLOGY"
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "3a9a80fa-7b66-4695-a3b7-9d6ae94fdbbb"
+              - column:
+                  name: name
+                  value: "Migraine"
+              - column:
+                  name: description_short
+                  value: "A headache of varying intensity, often accompanied by nausea and sensitivity to light and sound."
+              - column:
+                  name: description_long
+                  value: "A migraine is a headache of varying intensity, often accompanied by nausea and sensitivity to light and sound."
+              - column:
+                  name: doctor
+                  value: "NEUROLOGY"
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "57a9a4ea-1d22-4ccf-8d9f-09c3f560bce6"
+              - column:
+                  name: name
+                  value: "Osteoporosis"
+              - column:
+                  name: description_short
+                  value: "A condition in which bones become weak and brittle."
+              - column:
+                  name: description_long
+                  value: "Osteoporosis is a condition in which bones become weak and brittle to the point where a fall or even mild stresses such as bending over can cause a fracture."
+              - column:
+                  name: doctor
+                  value: "RHEUMATOLOGY"
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "2f9ffdb4-8de0-4299-b0b4-df66aab128b5"
+              - column:
+                  name: name
+                  value: "Pneumonia"
+              - column:
+                  name: description_short
+                  value: "An infection that inflames the air sacs in one or both lungs."
+              - column:
+                  name: description_long
+                  value: "Pneumonia is an infection that inflames the air sacs in one or both lungs, which may fill with fluid or pus."
+              - column:
+                  name: doctor
+                  value: "PULMONOLOGY"
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "f0f073ad-5d57-42c3-a826-4622cb85e1a6"
+              - column:
+                  name: name
+                  value: "Stroke"
+              - column:
+                  name: description_short
+                  value: "A medical emergency that occurs when blood flow to a part of your brain is interrupted or reduced."
+              - column:
+                  name: description_long
+                  value: "A stroke occurs when blood flow to a part of your brain is interrupted or reduced, preventing brain tissue from getting oxygen and nutrients."
+              - column:
+                  name: doctor
+                  value: "NEUROLOGY"

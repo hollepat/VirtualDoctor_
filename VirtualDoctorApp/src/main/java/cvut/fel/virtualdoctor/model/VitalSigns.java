@@ -1,36 +1,40 @@
 package cvut.fel.virtualdoctor.model;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
+@NoArgsConstructor
 @Data
-@Document(collection = "vital_signs")
+@Entity
+@Table(name = "vital_signs")
 public class VitalSigns {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)  // AUTO will let the JPA provider handle UUID generation
+    private UUID id;  // Change from Long to UUID
 
     private LocalDateTime localDateTime;
+
+    @ManyToOne
+    @JoinColumn(name = "patient_id")
     private Patient patient;
+
     private int heartRate;
     private double skinTemperature;
     private double bloodPressure;
     private double bmi;
 
-// not used
-//    private double bloodOxygenLevel;
-//    private double respiratoryRate;
-
     public VitalSigns(
-        Patient patient,
-        LocalDateTime localDateTime,
-        double skinTemperature,
-        double bloodPressure,
-        double bmi,
-        int heartRate
+            Patient patient,
+            LocalDateTime localDateTime,
+            double skinTemperature,
+            double bloodPressure,
+            double bmi,
+            int heartRate
     ) {
         this.patient = patient;
         this.localDateTime = localDateTime;

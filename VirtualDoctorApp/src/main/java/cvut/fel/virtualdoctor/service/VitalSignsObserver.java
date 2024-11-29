@@ -38,7 +38,7 @@ public class VitalSignsObserver implements IVitalSignsObserver {
     public VitalSigns provideVitalSigns(Patient patient) throws MissingHealthData {
         LocalDate today = LocalDate.now();
         logger.info("Providing vital signs for name: " + patient.toString());
-        List<VitalSigns> recentVitalSigns = vitalSignsRepository.findByName(patient.getName()).stream()
+        List<VitalSigns> recentVitalSigns = vitalSignsRepository.findByPatientName(patient.getName()).stream()
                 .filter(vitalSign -> vitalSign.getLocalDateTime().toLocalDate().equals(today))
                 .toList();
 

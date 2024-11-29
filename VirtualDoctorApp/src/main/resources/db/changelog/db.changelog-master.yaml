@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - includeAll:
+      path: src/main/resources/db/changelog/migrations/
+      relativeToChangelogFile: false

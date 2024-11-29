@@ -1,0 +1,100 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-001-insert-symptoms
+      author: Patrik Holler
+      changes:
+        - insert:
+            tableName: symptom
+            columns:
+              - column:
+                  name: id
+                  value: "9e937f93-89ba-4403-9f83-592378282e47"
+              - column:
+                  name: name
+                  value: Headache
+              - column:
+                  name: emergency
+                  value: NORMAL
+              - column:
+                  name: description
+                  value: Pain in the head or upper neck.
+
+        - insert:
+            tableName: symptom
+            columns:
+              - column:
+                  name: id
+                  value: "6a52a5ad-38a2-4218-8773-c5c5f257fdc5"
+              - column:
+                  name: name
+                  value: Fever
+              - column:
+                  name: emergency
+                  value: STAY_AT_HOME
+              - column:
+                  name: description
+                  value: A temporary increase in your body temperature, often due to an illness.
+
+        - insert:
+            tableName: symptom
+            columns:
+              - column:
+                  name: id
+                  value: "d9a18b0b-0c55-4ff6-9fbd-c92606303525"
+              - column:
+                  name: name
+                  value: Cough
+              - column:
+                  name: emergency
+                  value: NORMAL
+              - column:
+                  name: description
+                  value: A sudden expulsion of air from the lungs that clears the air passages.
+
+        - insert:
+            tableName: symptom
+            columns:
+              - column:
+                  name: id
+                  value: "5c3fa0db-e9ea-4ab9-bb67-4c5575acced7"
+              - column:
+                  name: name
+                  value: Fatigue
+              - column:
+                  name: emergency
+                  value: NORMAL
+              - column:
+                  name: description
+                  value: A feeling of tiredness or exhaustion or a need to rest because of lack of energy or strength.
+
+        - insert:
+            tableName: symptom
+            columns:
+              - column:
+                  name: id
+                  value: "eaf906e3-8e7d-46de-97a5-27965e6c7795"
+              - column:
+                  name: name
+                  value: Difficulty breathing
+              - column:
+                  name: emergency
+                  value: LIFE_THREATENING
+              - column:
+                  name: description
+                  value: A feeling of not being able to get enough air.
+
+        - insert:
+            tableName: symptom
+            columns:
+              - column:
+                  name: id
+                  value: "cc2ab5d9-17b0-44c5-9b2f-93ad14d2734a"
+              - column:
+                  name: name
+                  value: Severe chest pain
+              - column:
+                  name: emergency
+                  value: LIFE_THREATENING
+              - column:
+                  name: description
+                  value: A feeling of pressure, squeezing, or fullness in the chest.

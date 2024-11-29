@@ -1,42 +1,58 @@
 package cvut.fel.virtualdoctor.model;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
+@NoArgsConstructor
 @Data
-@Document(collection = "diagnosis")
+@Entity
+@Table(name = "diagnosis")
 public class Diagnosis {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)  // AUTO will let the JPA provider handle UUID generation
+    private UUID id;  // Change from Long to UUID
 
+    @ManyToOne
+    @JoinColumn(name = "patient_input_id")
     private PatientInput patientInput;
+
+    @ManyToOne
+    @JoinColumn(name = "patient_id")
+    private Patient patient;
+
     private String swVersion;
     private LocalDateTime timeAndDate;
 
+    @ManyToOne
+    @JoinColumn(name = "differential_list_id")
     private DifferentialList differentialList;
 
-    // emergency is a flag that indicates if the patient should be seen immediately
+    @Enumerated(EnumType.STRING)
     private EmergencyType emergency;
 
-    // doctorToVisit is a flag that indicates which doctor should the patient visit
+    @ElementCollection(targetClass = DoctorType.class)
+    @CollectionTable(name = "diagnosis_doctor", joinColumns = @JoinColumn(name = "diagnosis_id"))
+    @Enumerated(EnumType.STRING)
+    @Column(name = "doctor")
     private List<DoctorType> doctorsToVisit;
 
     public Diagnosis(
-        String swVersion,
-        LocalDateTime timeAndDate,
-        DifferentialList differentialList,
-        List<DoctorType> doctorToVisit,
-        EmergencyType emergency
+            String swVersion,
+            LocalDateTime timeAndDate,
+            DifferentialList differentialList,
+            List<DoctorType> doctorsToVisit,
+            EmergencyType emergency
     ) {
         this.swVersion = swVersion;
         this.timeAndDate = timeAndDate;
         this.differentialList = differentialList;
-        this.doctorsToVisit = doctorToVisit;
+        this.doctorsToVisit = doctorsToVisit;
         this.emergency = emergency;
     }
 
@@ -46,7 +62,7 @@ public class Diagnosis {
                 "timeAndDate=" + timeAndDate +
                 ", differentialDiagnosis=" + differentialList +
                 ", emergency=" + emergency +
-                ", doctorToVisit=" + doctorsToVisit +
+                ", doctorsToVisit=" + doctorsToVisit +
                 '}';
     }
 }

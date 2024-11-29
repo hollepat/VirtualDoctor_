@@ -1,0 +1,60 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-001-insert-patients
+      author: Patrik Holler
+      changes:
+        - insert:
+            tableName: patient
+            columns:
+              - column:
+                  name: id
+                  valueComputed: "gen_random_uuid()"
+              - column:
+                  name: name
+                  value: john-doe
+              - column:
+                  name: age
+                  value: 18
+              - column:
+                  name: height
+                  value: 170
+              - column:
+                  name: weight
+                  value: 70
+              - column:
+                  name: gender
+                  value: MALE
+              - column:
+                  name: location
+                  value: EUROPE
+              - column:
+                  name: lifestyle
+                  value: ACTIVE
+
+        - insert:
+            tableName: patient
+            columns:
+              - column:
+                  name: id
+                  valueComputed: "gen_random_uuid()"
+              - column:
+                  name: name
+                  value: jane-doe
+              - column:
+                  name: age
+                  value: 45
+              - column:
+                  name: height
+                  value: 160
+              - column:
+                  name: weight
+                  value: 90
+              - column:
+                  name: gender
+                  value: FEMALE
+              - column:
+                  name: location
+                  value: EUROPE
+              - column:
+                  name: lifestyle
+                  value: ACTIVE
