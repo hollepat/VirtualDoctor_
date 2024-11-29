@@ -1,15 +1,25 @@
-version: "3.8"
 services:
-  mongodb:
-    image: mongo
-    container_name: mongodb
+  postgresql:
+    image: postgres:latest
+    container_name: postgresql
     ports:
-      - 27017:27017
-    volumes:
-      - data:/data
+      - 5432:5432
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=rootuser
-      - MONGO_INITDB_ROOT_PASSWORD=rootpass
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgrespassword
+      - POSTGRES_DB=healthdb
+    volumes:  # Mount the volume to persist the data even after the container is removed.
+      - postgres_data:/var/lib/postgresql/data
+#  mongodb:
+#    image: mongo
+#    container_name: mongodb
+#    ports:
+#      - 27017:27017
+#    volumes:
+#      - data:/data
+#    environment:
+#      - MONGO_INITDB_ROOT_USERNAME=rootuser
+#      - MONGO_INITDB_ROOT_PASSWORD=rootpass
 #  mongo-express:  # mongo-express is a web-based MongoDB admin interface to manage databases interactively.
 #    image: mongo-express
 #    container_name: mongo-express
@@ -23,6 +33,7 @@ services:
 
 volumes:
   data: {}
+  postgres_data: {}
 
 networks:
   default:
