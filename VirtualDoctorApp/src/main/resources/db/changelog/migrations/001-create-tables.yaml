@@ -105,12 +105,6 @@ databaseChangeLog:
                       foreignKeyName: fk_diagnosis_patient_input
                       references: patient_input(id)
               - column:
-                  name: patient_id
-                  type: UUID
-                  constraints:
-                      foreignKeyName: fk_diagnosis_patient
-                      references: patient(id)
-              - column:
                   name: sw_version
                   type: VARCHAR(255)
               - column:

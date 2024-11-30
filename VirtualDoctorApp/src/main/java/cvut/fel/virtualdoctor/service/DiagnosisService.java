@@ -41,8 +41,12 @@ public class DiagnosisService implements IDiagnosisService {
         EmergencyType emergency = determineEmergency(patientInput);
 
         Diagnosis diagnosis = new Diagnosis(
-                swVersion, LocalDateTime.now(), differentialList, doctorToVisit, emergency,
-                patientInput.getPatient(), patientInput
+                swVersion,
+                LocalDateTime.now(),
+                differentialList,
+                doctorToVisit,
+                emergency,
+                patientInput
         );
         save(diagnosis);
         return diagnosis;
@@ -72,7 +76,7 @@ public class DiagnosisService implements IDiagnosisService {
     public void save(Diagnosis diagnosis) {
         try {
             diagnosisRepository.save(diagnosis);
-            logger.info("Saved diagnosis for patient {}", diagnosis.getPatient().getName());
+            logger.info("Saved diagnosis for patient {}", diagnosis.getPatientInput().getPatient().getName());
         } catch (Exception e) {
             logger.error("Error saving diagnosis: {}", e.getMessage());
             throw e;

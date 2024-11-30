@@ -22,9 +22,6 @@ public class Diagnosis {
     @JoinColumn(name = "patient_input_id", referencedColumnName = "id")
     private PatientInput patientInput;
 
-    @ManyToOne
-    private Patient patient;
-
     private String swVersion;
     private LocalDateTime timeAndDate;
 
@@ -47,7 +44,6 @@ public class Diagnosis {
             DifferentialList differentialList,
             List<DoctorType> doctorsToVisit,
             EmergencyType emergency,
-            Patient patient,
             PatientInput patientInput
     ) {
         this.swVersion = swVersion;
@@ -55,7 +51,6 @@ public class Diagnosis {
         this.differentialList = differentialList;
         this.doctorsToVisit = doctorsToVisit;
         this.emergency = emergency;
-        this.patient = patient;
         this.patientInput = patientInput;
     }
 
