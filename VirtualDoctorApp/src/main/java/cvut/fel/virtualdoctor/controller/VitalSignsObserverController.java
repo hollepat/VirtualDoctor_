@@ -4,7 +4,7 @@ import cvut.fel.virtualdoctor.dto.VitalSignsDTO;
 import cvut.fel.virtualdoctor.model.Patient;
 import cvut.fel.virtualdoctor.model.VitalSigns;
 import cvut.fel.virtualdoctor.service.PatientService;
-import cvut.fel.virtualdoctor.service.VitalSignsObserverService;
+import cvut.fel.virtualdoctor.service.VitalSignsObserverServiceService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class VitalSignsObserverController implements IVitalSignsObserverController {
 
-    private final VitalSignsObserverService vitalSignsObserverService;
+    private final VitalSignsObserverServiceService vitalSignsObserverService;
     private final PatientService patientService;
 
     @PostMapping("/vitalSigns")

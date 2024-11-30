@@ -7,15 +7,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import okhttp3.Dispatcher
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
-import org.json.JSONObject
 import java.net.ConnectException
 import java.net.SocketTimeoutException
-import java.time.LocalDateTime
 
 class RestObserver(private val url: String) : Observer {
     private val client = OkHttpClient()
@@ -36,6 +33,7 @@ class RestObserver(private val url: String) : Observer {
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun update(healthDataSnapshot: HealthDataSnapshot) {
+        // Create a new coroutine to send the data using http (async)
         scope.launch {
             Log.d("RestObserver", "Sending update: $healthDataSnapshot")
 
@@ -52,7 +50,7 @@ class RestObserver(private val url: String) : Observer {
                 .post(requestBody)
                 .build()
 
-            withContext(Dispatchers.IO) {
+            withContext(Dispatchers.IO) { // This will ensure that coroutine is called in a IO dispatcher thread
                 sendRequestWithRetry(request)
             }
         }

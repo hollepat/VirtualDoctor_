@@ -40,15 +40,19 @@ class HealthDataService : Service(), Subject {
     private fun simulateData() {
         handler.postDelayed(object : Runnable {
             override fun run() {
-                val heartbeat = 60 + random.nextInt(41)
-                val bloodPressure = 80.0 + random.nextDouble() * 40
-                val skinTemperature = 36.0 + random.nextDouble() * 2
-                healthDataSnapshot = HealthDataSnapshot(skinTemperature, bloodPressure, heartbeat)
+                healthDataSnapshot = generateHealhtDataSnapshot()
                 notifyObservers()
-                Log.d("HealthDataService", "Heartbeat: $heartbeat bpm, Blood pressure: $bloodPressure mmHg, Skin temperature: $skinTemperature °C")
                 handler.postDelayed(this, 5000)
             }
         }, 5000)
+    }
+
+    private fun generateHealhtDataSnapshot(): HealthDataSnapshot {
+        val heartbeat = 60 + random.nextInt(41)
+        val bloodPressure = 80.0 + random.nextDouble() * 40
+        val skinTemperature = 36.0 + random.nextDouble() * 2
+        Log.d("HealthDataService", "Heartbeat: $heartbeat bpm, Blood pressure: $bloodPressure mmHg, Skin temperature: $skinTemperature °C")
+        return HealthDataSnapshot(skinTemperature, bloodPressure, heartbeat)
     }
 
     override fun onDestroy() {

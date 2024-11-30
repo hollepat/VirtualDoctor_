@@ -23,7 +23,7 @@ public class EvaluatorService implements IEvaluatorService {
     DiagnosisService diagnosisService;
     PatientInputService patientInputService;
     ClassifierClientRest classifierClientRest;
-    VitalSignsObserverService vitalSignsObserverService;
+    VitalSignsObserverServiceService vitalSignsObserverService;
 
     /**
      * @param patientInput The name input to evaluate for diagnosis

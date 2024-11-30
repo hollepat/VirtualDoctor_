@@ -3,7 +3,7 @@ package cvut.fel.virtualdoctor.service;
 import cvut.fel.virtualdoctor.model.Patient;
 import cvut.fel.virtualdoctor.model.VitalSigns;
 
-public interface IVitalSignsObserver {
+public interface IVitalSignsObserverService {
 
     /**
      * Update vital signs in database.
