@@ -66,5 +66,10 @@ docker build -t classification-service .
 
 Run docker container:
 ```zsh
-docker run -p 5500:5500 classification-service
+docker run --name classifier -p 5500:5500 classification-service
+```
+
+Stop docker container:
+```zsh
+docker stop classifier
 ```

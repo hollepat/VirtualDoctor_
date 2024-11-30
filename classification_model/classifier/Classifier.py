@@ -7,6 +7,7 @@ from sklearn.ensemble import StackingClassifier
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
+from xgboost import XGBClassifier
 
 from preprocessing.DataPreprocessor import DataPreprocessor
 
@@ -42,6 +43,7 @@ class Classifier:
         # Step 4: Define the model
         estimators = [
             ('rf', RandomForestClassifier(n_estimators=10, random_state=42)),
+            ('xgb', XGBClassifier(n_estimators=10, random_state=42)),
             ('gb', GradientBoostingClassifier(n_estimators=10, random_state=42)),
         ]
 
