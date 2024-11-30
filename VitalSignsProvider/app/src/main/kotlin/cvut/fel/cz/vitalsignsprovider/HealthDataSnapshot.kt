@@ -1,7 +1,7 @@
 package cvut.fel.cz.vitalsignsprovider
 
 import org.json.JSONObject
-import java.time.LocalDateTime
+import org.threeten.bp.LocalDateTime
 
 data class HealthDataSnapshot(
     val skinTemperature: Double,

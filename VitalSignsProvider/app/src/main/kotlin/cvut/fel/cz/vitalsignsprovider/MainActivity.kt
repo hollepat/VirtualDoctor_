@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import androidx.appcompat.app.AppCompatActivity
+import com.jakewharton.threetenabp.AndroidThreeTen
 import java.util.Properties
 
 class MainActivity : AppCompatActivity() {
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AndroidThreeTen.init(this)
         setContentView(androidx.core.R.layout.custom_dialog)
 
         // Start the service

@@ -13,12 +13,16 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
+import java.net.ConnectException
+import java.net.SocketTimeoutException
 import java.time.LocalDateTime
 
 class RestObserver(private val url: String) : Observer {
     private val client = OkHttpClient()
     private val scope = CoroutineScope(Dispatchers.IO)
     private val name = "john-doe"
+    private val maxRetries = 3
+    private val retryDelayMillis = 2000L // 2 seconds
 
     init {
         Log.d("RestObserver", "Created RestObserver with URL: $url")
@@ -49,7 +53,7 @@ class RestObserver(private val url: String) : Observer {
                 .build()
 
             withContext(Dispatchers.IO) {
-                sendRequest(request)
+                sendRequestWithRetry(request)
             }
         }
     }
@@ -62,5 +66,32 @@ class RestObserver(private val url: String) : Observer {
                 Log.d("RestObserver", "Data sent successfully")
             }
         }
+    }
+
+    private fun sendRequestWithRetry(request: Request) {
+        var attempt = 0
+        while (attempt < maxRetries) {
+            try {
+                client.newCall(request).execute().use { response ->
+                    if (!response.isSuccessful) {
+                        Log.e("RestObserver", "Failed to send data: $response")
+                    } else {
+                        Log.d("RestObserver", "Data sent successfully")
+                        return
+                    }
+                }
+            } catch (e: ConnectException) {
+                Log.e("RestObserver", "ConnectException: ${e.message}. Retrying... ($attempt/$maxRetries)")
+            } catch (e: SocketTimeoutException) {
+                Log.e("RestObserver", "SocketTimeoutException: ${e.message}. Retrying... ($attempt/$maxRetries)")
+            } catch (e: Exception) {
+                Log.e("RestObserver", "Exception: ${e.message}. Retrying... ($attempt/$maxRetries)")
+            }
+            attempt++
+            if (attempt < maxRetries) {
+                Thread.sleep(retryDelayMillis)
+            }
+        }
+        Log.e("RestObserver", "Failed to send data after $maxRetries attempts")
     }
 }

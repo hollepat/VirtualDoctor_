@@ -6,10 +6,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
 import android.content.Intent
-import android.os.Binder
-import android.os.Build
-import android.os.Handler
-import android.os.IBinder
+import android.os.*
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import kotlin.random.Random
@@ -17,7 +14,7 @@ import kotlin.random.Random
 class HealthDataService : Service(), Subject {
     private val binder = LocalBinder()
     private val random = Random
-    private val handler = Handler()
+    private val handler = Handler(Looper.getMainLooper())
     private var healthDataSnapshot = HealthDataSnapshot(0.0, 0.0, 0)
     private val observers = mutableListOf<Observer>()
 

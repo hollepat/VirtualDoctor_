@@ -46,4 +46,7 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+
+    // ThreeTen Android Backport library for Java 8 date and time API
+    implementation("com.jakewharton.threetenabp:threetenabp:1.4.0")
 }
