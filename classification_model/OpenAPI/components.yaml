@@ -29,7 +29,7 @@ components:
           items:
             type: string
           example: ["Fever", "Cough", "Difficulty breathing"]
-        Cholesterol Level:
+        cholesterolLevel:
           type: number
           example: 37.5
         vitalSigns:

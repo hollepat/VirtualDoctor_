@@ -1,0 +1,46 @@
+### POST request to evaluate classifier
+POST http://localhost:5500/evaluate
+Content-Type: application/json
+
+{
+  "age": 25,
+  "height": 180,
+  "weight": 80,
+  "gender": "MALE",
+  "lifestyle": "SEDENTARY",
+  "location": "EUROPE",
+  "symptoms": [
+    "Fever",
+    "Cough",
+    "Difficulty breathing"
+  ],
+  "cholesterolLevel": 137.5,
+  "vitalSigns": {
+    "Temperature": 36.6,
+    "BMI": 24.7,
+    "Blood Pressure": 120
+  }
+}
+
+### POST request to evaluate classifier
+POST http://localhost:5500/evaluate
+Content-Type: application/json
+
+{
+  "age": 50,
+  "height": 180,
+  "weight": 130,
+  "gender": "MALE",
+  "lifestyle": "SEDENTARY",
+  "location": "EUROPE",
+  "symptoms": [
+    "Difficulty breathing",
+    "Fatigue"
+  ],
+  "cholesterolLevel": 250.5,
+  "vitalSigns": {
+    "Temperature": 36.6,
+    "BMI": 24.7,
+    "Blood Pressure": 180
+  }
+}
