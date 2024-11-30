@@ -21,7 +21,6 @@ public class PatientService implements IPatientService {
     }
 
     public Patient findByName(String name) {
-        logger.info("Getting name...");
         return patientRepository.findByName(name).orElseThrow(
                 () -> new RuntimeException("User not found")
         );

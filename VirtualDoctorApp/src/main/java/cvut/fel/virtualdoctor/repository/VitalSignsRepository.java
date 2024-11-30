@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface VitalSignsRepository extends JpaRepository<VitalSigns, String> {
 
-    List<VitalSigns> findByPatientName(String username); // TODO check if works
+    List<VitalSigns> findByPatientName(String username);
 }

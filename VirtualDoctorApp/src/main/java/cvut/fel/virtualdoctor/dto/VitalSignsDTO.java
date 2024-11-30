@@ -7,7 +7,7 @@ public record VitalSignsDTO(
         double bloodPressure,
         int heartRate,
         LocalDateTime time,
-        String name
+        String name // patient name
 ) {
 
 

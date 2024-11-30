@@ -15,7 +15,7 @@ public class Patient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)  // AUTO will let the JPA provider handle UUID generation
-    private UUID id;  // Change from Long to UUID
+    private UUID id;
 
     @Column(unique = true)
     private String name;
@@ -33,8 +33,9 @@ public class Patient {
     @Enumerated(EnumType.STRING)
     private Lifestyle lifestyle;
 
-    @OneToMany(mappedBy = "patient")
-    private List<Diagnosis> historyOfDiagnoses;
+//    @OneToMany(mappedBy = "patient") // TODO fix mapping to have this attribute - not used anyway
+//    private List<Diagnosis> historyOfDiagnoses;
+
 
     public Patient(String name, int age, int height, int weight, Gender gender, Location location, Lifestyle lifestyle) {
         this.name = name;

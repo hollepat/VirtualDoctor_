@@ -15,7 +15,7 @@ public class DifferentialList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)  // AUTO will let the JPA provider handle UUID generation
-    private UUID id;  // Change from Long to UUID
+    private UUID id;
 
     @ElementCollection
     @CollectionTable(name = "differential_list_ddx", joinColumns = @JoinColumn(name = "differential_list_id"))

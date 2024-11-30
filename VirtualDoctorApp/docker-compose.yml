@@ -10,6 +10,13 @@ services:
       - POSTGRES_DB=healthdb
     volumes:  # Mount the volume to persist the data even after the container is removed.
       - postgres_data:/var/lib/postgresql/data
+  classifier:
+    image: classification-service
+    container_name: classifier
+    ports:
+      - 5500:5500
+    volumes:
+      - classifier_data:/app/data
 #  mongodb:
 #    image: mongo
 #    container_name: mongodb
@@ -34,6 +41,7 @@ services:
 volumes:
   data: {}
   postgres_data: {}
+  classifier_data: {}
 
 networks:
   default:

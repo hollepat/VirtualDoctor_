@@ -16,14 +16,13 @@ public class Diagnosis {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)  // AUTO will let the JPA provider handle UUID generation
-    private UUID id;  // Change from Long to UUID
+    private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "patient_input_id")
+    @JoinColumn(name = "patient_input_id", referencedColumnName = "id")
     private PatientInput patientInput;
 
     @ManyToOne
-    @JoinColumn(name = "patient_id")
     private Patient patient;
 
     private String swVersion;
@@ -47,13 +46,17 @@ public class Diagnosis {
             LocalDateTime timeAndDate,
             DifferentialList differentialList,
             List<DoctorType> doctorsToVisit,
-            EmergencyType emergency
+            EmergencyType emergency,
+            Patient patient,
+            PatientInput patientInput
     ) {
         this.swVersion = swVersion;
         this.timeAndDate = timeAndDate;
         this.differentialList = differentialList;
         this.doctorsToVisit = doctorsToVisit;
         this.emergency = emergency;
+        this.patient = patient;
+        this.patientInput = patientInput;
     }
 
     @Override

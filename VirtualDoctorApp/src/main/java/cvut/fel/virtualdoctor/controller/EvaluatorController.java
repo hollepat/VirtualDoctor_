@@ -37,6 +37,8 @@ public class EvaluatorController implements IEvaluatorController {
         logger.info("Received request to evaluate diagnosis");
 
         Patient patient = patientService.findByName(patientInputDTO.name());
+        logger.info("Patient found: {}", patient.toString());
+
         List<Symptom> symptoms = patientInputDTO.symptoms().stream().map(symptomService::findByName).toList();
         PatientInput patientInput = new PatientInput(patient, symptoms, patientInputDTO.cholesterolLevel());
 

@@ -16,7 +16,7 @@ public class PatientInput {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)  // AUTO will let the JPA provider handle UUID generation
-    private UUID id;  // Change from Long to UUID
+    private UUID id;
 
     @ManyToOne
     @JoinColumn(name = "patient_id")

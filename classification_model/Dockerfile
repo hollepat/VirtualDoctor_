@@ -5,12 +5,10 @@ FROM python:3.12-slim
 WORKDIR /app
 
 # Copy the current directory contents into the container at /app
-# TODO - Copy only relevant packages
 COPY . /app
 
 # Install any needed packages specified in requirements.txt
-# TODO - Add requirements_prod.txt to specify only relevant libraries
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements_prod.txt
 
 # Make port 5500 available to the world outside this container
 EXPOSE 5500

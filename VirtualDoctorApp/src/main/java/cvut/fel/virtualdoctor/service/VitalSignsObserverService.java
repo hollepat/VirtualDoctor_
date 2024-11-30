@@ -15,9 +15,9 @@ import java.util.List;
 
 @AllArgsConstructor
 @Service
-public class VitalSignsObserver implements IVitalSignsObserver {
+public class VitalSignsObserverService implements IVitalSignsObserver {
 
-    private final Logger logger = LoggerFactory.getLogger(VitalSignsObserver.class);
+    private final Logger logger = LoggerFactory.getLogger(VitalSignsObserverService.class);
 
     VitalSignsRepository vitalSignsRepository;
     PatientService patientService;

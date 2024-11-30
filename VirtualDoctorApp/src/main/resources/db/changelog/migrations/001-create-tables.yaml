@@ -40,7 +40,51 @@ databaseChangeLog:
                   type: VARCHAR(255)
 
   - changeSet:
-      id: 001-002-create-diagnosis-table
+      id: 001-002-create-differential_list-table
+      author: Patrik Holler
+      changes:
+        - createTable:
+            tableName: differential_list
+            schemaName: disease
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                  defaultValueComputed: "gen_random_uuid()"  # Use PostgreSQL UUID generation function
+
+  - changeSet:
+      id: 001-003-create-patient-input-table
+      author: Patrik Holler
+      changes:
+        - createTable:
+            tableName: patient_input
+            schemaName: disease
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                  defaultValueComputed: "gen_random_uuid()"  # Use PostgreSQL UUID generation function
+              - column:
+                  name: patient_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: fk_patient_input_patient
+                    references: patient(id)
+              - column:
+                  name: local_date_time
+                  type: TIMESTAMP
+              - column:
+                  name: cholesterol_level
+                  type: DOUBLE
+
+  - changeSet:
+      id: 001-004-create-diagnosis-table
       author: Patrik Holler
       changes:
         - createTable:
@@ -57,6 +101,15 @@ databaseChangeLog:
               - column:
                   name: patient_input_id
                   type: UUID
+                  constraints:
+                      foreignKeyName: fk_diagnosis_patient_input
+                      references: patient_input(id)
+              - column:
+                  name: patient_id
+                  type: UUID
+                  constraints:
+                      foreignKeyName: fk_diagnosis_patient
+                      references: patient(id)
               - column:
                   name: sw_version
                   type: VARCHAR(255)
@@ -66,28 +119,42 @@ databaseChangeLog:
               - column:
                   name: differential_list_id
                   type: UUID
+                  constraints:
+                      foreignKeyName: fk_diagnosis_differential_list
+                      references: differential_list(id)
               - column:
                   name: emergency
                   type: VARCHAR(255)
 
   - changeSet:
-      id: 001-003-create-differential_list-table
+      id: 005-create-diagnosis-doctor-table
       author: Patrik Holler
       changes:
         - createTable:
-            tableName: differential_list
-            schemaName: disease
+            tableName: diagnosis_doctor
             columns:
               - column:
-                  name: id
+                  name: diagnosis_id
                   type: UUID
                   constraints:
-                    primaryKey: true
                     nullable: false
-                  defaultValueComputed: "gen_random_uuid()"  # Use PostgreSQL UUID generation function
+              - column:
+                  name: doctor
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            columnNames: diagnosis_id, doctor
+            tableName: diagnosis_doctor
+        - addForeignKeyConstraint:
+            baseColumnNames: diagnosis_id
+            baseTableName: diagnosis_doctor
+            constraintName: fk_diagnosis_doctor_diagnosis
+            referencedColumnNames: id
+            referencedTableName: diagnosis
 
   - changeSet:
-      id: 001-004-create-differential-list-ddx-table
+      id: 001-006-create-differential-list-ddx-table
       author: Patrik Holler
       changes:
         - createTable:
@@ -117,7 +184,7 @@ databaseChangeLog:
             constraintName: pk_differential_list_ddx
 
   - changeSet:
-      id: 001-005-create-disease-table
+      id: 001-007-create-disease-table
       author: Patrik Holler
       changes:
         - createTable:
@@ -148,7 +215,7 @@ databaseChangeLog:
                   type: VARCHAR(255)
 
   - changeSet:
-      id: 001-006-create-symptom-table
+      id: 001-008-create-symptom-table
       author: Patrik Holler
       changes:
         - createTable:
@@ -176,7 +243,7 @@ databaseChangeLog:
                   type: VARCHAR(255)
 
   - changeSet:
-      id: 001-007-create-disease-symptom-table
+      id: 001-009-create-disease-symptom-table
       author: Patrik Holler
       changes:
         - createTable:
@@ -202,32 +269,7 @@ databaseChangeLog:
             constraintName: pk_disease_symptom
 
   - changeSet:
-      id: 001-008-create-patient-input-table
-      author: Patrik Holler
-      changes:
-        - createTable:
-            tableName: patient_input
-            schemaName: disease
-            columns:
-              - column:
-                  name: id
-                  type: UUID
-                  constraints:
-                    primaryKey: true
-                    nullable: false
-                  defaultValueComputed: "gen_random_uuid()"  # Use PostgreSQL UUID generation function
-              - column:
-                  name: patient_id
-                  type: UUID
-              - column:
-                  name: local_date_time
-                  type: TIMESTAMP
-              - column:
-                  name: cholesterol_level
-                  type: DOUBLE
-
-  - changeSet:
-      id: 001-009-create-patient-input-symptom-table
+      id: 001-010-create-patient-input-symptom-table
       author: Patrik Holler
       changes:
         - createTable:
@@ -254,7 +296,7 @@ databaseChangeLog:
             constraintName: pk_patient_input_symptom
 
   - changeSet:
-      id: 001-010-create-vital-signs-table
+      id: 001-011-create-vital-signs-table
       author: Patrik Holler
       changes:
         - createTable:
@@ -286,3 +328,9 @@ databaseChangeLog:
               - column:
                   name: bmi
                   type: DOUBLE
+        - addForeignKeyConstraint:
+            baseTableName: vital_signs
+            baseColumnNames: patient_id
+            referencedTableName: patient
+            referencedColumnNames: id
+            constraintName: fk_vital_signs_patient

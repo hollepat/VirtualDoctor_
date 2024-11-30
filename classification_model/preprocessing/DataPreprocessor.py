@@ -1,7 +1,6 @@
 import logging
 
 from sklearn.preprocessing import LabelEncoder, OrdinalEncoder
-from tensorflow.lite.python.convert import convert
 
 # TODO add to the dataset if possible
 # life_styles = ['ACTIVE', 'SEDENTARY', 'MODERATE', 'ATHLETE']

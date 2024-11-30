@@ -3,6 +3,7 @@ package cvut.fel.virtualdoctor.service;
 import cvut.fel.virtualdoctor.classifier.client.ClassifierOutput;
 import cvut.fel.virtualdoctor.model.*;
 import cvut.fel.virtualdoctor.repository.DiagnosisRepository;
+import cvut.fel.virtualdoctor.repository.DifferentialListRepository;
 import cvut.fel.virtualdoctor.repository.DiseaseRepository;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -23,6 +24,7 @@ public class DiagnosisService implements IDiagnosisService {
 
     DiseaseRepository diseaseRepository;
     DiagnosisRepository diagnosisRepository;
+    DifferentialListRepository differentialListRepository;
 
     /**
      * Creates a diagnosis based on the name input and the differential list.
@@ -32,12 +34,16 @@ public class DiagnosisService implements IDiagnosisService {
      * @return the created diagnosis
      */
     public Diagnosis createDiagnosis(PatientInput patientInput, ClassifierOutput classifierOutput) {
-        DifferentialList differentialList = new DifferentialList(classifierOutput.predictions());
+        DifferentialList differentialList = differentialListRepository.save(new DifferentialList(classifierOutput.predictions()));
+
         String swVersion = classifierOutput.version();
         List<DoctorType> doctorToVisit = retrieveDoctorToVisit(differentialList);
         EmergencyType emergency = determineEmergency(patientInput);
 
-        Diagnosis diagnosis = new Diagnosis(swVersion, LocalDateTime.now(), differentialList, doctorToVisit, emergency);
+        Diagnosis diagnosis = new Diagnosis(
+                swVersion, LocalDateTime.now(), differentialList, doctorToVisit, emergency,
+                patientInput.getPatient(), patientInput
+        );
         save(diagnosis);
         return diagnosis;
     }
@@ -66,7 +72,7 @@ public class DiagnosisService implements IDiagnosisService {
     public void save(Diagnosis diagnosis) {
         try {
             diagnosisRepository.save(diagnosis);
-            logger.info("Saved diagnosis for patient {}", diagnosis.getPatientInput().getPatient().getName());
+            logger.info("Saved diagnosis for patient {}", diagnosis.getPatient().getName());
         } catch (Exception e) {
             logger.error("Error saving diagnosis: {}", e.getMessage());
             throw e;
