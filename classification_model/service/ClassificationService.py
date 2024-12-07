@@ -34,9 +34,10 @@ url = Path("../datasets/kaggle/disease_dataset.csv")
 # url = Path("/app/datasets/kaggle/Disease Symptoms and Patient Profile Dataset_balanced.csv") // For Docker
 data = pd.read_csv(url)
 
-data_preprocessing = DataPreprocessor(data)
+data_preprocessing = DataPreprocessor()
 classifier = Classifier(data_preprocessing)
 
+classifier.train_model(data)
 # Flask server to handle evaluation requests
 app = Flask(__name__)
 

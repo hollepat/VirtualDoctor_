@@ -11,8 +11,8 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class DataPreprocessor:
-    def __init__(self, data):
-        self.data = data
+    def __init__(self):
+        # self.data = data
         self.label_encoder_gender = LabelEncoder()
         self.label_encoder_outcome = LabelEncoder()
         self.label_encoder_blood_pressure = OrdinalEncoder(categories=[['Low', 'Normal', 'High']])
@@ -24,50 +24,53 @@ class DataPreprocessor:
         self.categorical_non_ordinal_cols = ['Gender', 'Outcome Variable']
         self.numerical_cols = ['Age', 'Temperature', 'BMI']
 
-    def preprocess_data(self) -> tuple:
+        # encoder for the input
+        self.label_encoder_y = None
+
+    def preprocess_data(self, data) -> tuple:
         """
         Preprocess the data for the classifier.
 
-        :returns: A tuple containing X (features), y (target), and label_encoder_y (label encoder for the target).
+        :returns: A tuple containing X (features) encoded, y (target) encoded, and label_encoder_y (label encoder for the target).
         :rtype: tuple
         """
         # Step 2: Preprocess the data
         # Encode categorical features
-        self.data['Gender'] = self.data['Gender'].apply(lambda row: row.upper())
-        self.data['Gender'] = self.label_encoder_gender.fit_transform(self.data['Gender'])  # Assuming Gender is 'Male'/'Female'
+        data['Gender'] = data['Gender'].apply(lambda row: row.upper())
+        data['Gender'] = self.label_encoder_gender.fit_transform(data['Gender'])  # Assuming Gender is 'Male'/'Female'
 
-        self.data['Outcome Variable'] = self.label_encoder_outcome.fit_transform(self.data['Outcome Variable'])  # Assuming Outcome Variable is 'Yes'/'No'
+        data['Outcome Variable'] = self.label_encoder_outcome.fit_transform(data['Outcome Variable'])  # Assuming Outcome Variable is 'Yes'/'No'
 
-        self.data['Blood Pressure'] = self.label_encoder_blood_pressure.fit_transform(self.data['Blood Pressure'].values.reshape(-1, 1))
+        data['Blood Pressure'] = self.label_encoder_blood_pressure.fit_transform(data['Blood Pressure'].values.reshape(-1, 1))
 
-        self.data['Cholesterol Level'] = self.label_encoder_cholesterol.fit_transform(self.data['Cholesterol Level'].values.reshape(-1, 1))
+        data['Cholesterol Level'] = self.label_encoder_cholesterol.fit_transform(data['Cholesterol Level'].values.reshape(-1, 1))
 
         # Map 'Yes' to 1 and 'No' to 0
-        self.data[self.binary_cols] = self.data[self.binary_cols].apply(lambda col: col.map({'Yes': 1, 'No': 0}))
+        data[self.binary_cols] = data[self.binary_cols].apply(lambda col: col.map({'Yes': 1, 'No': 0}))
 
         # Fill missing values if necessary
-        self.data = self.data.fillna(0)
+        data = data.fillna(0)
 
         # Separate features (symptoms + demographics + vital signs) and target (disease)
-        X = self.data.drop(columns=['Disease'])  # Features: symptoms, demographics, vital signs, outcome variable
-        y = self.data['Disease']  # Target: 'Disease'
+        X_encoded = data.drop(columns=['Disease'])  # Features: symptoms, demographics, vital signs, outcome variable
+        y = data['Disease']  # Target: 'Disease'
 
         # Define all possible classes (replace with actual classes if known)
-        all_possible_classes = self.data['Disease'].unique()
+        all_possible_classes = data['Disease'].unique()
 
         # Fit the label encoder with all possible classes
-        label_encoder_y = LabelEncoder()
-        label_encoder_y.fit(all_possible_classes)
+        self.label_encoder_y = LabelEncoder()
+        self.label_encoder_y.fit(all_possible_classes)
 
         # Encode the target (disease labels) to ensure they are contiguous integers
-        y_encoded = label_encoder_y.transform(y)
+        y_encoded = self.label_encoder_y.transform(y)
 
         # Assertions
-        assert len(all_possible_classes) == len(label_encoder_y.classes_), "Mismatch in number of classes"
-        assert X.shape[1] == len(self.binary_cols) + len(self.categorical_ordinal_cols) + len(self.categorical_non_ordinal_cols) + len(
+        assert len(all_possible_classes) == len(self.label_encoder_y.classes_), "Mismatch in number of classes"
+        assert X_encoded.shape[1] == len(self.binary_cols) + len(self.categorical_ordinal_cols) + len(self.categorical_non_ordinal_cols) + len(
             self.numerical_cols), "Mismatch in number of features"
 
-        return X, y_encoded, label_encoder_y
+        return X_encoded, y_encoded, self.label_encoder_y
 
     # Function to encode input values
     def encode_input(self, input_values: dict) -> list:
@@ -83,6 +86,9 @@ class DataPreprocessor:
         input_dict['Outcome Variable'] = self.label_encoder_outcome.transform(["Positive"])[0] # We always assume the outcome is positive
 
         return list(input_dict.values())
+
+    def decode_output(self, y_encoded):
+        return self.label_encoder_y.transform(y_encoded)
 
     def _map_symptoms_to_input_dict(self, json_data):
         # Initialize the input_dict with 'No' for all symptoms

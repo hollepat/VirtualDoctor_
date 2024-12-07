@@ -30,15 +30,15 @@ class Classifier:
         self.label_encoder_y = None
         self.stacking_model = None
 
-        self._train_model()
+        # self._train_model()
 
     # Train the model
-    def _train_model(self) -> None:
+    def train_model(self, data) -> None:
         # Step 2: Preprocess the data
-        X, y, self.label_encoder_y = self.data_preprocessing.preprocess_data()
+        X, y, self.label_encoder_y = self.data_preprocessing.preprocess_data(data)
 
         # Step 3: Split the data into training and testing sets
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
 
         # Step 4: Define the model
         estimators = [
