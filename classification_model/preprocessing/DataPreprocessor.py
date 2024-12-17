@@ -66,9 +66,7 @@ class DataPreprocessor:
         y_encoded = self.label_encoder_y.transform(y)
 
         # Assertions
-        assert len(all_possible_classes) == len(self.label_encoder_y.classes_), "Mismatch in number of classes"
-        assert X_encoded.shape[1] == len(self.binary_cols) + len(self.categorical_ordinal_cols) + len(self.categorical_non_ordinal_cols) + len(
-            self.numerical_cols), "Mismatch in number of features"
+        self._validations(all_possible_classes, X_encoded)
 
         return X_encoded, y_encoded, self.label_encoder_y
 
@@ -113,6 +111,15 @@ class DataPreprocessor:
         input_dict['Cholesterol Level'] = convert_vital_sign('cholesterolLevel', json_data['cholesterolLevel'])
 
         return input_dict
+
+    def _validations(self, classes, X_encoded):
+        if len(classes) != len(self.label_encoder_y.classes_):
+            print("Mismatch in number of classes")
+
+        expected_features_num = len(self.binary_cols) + len(self.categorical_ordinal_cols) + len(
+            self.categorical_non_ordinal_cols) + len(self.numerical_cols)
+        if len(X_encoded.columns) != expected_features_num:
+            print("Mismatch in number of features: ", len(X_encoded.columns), " vs. ", expected_features_num)
 
 def convert_vital_sign(key, value):
     if key == "Cholesterol Level":

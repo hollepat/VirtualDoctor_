@@ -1,0 +1,26 @@
+get:
+  summary: Get short description of a disease
+  tag:
+    - Disease
+  parameters:
+    - name: diseaseName
+      in: query
+      description: Name of the disease
+      required: true
+      schema:
+        type: string
+      example: "Disease"
+  responses:
+    "200":
+      description: "OK"
+      content:
+        application/json:
+          schema:
+            type: string
+          example: "A disease is a particular abnormal condition that negatively affects the structure or function of all or part of an organism, and that is not due to any immediate external injury."
+    "404":
+      description: "Not Found"
+      content:
+        application/json:
+          schema:
+            $ref: 'components.yaml#/components/schemas/ErrorDTO'

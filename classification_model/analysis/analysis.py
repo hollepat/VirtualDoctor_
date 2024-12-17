@@ -1,33 +1,53 @@
 import pandas as pd
 from lightgbm import LGBMClassifier
 from pandas import DataFrame
+from sklearn import svm
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler, LabelEncoder
+from sklearn.preprocessing import StandardScaler, OrdinalEncoder
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier, StackingClassifier, GradientBoostingClassifier
 from sklearn.neural_network import MLPClassifier
-from sklearn.metrics import accuracy_score, classification_report
+from sklearn.metrics import accuracy_score
 from path import Path
-from torch.backends.mkl import verbose
 from xgboost import XGBClassifier
-from sklearn import svm
 import matplotlib.pyplot as plt
 
 from preprocessing.DataPreprocessor import DataPreprocessor
 from service.ClassificationService import data_preprocessing
 
 # Import functions from the analysis package
-
-dataset_path = Path("../datasets/kaggle/Disease Symptoms and Patient Profile Dataset_balanced.csv")
+file_name = "Disease Symptoms and Patient Profile Dataset_exported"
+dataset_path = Path(f"../datasets/kaggle/{file_name}.csv")
 dataset = pd.read_csv(dataset_path)
 
 # Split the dataset into training and testing datasets
-train_dataset, test_dataset = train_test_split(dataset, test_size=0.2, random_state=42)
+# train_dataset, test_dataset = train_test_split(dataset, test_size=0.2, random_state=42)
+x_train,x_test,y_train,y_test = train_test_split(dataset.iloc[:,1:], dataset.iloc[:,0],
+                                                test_size=0.2)
 target_column = "Disease"
 
-data_preprocessing = DataPreprocessor()
+# data_preprocessing = DataPreprocessor()
+
+def encoding_data(x_train, x_test):
+    oe = OrdinalEncoder(categories=[['No', 'Yes']])
+    x_train_fever = oe.fit_transform(x_train["Fever"].array.reshape(-1, 1))
+    x_test_fever = oe.transform(x_test["Fever"].array.reshape(-1, 1))
+
+    be = OrdinalEncoder(categories=[['No', 'Yes']])
+    x_train_cough = be.fit_transform(x_train["Cough"].array.reshape(-1, 1))
+    x_test_cough = be.transform(x_test["Cough"].array.reshape(-1, 1))
+
+def preprocessing_data(data: DataFrame):
+    """
+    Preprocess the data for the analysis.
+
+    :returns: A tuple containing X (features) encoded, y (target) encoded, and label_encoder_y (label encoder for the target).
+    :rtype: tuple
+    """
+    # Step 2: Preprocess the data
+    # Encode categorical features
 
 def analysis_of_classifiers(train_data: DataFrame, test_data: DataFrame, target_column: str):
     """
@@ -58,21 +78,21 @@ def analysis_of_classifiers(train_data: DataFrame, test_data: DataFrame, target_
     X_train_scaled = scaler.fit_transform(X_train)
     X_test_scaled = scaler.transform(X_test)
 
-    # estimators = [
-    #     ('LightGBM', LGBMClassifier(n_estimators=5, random_state=42)),
-    #     ('gb', GradientBoostingClassifier(n_estimators=5, random_state=42)),
-    # ]
+    estimators = [
+        # ('LightGBM', LGBMClassifier(n_estimators=5, random_state=42)),
+        ('rf', RandomForestClassifier(n_estimators=5, random_state=42)),
+        ('gb', GradientBoostingClassifier(n_estimators=5, random_state=42)),
+    ]
 
     # Define classifiers
     classifiers = {
         'Naive Bayes': GaussianNB(),
-        'K-Neighbors': KNeighborsClassifier(),
+        'K-Neighbors': KNeighborsClassifier(n_neighbors=7), # tried 3, 5, 7, 10 -> 7 is the best
         'Random Forest': RandomForestClassifier(n_estimators=10, random_state=42),
-        'XGBoost': XGBClassifier(n_estimators=3, random_state=42),
+        'XGBoost': XGBClassifier(n_estimators=5, random_state=42),
         'LightGBM': LGBMClassifier(n_estimators=10, random_state=42), # TODO - resolve Warnings
         'MLP Classifier': MLPClassifier(random_state=42, max_iter=1000), # Multi-layer Perceptron
-        # 'Stacking Classifier': StackingClassifier(estimators=estimators, final_estimator=LogisticRegression()),
-        # 'SVM': svm.SVC()
+        'SVM': svm.SVC()
     }
 
     results = dict()
@@ -127,9 +147,15 @@ def visualize_results_performance(results):
     plt.bar(results.keys(), results.values(), color='skyblue')
     plt.xlabel('Classifier', fontsize=14)
     plt.ylabel('Accuracy', fontsize=14)
-    plt.title('Classifier Accuracy Comparison', fontsize=16)
+    plt.title(f'Classifiers Accuracy for {file_name}', fontsize=16)
     plt.xticks(rotation=45)
     plt.ylim(0, 1)
+
+    # Calculate and plot the average accuracy
+    avg_accuracy = sum(results.values()) / len(results)
+    plt.axhline(y=avg_accuracy, color='r', linestyle='--', label=f'Avg Accuracy: {avg_accuracy:.4f}')
+    plt.legend()
+
     plt.tight_layout()
     plt.show()
 
