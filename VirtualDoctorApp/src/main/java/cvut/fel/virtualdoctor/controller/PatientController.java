@@ -3,10 +3,11 @@ package cvut.fel.virtualdoctor.controller;
 import cvut.fel.virtualdoctor.dto.PatientDTO;
 import cvut.fel.virtualdoctor.model.Patient;
 import cvut.fel.virtualdoctor.service.PatientService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("patient")
+@RequestMapping("api/patient")
 public class PatientController implements IPatientController {
 
     private final PatientService patientService;
@@ -16,7 +17,7 @@ public class PatientController implements IPatientController {
     }
 
     @PostMapping("/new-patient")
-    public void createUser(@RequestBody PatientDTO patientDTO) {
+    public ResponseEntity<String> createUser(@RequestBody PatientDTO patientDTO) {
         Patient patient = new Patient(
                 patientDTO.name(),
                 patientDTO.age(),
@@ -26,6 +27,11 @@ public class PatientController implements IPatientController {
                 patientDTO.location(),
                 patientDTO.lifestyle()
         );
-        patientService.createPatient(patient);
+
+        Patient savedPatient = patientService.createPatient(patient);
+        if (savedPatient == null) {
+            return ResponseEntity.badRequest().body(String.format("Patient %s already exists!", patient.getName()));
+        }
+        return ResponseEntity.ok(String.format("Patient %s created successfully!", patient.getName()));
     }
 }

@@ -1,9 +1,9 @@
 get:
-  summary: Get short description of a disease
+  summary: Get long description of a disease
   tag:
     - Disease
   parameters:
-    - name: diseaseName
+    - name: disease
       in: query
       description: Name of the disease
       required: true
@@ -23,4 +23,5 @@ get:
       content:
         application/json:
           schema:
-            $ref: 'components.yaml#/components/schemas/ErrorDTO'
+            type: string
+            example: "Disease not found."

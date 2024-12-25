@@ -1,0 +1,27 @@
+get:
+  summary: Get short description of a disease
+  tag:
+    - Disease
+  parameters:
+    - name: disease
+      in: query
+      description: Name of the disease
+      required: true
+      schema:
+        type: string
+      example: "Disease"
+  responses:
+    "200":
+      description: "OK"
+      content:
+        application/json:
+          schema:
+            type: string
+          example: "A disease is a abnormal negative condition."
+    "404":
+      description: "Not Found"
+      content:
+        application/json:
+          schema:
+            type: string
+            example: "Disease not found."

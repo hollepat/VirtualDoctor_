@@ -4,7 +4,11 @@ info:
   description: VirtualDoctor API
   version: 1.0.0
 paths:
-  /api/v1/evaluation/evaluate:
+  /api/evaluation/evaluate:
     $ref: './evaluator.yaml'
-  /api/v1/user/new-user:
+  /api/user/new-user:
     $ref: './patient.yaml'
+  /api/disease/short:
+    $ref: './disease_short.yaml'
+  /api/disease/long:
+    $ref: './disease_long.yaml'

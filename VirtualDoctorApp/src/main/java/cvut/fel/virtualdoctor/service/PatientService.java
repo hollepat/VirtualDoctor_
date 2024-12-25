@@ -16,6 +16,10 @@ public class PatientService implements IPatientService {
     PatientRepository patientRepository;
 
     public Patient createPatient(Patient patient) {
+        if (patientRepository.findByName(patient.getName()).isPresent()) {
+            logger.error("Patient with name {} already exists", patient.getName());
+            return null;
+        }
         logger.info("Creating new name...");
         return patientRepository.save(patient);
     }

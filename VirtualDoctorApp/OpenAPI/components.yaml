@@ -19,7 +19,7 @@ components:
     PatientDTO:
       type: object
       required:
-        - username
+        - name
         - age
         - height
         - weight
@@ -27,7 +27,7 @@ components:
         - location
         - lifestyle
       properties:
-        username:
+        name:
           type: string
           example: john-doe
         age:
