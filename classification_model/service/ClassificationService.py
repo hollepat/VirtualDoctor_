@@ -6,7 +6,7 @@ from flask import Flask, request, jsonify
 
 from classifier.Classifier import Classifier
 from preprocessing.DataPreprocessor import DataPreprocessor
-from service.database_operations import read_table_from_db, import_csv_to_postgresql
+from service.database_operations import load_database_data, import_csv_to_postgresql
 
 load_dotenv()  # This will load the .env file manually
 
@@ -35,13 +35,9 @@ CSV_FILE_PATH = Path("../datasets/kaggle/Disease Symptoms and Patient Profile Da
 TABLE_NAME = "patient_data"
 DATABASE_URI = "postgresql://postgres:postgrespassword@localhost:5432/healthdb"
 
-# import_csv_to_postgresql(CSV_FILE_PATH, TABLE_NAME)
-data = read_table_from_db(DATABASE_URI, TABLE_NAME)
-
 data_preprocessing = DataPreprocessor()
 classifier = Classifier(data_preprocessing)
 
-classifier.train_model(data)
 # Flask server to handle evaluation requests
 app = Flask(__name__)
 
@@ -74,4 +70,11 @@ def evaluate():
 
 # Run the server
 if __name__ == '__main__':
+    # import_csv_to_postgresql(CSV_FILE_PATH, TABLE_NAME)
+    data = load_database_data(DATABASE_URI, TABLE_NAME)
+
+    # TODO could be also saving the model to pickle file and loading it from it if it is not necessary to retrain the model
+    classifier.train_model(data)
+
+    # Start the Flask server
     app.run(debug=True, host='0.0.0.0', port=5500)

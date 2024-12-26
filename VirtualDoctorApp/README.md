@@ -31,6 +31,17 @@ Use the following data source
 <data-source source="LOCAL" name="@localhost" uuid="d350722f-dc95-4d99-98ff-d66eff00ac30"><database-info product="Mongo DB" version="7.0.8" jdbc-version="4.2" driver-name="MongoDB JDBC Driver" driver-version="1.18" dbms="MONGO" exact-version="7.0.8" exact-driver-version="1.18"/><case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed"/><driver-ref>mongo</driver-ref><synchronize>true</synchronize><jdbc-driver>com.dbschema.MongoJdbcDriver</jdbc-driver><jdbc-url>mongodb://localhost:27017</jdbc-url><jdbc-additional-properties><property name="com.intellij.clouds.kubernetes.db.host.port"/><property name="com.intellij.clouds.kubernetes.db.enabled" value="false"/><property name="com.intellij.clouds.kubernetes.db.container.port"/></jdbc-additional-properties><secret-storage>master_key</secret-storage><patient-name>rootuser</patient-name><schema-mapping><introspection-scope><node kind="schema" negative="1"/></introspection-scope></schema-mapping><working-dir>$ProjectFileDir$</working-dir></data-source>
 #END#
 ```
+
+## Liquibase
+
+Liquibase is used for version control and initialization of the database. The `liquibase.properties` file contains the 
+configuration for the liquibase. However, liquibase is not starting automatically. You need to run the following command
+to start the liquibase.
+
+```
+mvn liquibase:update
+``` 
+
 ## Login Management
 
 To add a login mechanism to your Spring Boot application, you can use Spring Security, which is a powerful and highly customizable authentication and access-control framework. Here's a step-by-step guide:

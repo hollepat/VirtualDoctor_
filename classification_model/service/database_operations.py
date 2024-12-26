@@ -43,7 +43,7 @@ def import_csv_to_postgresql(csv_file_path, table_name):
         print(f"Error while importing CSV: {e}")
 
 
-def read_table_from_db(database_uri, table_name):
+def load_database_data(database_uri, table_name):
     """
     Reads a table from the database and returns it as a Pandas DataFrame using psycopg2.
 
