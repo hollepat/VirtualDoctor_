@@ -11,7 +11,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "vital_signs")
-public class VitalSigns {
+public class HealthData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)  // AUTO will let the JPA provider handle UUID generation
@@ -28,7 +28,7 @@ public class VitalSigns {
     private double bloodPressure;
     private double bmi;
 
-    public VitalSigns(
+    public HealthData(
             Patient patient,
             LocalDateTime localDateTime,
             double skinTemperature,

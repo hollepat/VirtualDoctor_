@@ -2,7 +2,7 @@ package cvut.fel.virtualdoctor.service;
 
 import cvut.fel.virtualdoctor.exception.MissingHealthData;
 import cvut.fel.virtualdoctor.model.Patient;
-import cvut.fel.virtualdoctor.model.VitalSigns;
+import cvut.fel.virtualdoctor.model.HealthData;
 import cvut.fel.virtualdoctor.repository.VitalSignsRepository;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -15,17 +15,17 @@ import java.util.List;
 
 @AllArgsConstructor
 @Service
-public class VitalSignsObserverServiceService implements IVitalSignsObserverService {
+public class HealthDataObserverService implements IHealthDataObserverService {
 
-    private final Logger logger = LoggerFactory.getLogger(VitalSignsObserverServiceService.class);
+    private final Logger logger = LoggerFactory.getLogger(HealthDataObserverService.class);
 
     VitalSignsRepository vitalSignsRepository;
     PatientService patientService;
 
     @Override
-    public void update(VitalSigns vitalSigns) {
-        vitalSignsRepository.save(vitalSigns);
-        logger.info("Vital signs updated: " + vitalSigns);
+    public void update(HealthData healthData) {
+        vitalSignsRepository.save(healthData);
+        logger.info("Vital signs updated: " + healthData);
     }
 
     /**
@@ -35,10 +35,10 @@ public class VitalSignsObserverServiceService implements IVitalSignsObserverServ
      * @return average of vital signs taken today
      */
     @Override
-    public VitalSigns provideVitalSigns(Patient patient) throws MissingHealthData {
+    public HealthData provideVitalSigns(Patient patient) throws MissingHealthData {
         LocalDate today = LocalDate.now();
         logger.info("Providing vital signs for name: " + patient.toString());
-        List<VitalSigns> recentVitalSigns = vitalSignsRepository.findByPatientName(patient.getName()).stream()
+        List<HealthData> recentVitalSigns = vitalSignsRepository.findByPatientName(patient.getName()).stream()
                 .filter(vitalSign -> vitalSign.getLocalDateTime().toLocalDate().equals(today))
                 .toList();
 
@@ -55,14 +55,14 @@ public class VitalSignsObserverServiceService implements IVitalSignsObserverServ
      * @param vitalSigns list of vital signs to transform
      * @return transformed vital sign
      */
-    private VitalSigns transformVitalSigns(List<VitalSigns> vitalSigns) {
-        return new VitalSigns(
+    private HealthData transformVitalSigns(List<HealthData> vitalSigns) {
+        return new HealthData(
                 vitalSigns.get(0).getPatient(),
                 LocalDateTime.now(),
-                vitalSigns.stream().mapToDouble(VitalSigns::getSkinTemperature).average().orElse(0),
-                vitalSigns.stream().mapToDouble(VitalSigns::getBloodPressure).average().orElse(0),
+                vitalSigns.stream().mapToDouble(HealthData::getSkinTemperature).average().orElse(0),
+                vitalSigns.stream().mapToDouble(HealthData::getBloodPressure).average().orElse(0),
                 vitalSigns.get(vitalSigns.size()-1).getBmi(), 
-                (int) vitalSigns.stream().mapToDouble(VitalSigns::getHeartRate).average().orElse(0)
+                (int) vitalSigns.stream().mapToDouble(HealthData::getHeartRate).average().orElse(0)
         );
     }
 }

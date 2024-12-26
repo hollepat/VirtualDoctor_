@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import cvut.fel.virtualdoctor.classifier.mapper.ClassifierMapper;
 import cvut.fel.virtualdoctor.model.PatientInput;
-import cvut.fel.virtualdoctor.model.VitalSigns;
+import cvut.fel.virtualdoctor.model.HealthData;
 import org.springframework.javapoet.ClassName;
 
 import java.net.URI;
@@ -31,12 +31,12 @@ public class ClassifierClientRest implements IClassifierClient {
      * Send POST request to the model endpoint to trigger the classification. The response is a JSON with the classification
      * result.
      * @param patientInput The patient input data to evaluate
-     * @param vitalSigns The vital signs of the patient
+     * @param healthData The vital signs of the patient
      * @return The classification result as a JSON string. Wrapped in a CompletableFuture to allow for async processing.
      */
-    public CompletableFuture<ClassifierOutput> getPrediction(PatientInput patientInput, VitalSigns vitalSigns) {
+    public CompletableFuture<ClassifierOutput> getPrediction(PatientInput patientInput, HealthData healthData) {
         try {
-            ClassifierInput classifierInput = classifierMapper.mapUserInputToEvaluatorInput(patientInput, vitalSigns);
+            ClassifierInput classifierInput = classifierMapper.mapUserInputToEvaluatorInput(patientInput, healthData);
             String jsonBody = objectMapper.writeValueAsString(classifierInput);
 
             // Create the HTTP request

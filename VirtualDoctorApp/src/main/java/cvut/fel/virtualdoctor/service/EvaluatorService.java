@@ -4,7 +4,7 @@ import cvut.fel.virtualdoctor.classifier.client.ClassifierClientRest;
 import cvut.fel.virtualdoctor.classifier.client.ClassifierOutput;
 import cvut.fel.virtualdoctor.model.Diagnosis;
 import cvut.fel.virtualdoctor.model.PatientInput;
-import cvut.fel.virtualdoctor.model.VitalSigns;
+import cvut.fel.virtualdoctor.model.HealthData;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +23,7 @@ public class EvaluatorService implements IEvaluatorService {
     DiagnosisService diagnosisService;
     PatientInputService patientInputService;
     ClassifierClientRest classifierClientRest;
-    VitalSignsObserverServiceService vitalSignsObserverService;
+    HealthDataObserverService vitalSignsObserverService;
 
     /**
      * @param patientInput The name input to evaluate for diagnosis
@@ -38,10 +38,10 @@ public class EvaluatorService implements IEvaluatorService {
 
     private CompletableFuture<Diagnosis> classify(PatientInput patientInput) {
         logger.info("Evaluating diagnosis...");
-        VitalSigns vitalSigns = vitalSignsObserverService.provideVitalSigns(patientInput.getPatient());
+        HealthData healthData = vitalSignsObserverService.provideVitalSigns(patientInput.getPatient());
 
         // Send request to Python Evaluator Service endpoint
-        CompletableFuture<ClassifierOutput> future = classifierClientRest.getPrediction(patientInput, vitalSigns);
+        CompletableFuture<ClassifierOutput> future = classifierClientRest.getPrediction(patientInput, healthData);
 
         // Wait for process to finish and return result
         return future.thenApply(response -> {
