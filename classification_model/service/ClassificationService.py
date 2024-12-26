@@ -1,12 +1,13 @@
 import logging
-from flask import Flask, request, jsonify
-import pandas as pd
-
-from preprocessing.DataPreprocessor import DataPreprocessor
-from classifier.Classifier import Classifier
 from pathlib import Path
 
 from dotenv import load_dotenv
+from flask import Flask, request, jsonify
+
+from classifier.Classifier import Classifier
+from preprocessing.DataPreprocessor import DataPreprocessor
+from service.database_operations import read_table_from_db, import_csv_to_postgresql
+
 load_dotenv()  # This will load the .env file manually
 
 from config import SERVICE_VERSION
@@ -30,9 +31,12 @@ Angina: 6.08%
 # Output should in total sum up to 100%.
 
 # Step 1: Load the dataset
-url = Path("../datasets/kaggle/disease_dataset.csv")
-# url = Path("/app/datasets/kaggle/Disease Symptoms and Patient Profile Dataset_balanced.csv") // For Docker
-data = pd.read_csv(url)
+CSV_FILE_PATH = Path("../datasets/kaggle/Disease Symptoms and Patient Profile Dataset_filtered.csv")
+TABLE_NAME = "patient_data"
+DATABASE_URI = "postgresql://postgres:postgrespassword@localhost:5432/healthdb"
+
+# import_csv_to_postgresql(CSV_FILE_PATH, TABLE_NAME)
+data = read_table_from_db(DATABASE_URI, TABLE_NAME)
 
 data_preprocessing = DataPreprocessor()
 classifier = Classifier(data_preprocessing)

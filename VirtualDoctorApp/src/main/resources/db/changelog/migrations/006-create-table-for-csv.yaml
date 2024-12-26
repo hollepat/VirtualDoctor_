@@ -1,0 +1,53 @@
+databaseChangeLog:
+    - changeSet:
+        id: 006-001-create-table-csv
+        author: Patrik Holler
+        changes:
+          - createTable:
+              tableName: patient_data
+              columns:
+                - column:
+                    name: "Disease"
+                    type: "varchar"
+                - column:
+                    name: "Fever"
+                    type: "varchar"
+                - column:
+                    name: "Cough"
+                    type: "varchar"
+                - column:
+                    name: "Fatigue"
+                    type: "varchar"
+                - column:
+                    name: "Difficulty Breathing"
+                    type: "varchar"
+                - column:
+                    name: "Age"
+                    type: "int"
+                - column:
+                    name: "Gender"
+                    type: "varchar"
+                - column:
+                    name: "Blood Pressure"
+                    type: "varchar"
+                - column:
+                    name: "Cholesterol Level"
+                    type: "varchar"
+                - column:
+                    name: "Outcome Variable"
+                    type: "varchar"
+                - column:
+                    name: "Headache"
+                    type: "varchar"
+                - column:
+                    name: "Sore Throat"
+                    type: "varchar"
+                - column:
+                    name: "Runny Nose"
+                    type: "varchar"
+                - column:
+                    name: "Temperature"
+                    type: "float"
+                - column:
+                    name: "BMI"
+                    type: "float"
