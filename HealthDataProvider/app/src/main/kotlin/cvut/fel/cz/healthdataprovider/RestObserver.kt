@@ -1,4 +1,4 @@
-package cvut.fel.cz.vitalsignsprovider
+package cvut.fel.cz.healthdataprovider
 
 import android.os.Build
 import android.util.Log

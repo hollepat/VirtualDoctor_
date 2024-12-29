@@ -6,7 +6,7 @@ info:
 paths:
   /api/evaluation/evaluate:
     $ref: './evaluator.yaml'
-  /api/user/new-user:
+  /api/patient/new-patient:
     $ref: './patient.yaml'
   /api/disease/short:
     $ref: './disease_short.yaml'

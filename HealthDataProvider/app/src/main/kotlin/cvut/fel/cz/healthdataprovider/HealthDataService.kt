@@ -1,4 +1,4 @@
-package cvut.fel.cz.vitalsignsprovider
+package cvut.fel.cz.healthdataprovider
 
 import android.annotation.SuppressLint
 import android.app.Notification

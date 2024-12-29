@@ -20,12 +20,12 @@
                 android:value="true" />
 
         <service
-                android:name="cvut.fel.cz.vitalsignsprovider.HealthDataService"
+                android:name="cvut.fel.cz.healthdataprovider.HealthDataService"
                 android:enabled="true"
                 android:exported="false"
                 android:foregroundServiceType="dataSync" /> <!-- Add this line -->
 
-        <activity android:name="cvut.fel.cz.vitalsignsprovider.MainActivity" android:exported="true">
+        <activity android:name="cvut.fel.cz.healthdataprovider.MainActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

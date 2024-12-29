@@ -73,6 +73,10 @@ if __name__ == '__main__':
     # import_csv_to_postgresql(CSV_FILE_PATH, TABLE_NAME)
     data = load_database_data(DATABASE_URI, TABLE_NAME)
 
+    if data is None:
+        logger.error("Error loading data from the database. Exiting...")
+        exit(1)
+
     # TODO could be also saving the model to pickle file and loading it from it if it is not necessary to retrain the model
     classifier.train_model(data)
 

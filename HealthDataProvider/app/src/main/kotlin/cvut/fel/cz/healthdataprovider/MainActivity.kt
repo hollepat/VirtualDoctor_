@@ -1,4 +1,4 @@
-package cvut.fel.cz.vitalsignsprovider
+package cvut.fel.cz.healthdataprovider
 
 import android.content.ComponentName
 import android.content.Context

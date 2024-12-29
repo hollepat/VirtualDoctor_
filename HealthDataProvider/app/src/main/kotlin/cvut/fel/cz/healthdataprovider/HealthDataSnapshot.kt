@@ -1,4 +1,4 @@
-package cvut.fel.cz.vitalsignsprovider
+package cvut.fel.cz.healthdataprovider
 
 import org.json.JSONObject
 import org.threeten.bp.LocalDateTime

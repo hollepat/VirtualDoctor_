@@ -1,6 +1,6 @@
 package cvut.fel.virtualdoctor.controller;
 
-import cvut.fel.virtualdoctor.dto.VitalSignsDTO;
+import cvut.fel.virtualdoctor.dto.HealthDataDTO;
 import cvut.fel.virtualdoctor.model.Patient;
 import cvut.fel.virtualdoctor.model.HealthData;
 import cvut.fel.virtualdoctor.service.PatientService;
@@ -15,24 +15,24 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDateTime;
 
 @RestController
-@RequestMapping("vitalSignsObserver")
+@RequestMapping("healthDataObserver")
 @AllArgsConstructor
 public class HealthDataObserverController implements IHealthDataObserverController {
 
     private final HealthDataObserverService vitalSignsObserverService;
     private final PatientService patientService;
 
-    @PostMapping("/vitalSigns")
-    public ResponseEntity<String> saveVitalSigns(@RequestBody VitalSignsDTO vitalSignsDTO) {
-        Patient patient = patientService.findByName(vitalSignsDTO.name());
+    @PostMapping("/healthData")
+    public ResponseEntity<String> saveHealthData(@RequestBody HealthDataDTO healthDataDTO) {
+        Patient patient = patientService.findByName(healthDataDTO.name());
 
         HealthData healthData = new HealthData(
                 patient,
                 LocalDateTime.now(),
-                vitalSignsDTO.skinTemperature(),
-                vitalSignsDTO.bloodPressure(),
+                healthDataDTO.skinTemperature(),
+                healthDataDTO.bloodPressure(),
                 patient.getBmi(),
-                vitalSignsDTO.heartRate()
+                healthDataDTO.heartRate()
         );
 
         vitalSignsObserverService.update(healthData);

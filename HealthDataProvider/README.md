@@ -1,4 +1,4 @@
-# Vital Signs Provider
+# Health Data Provider
 
 Purpose: This provider is used to collect vital signs data from the patient. The data collected includes the following:
 - Heart Rate

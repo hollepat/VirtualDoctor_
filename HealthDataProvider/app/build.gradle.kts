@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "cvut.fel.cz.vitalsignsprovider"
+    namespace = "cvut.fel.cz.healthdataprovider"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "cvut.fel.cz.vitalsignsprovider"
+        applicationId = "cvut.fel.cz.healthdataprovider"
         minSdk = 25
         targetSdk = 34
         versionCode = 1

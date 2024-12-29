@@ -1,4 +1,4 @@
-package cvut.fel.cz.vitalsignsprovider
+package cvut.fel.cz.healthdataprovider
 
 interface Subject {
     fun registerObserver(observer: Observer)
