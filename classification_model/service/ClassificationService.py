@@ -1,4 +1,5 @@
 import logging
+import os
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -33,7 +34,7 @@ Angina: 6.08%
 # Step 1: Load the dataset
 CSV_FILE_PATH = Path("../datasets/kaggle/Disease Symptoms and Patient Profile Dataset_filtered.csv")
 TABLE_NAME = "patient_data"
-DATABASE_URI = "postgresql://postgres:postgrespassword@localhost:5432/healthdb"
+DATABASE_URI = f"postgresql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
 
 data_preprocessing = DataPreprocessor()
 classifier = Classifier(data_preprocessing)
@@ -81,4 +82,4 @@ if __name__ == '__main__':
     classifier.train_model(data)
 
     # Start the Flask server
-    app.run(debug=True, host='0.0.0.0', port=5500)
+    app.run(debug=True, host='127.0.0.1', port=5500)

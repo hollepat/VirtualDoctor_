@@ -28,30 +28,60 @@ class Classifier:
 
         # For prediction
         self.label_encoder_y = None
-        self.stacking_model = None
-
-        # self._train_model()
+        self.model = None
 
     # Train the model
     def train_model(self, data) -> None:
         # Step 2: Preprocess the data
-        X, y, self.label_encoder_y = self.data_preprocessing.preprocess_data(data)
+        try:
+            X, y, self.label_encoder_y = self.data_preprocessing.preprocess_data(data)
+        except Exception as e:
+            logger.error(f"Error during data preprocessing: {e}")
+            self.status = ClassifierStatus.ERROR
+            return
 
-        # Step 3: Split the data into training and testing sets
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
+        # Step 3: Split the data into training and testing sets with stratification
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y,
+            test_size=0.2,
+            random_state=42,
+            stratify=y
+        )
+
+        # Calculate class weights to handle imbalance
+        class_weights = self.data_preprocessing.calculate_class_weights(y_train)
+
+        # Initialize XGBoost classifier
+        n_classes = self.data_preprocessing.get_number_of_classes()
+        print(f"\nTraining model with {n_classes} diseases")
 
         # Step 4: Define the model
-        estimators = [
-            ('rf', RandomForestClassifier(n_estimators=10, random_state=42)),
-            ('xgb', XGBClassifier(n_estimators=10, random_state=42)),
-            ('gb', GradientBoostingClassifier(n_estimators=10, random_state=42)),
-        ]
-
-        self.stacking_model = StackingClassifier(estimators=estimators, final_estimator=LogisticRegression())
+        self.model = XGBClassifier(
+            objective='multi:softprob',
+            num_class=n_classes,
+            learning_rate=0.1,
+            max_depth=6,
+            n_estimators=5,
+            random_state=42,
+            eval_metric=['mlogloss'],
+            early_stopping_rounds=10,
+            # scale_pos_weight=1,  # This parameter is used for binary classification, but I do multi-class as is set by object='multi:softprob'
+            min_child_weight=1,  # Help with class imbalance
+            subsample=0.8,  # Prevent overfitting
+            colsample_bytree=0.8  # Prevent overfitting
+        )
 
         # Step 5: Train the model
         try:
-            self.stacking_model.fit(X_train, y_train)
+            self.model.fit(
+                X_train,
+                y_train,
+                eval_set=[(X_test, y_test)],
+                verbose=False,
+                # Convert class weights to sample weights
+                sample_weight=np.array([class_weights[y] for y in y_train])
+            )
+            logger.info(f"Model training completed successfully with {X_train.shape[1]} features.")
         except Exception as e:
             logger.error(f"Error during model training: {e}")
             self.status = ClassifierStatus.ERROR
@@ -80,7 +110,7 @@ class Classifier:
 
             return {"predictions": rounded_ddx}
         except Exception as e:
-            logger.error(f"Error: {e}. Please ensure valid inputs.")
+            logger.error(f"Error during prediction: {e}. Please ensure valid inputs.")
             return {"error": str(e)}
 
     # Function to predict probabilities --> DDX
@@ -94,6 +124,6 @@ class Classifier:
         :rtype: dict
         """
         input_array = np.array(input_features).reshape(1, -1)
-        probabilities = self.stacking_model.predict_proba(input_array)[0]
+        probabilities = self.model.predict_proba(input_array)[0]
         disease_names = self.label_encoder_y.inverse_transform(range(len(probabilities)))
         return dict(zip(disease_names, probabilities))
