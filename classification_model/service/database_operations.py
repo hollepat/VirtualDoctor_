@@ -1,3 +1,4 @@
+import logging
 import os
 
 import pandas as pd
@@ -12,6 +13,10 @@ DB_USER = os.getenv("DB_USER", "postgres")
 DB_PASSWORD = os.getenv("DB_PASSWORD", "postgrespassword")
 DB_NAME = os.getenv("DB_NAME", "healthdb")
 
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 def import_csv_to_postgresql(csv_file_path, table_name):
     try:
         # Establish database connection
@@ -23,7 +28,7 @@ def import_csv_to_postgresql(csv_file_path, table_name):
             dbname=DB_NAME
         )
         cursor = conn.cursor()
-        print(f"Connected to database {DB_NAME}.")
+        logger.info(f"Connected to database {DB_NAME}.")
 
         # If table doesn't exist, load the CSV file into the table
         with open(csv_file_path, 'r') as f:
@@ -34,7 +39,7 @@ def import_csv_to_postgresql(csv_file_path, table_name):
             )
 
         conn.commit()
-        print(f"CSV file successfully imported into table {table_name}.")
+        logger.info(f"CSV file successfully imported into table {table_name}.")
 
         cursor.close()
         conn.close()
@@ -68,10 +73,11 @@ def load_database_data(database_uri, table_name):
 
         # Close cursor and connection
         cursor.close()
+        logger.info(f"Data loaded successfully from table {table_name}.")
 
         return df
     except Exception as e:
-        print(f"An error occurred: {e}")
+        logger.error(f"An error occurred: {e}")
         return None
     finally:
         # Ensure connection is closed

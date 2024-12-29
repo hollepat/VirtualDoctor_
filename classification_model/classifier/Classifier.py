@@ -1,12 +1,9 @@
+import logging
 from enum import Enum
 
-import logging
 import numpy as np
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.ensemble import StackingClassifier
-from sklearn.ensemble import GradientBoostingClassifier
-from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
+from tqdm import tqdm
 from xgboost import XGBClassifier
 
 from preprocessing.DataPreprocessor import DataPreprocessor
@@ -73,14 +70,14 @@ class Classifier:
 
         # Step 5: Train the model
         try:
-            self.model.fit(
+            tqdm(self.model.fit(
                 X_train,
                 y_train,
                 eval_set=[(X_test, y_test)],
-                verbose=False,
+                verbose=True,
                 # Convert class weights to sample weights
                 sample_weight=np.array([class_weights[y] for y in y_train])
-            )
+            ), desc="Training model")
             logger.info(f"Model training completed successfully with {X_train.shape[1]} features.")
         except Exception as e:
             logger.error(f"Error during model training: {e}")

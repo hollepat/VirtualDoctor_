@@ -11,8 +11,9 @@ services:
     volumes:  # Mount the volume to persist the data even after the container is removed.
       - postgres_data:/var/lib/postgresql/data
     networks:
-      default:
-        ipv4_address: 127.0.0.1
+      custom_network:
+        ipv4_address: 192.168.1.100
+
   classifier:
     image: classification-service
     container_name: classifier
@@ -20,26 +21,9 @@ services:
       - 5500:5500
     volumes:
       - classifier_data:/app/data
-#  mongodb:
-#    image: mongo
-#    container_name: mongodb
-#    ports:
-#      - 27017:27017
-#    volumes:
-#      - data:/data
-#    environment:
-#      - MONGO_INITDB_ROOT_USERNAME=rootuser
-#      - MONGO_INITDB_ROOT_PASSWORD=rootpass
-#  mongo-express:  # mongo-express is a web-based MongoDB admin interface to manage databases interactively.
-#    image: mongo-express
-#    container_name: mongo-express
-#    restart: always
-#    ports:
-#      - 8081:8081
-#    environment:
-#      - ME_CONFIG_MONGODB_ADMINUSERNAME=rootuser
-#      - ME_CONFIG_MONGODB_ADMINPASSWORD=rootpass
-#      - ME_CONFIG_MONGODB_SERVER=mongodb
+    networks:
+      custom_network:
+        ipv4_address: 192.168.1.101
 
 volumes:
   data: {}
@@ -47,5 +31,8 @@ volumes:
   classifier_data: {}
 
 networks:
-  default:
-    name: mongodb_network
+  custom_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.1.0/24  # Define a custom subnet
