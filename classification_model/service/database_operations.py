@@ -18,6 +18,25 @@ DB_NAME = os.getenv("DB_NAME", "healthdb")
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+# Rename columns to match the new database schema
+column_mapping = {
+    'Disease': 'disease',
+    'Fever': 'fever',
+    'Cough': 'cough',
+    'Fatigue': 'fatigue',
+    'Difficulty Breathing': 'difficulty_breathing',
+    'Age': 'age',
+    'Gender': 'gender',
+    'Blood Pressure': 'blood_pressure',
+    'Cholesterol Level': 'cholesterol_level',
+    'Outcome Variable': 'outcome_variable',
+    'Headache': 'headache',
+    'Sore Throat': 'sore_throat',
+    'Runny Nose': 'runny_nose',
+    'Temperature': 'temperature',
+    'bmi': 'bmi'
+}
+
 
 def import_csv_to_postgresql(csv_file_path: Path, table_name):
     """
@@ -38,25 +57,6 @@ def import_csv_to_postgresql(csv_file_path: Path, table_name):
 
         # Read the CSV file to get the data
         df = pd.read_csv(csv_file_path)
-
-        # Rename columns to match the new database schema
-        column_mapping = {
-            'Disease': 'disease',
-            'Fever': 'fever',
-            'Cough': 'cough',
-            'Fatigue': 'fatigue',
-            'Difficulty Breathing': 'difficulty_breathing',
-            'Age': 'age',
-            'Gender': 'gender',
-            'Blood Pressure': 'blood_pressure',
-            'Cholesterol Level': 'cholesterol_level',
-            'Outcome Variable': 'outcome_variable',
-            'Headache': 'headache',
-            'Sore Throat': 'sore_throat',
-            'Runny Nose': 'runny_nose',
-            'Temperature': 'temperature',
-            'BMI': 'bmi'
-        }
 
         # Rename the columns in the DataFrame
         df.rename(columns=column_mapping, inplace=True)
@@ -120,6 +120,10 @@ def load_database_data(database_uri, table_name):
         # Remove ID column if present
         if 'id' in df.columns:
             df.drop('id', axis=1, inplace=True)
+
+        # Reverse the mapping for database to standardized mapping
+        reverse_mapping = {v: k for k, v in column_mapping.items()}
+        df.rename(columns=reverse_mapping, inplace=True)
 
         logger.info(f"Data loaded successfully from table {table_name}.")
         return df
