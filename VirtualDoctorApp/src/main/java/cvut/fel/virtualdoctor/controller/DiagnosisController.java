@@ -16,7 +16,7 @@ public class DiagnosisController {
 
     private final DiagnosisService diagnosisService;
 
-    @PostMapping("/mark")
+    @PostMapping("/mark-diagnosis")
     public ResponseEntity<String> markDiagnosis(UUID diagnosisId, String disease) {
         try {
             diagnosisService.markDiagnosis(diagnosisId, disease);

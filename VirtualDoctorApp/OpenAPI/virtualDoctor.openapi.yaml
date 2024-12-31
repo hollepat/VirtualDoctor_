@@ -12,3 +12,5 @@ paths:
     $ref: './disease_short.yaml'
   /api/disease/long:
     $ref: './disease_long.yaml'
+  /api/diagnosis/mark-diagnosis:
+    $ref: './diagnosis.yaml'
