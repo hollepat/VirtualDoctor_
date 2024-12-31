@@ -7,7 +7,7 @@ import cvut.fel.virtualdoctor.model.Location;
 import java.util.List;
 import java.util.Map;
 
-public record ClassifierInput(
+public record ClassifierInputDTO(
         int age,
         Lifestyle lifestyle,
         Gender gender,

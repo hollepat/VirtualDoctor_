@@ -1,11 +1,10 @@
 package cvut.fel.virtualdoctor.classifier.mapper;
 
-import cvut.fel.virtualdoctor.classifier.client.ClassifierInput;
-import cvut.fel.virtualdoctor.model.ClassifierInputEntity;
+import cvut.fel.virtualdoctor.classifier.client.ClassifierInputDTO;
+import cvut.fel.virtualdoctor.model.ClassifierInput;
 import cvut.fel.virtualdoctor.model.Symptom;
 import cvut.fel.virtualdoctor.model.PatientInput;
 import cvut.fel.virtualdoctor.model.HealthData;
-import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,25 +19,25 @@ public class ClassifierMapper {
      * @param healthData the vital signs of the patient
      * @return the classifier input
      */
-    public static ClassifierInput mapClassifierInputToClassifierInputDTO(ClassifierInputEntity classifierInputEntity) {
+    public static ClassifierInputDTO mapClassifierInputToClassifierInputDTO(ClassifierInput classifierInput) {
 
-        return new ClassifierInput(
-                classifierInputEntity.getAge(),
-                classifierInputEntity.getLifestyle(),
-                classifierInputEntity.getGender(),
-                classifierInputEntity.getLocation(),
-                classifierInputEntity.getSymptomsAsList(),
-                classifierInputEntity.getCholesterolLevel(),
-                classifierInputEntity.getHealthDataAsMap()
+        return new ClassifierInputDTO(
+                classifierInput.getAge(),
+                classifierInput.getLifestyle(),
+                classifierInput.getGender(),
+                classifierInput.getLocation(),
+                classifierInput.getSymptomsAsList(),
+                classifierInput.getCholesterolLevel(),
+                classifierInput.getHealthDataAsMap()
         );
     }
 
-    public static ClassifierInputEntity mapUserInputToClassifierInputEntity(PatientInput patientInput, HealthData healthData) {
+    public static ClassifierInput mapUserInputToClassifierInputEntity(PatientInput patientInput, HealthData healthData) {
 
         // map Vital Signs to JSON
         Map<String, Double> vitalSignsJson = vitalsToMap(healthData);
 
-        ClassifierInputEntity entity = new ClassifierInputEntity();
+        ClassifierInput entity = new ClassifierInput();
         entity.setAge(patientInput.getPatient().getAge());
         entity.setLifestyle(patientInput.getPatient().getLifestyle());
         entity.setGender(patientInput.getPatient().getGender());

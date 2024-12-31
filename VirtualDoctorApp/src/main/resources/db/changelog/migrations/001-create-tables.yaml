@@ -99,12 +99,6 @@ databaseChangeLog:
                     nullable: false
                   defaultValueComputed: "gen_random_uuid()"  # Use PostgreSQL UUID generation function
               - column:
-                  name: patient_input_id
-                  type: UUID
-                  constraints:
-                      foreignKeyName: fk_diagnosis_patient_input
-                      references: patient_input(id)
-              - column:
                   name: sw_version
                   type: VARCHAR(255)
               - column:

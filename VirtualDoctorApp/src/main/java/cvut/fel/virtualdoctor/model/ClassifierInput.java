@@ -12,7 +12,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "classifier_input")
-public class ClassifierInputEntity {
+public class ClassifierInput {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

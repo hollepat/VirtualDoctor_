@@ -1,10 +1,8 @@
 package cvut.fel.virtualdoctor.service;
 
 import cvut.fel.virtualdoctor.classifier.client.ClassifierClientRest;
-import cvut.fel.virtualdoctor.classifier.client.ClassifierInput;
-import cvut.fel.virtualdoctor.classifier.client.ClassifierOutput;
-import cvut.fel.virtualdoctor.classifier.mapper.ClassifierMapper;
-import cvut.fel.virtualdoctor.model.ClassifierInputEntity;
+import cvut.fel.virtualdoctor.classifier.client.ClassifierOutputDTO;
+import cvut.fel.virtualdoctor.model.ClassifierInput;
 import cvut.fel.virtualdoctor.model.Diagnosis;
 import cvut.fel.virtualdoctor.model.PatientInput;
 import cvut.fel.virtualdoctor.model.HealthData;
@@ -44,17 +42,15 @@ public class EvaluatorService implements IEvaluatorService {
         logger.info("Evaluating diagnosis...");
         HealthData healthData = vitalSignsObserverService.provideHealthData(patientInput.getPatient());
 
-        ClassifierInputEntity classifierInputEntity = classifierInputService.createClassifierInput(patientInput, healthData);
-
-        ClassifierInput classifierInput = ClassifierMapper.mapClassifierInputToClassifierInputDTO(classifierInputEntity);
+        ClassifierInput classifierInput = classifierInputService.createClassifierInput(patientInput, healthData);
 
         // Send request to Python Evaluator Service endpoint
-        CompletableFuture<ClassifierOutput> future = classifierClientRest.getPrediction(classifierInput);
+        CompletableFuture<ClassifierOutputDTO> future = classifierClientRest.getPrediction(classifierInput);
 
         // Wait for process to finish and return result
         return future.thenApply(response -> {
             logger.info("Response from Classifier: {}", response);
-            return diagnosisService.createDiagnosis(classifierInputEntity, patientInput, response);
+            return diagnosisService.createDiagnosis(classifierInput, patientInput, response);
         });
     }
 }

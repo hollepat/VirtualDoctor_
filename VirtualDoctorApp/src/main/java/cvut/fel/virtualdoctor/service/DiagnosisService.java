@@ -1,6 +1,6 @@
 package cvut.fel.virtualdoctor.service;
 
-import cvut.fel.virtualdoctor.classifier.client.ClassifierOutput;
+import cvut.fel.virtualdoctor.classifier.client.ClassifierOutputDTO;
 import cvut.fel.virtualdoctor.model.*;
 import cvut.fel.virtualdoctor.repository.*;
 import lombok.AllArgsConstructor;
@@ -42,13 +42,13 @@ public class DiagnosisService implements IDiagnosisService {
      * Creates a diagnosis based on the name input and the differential list.
      *
      * @param patientInput name input
-     * @param classifierOutput response from the classifier
+     * @param classifierOutputDTO response from the classifier
      * @return the created diagnosis
      */
-    public Diagnosis createDiagnosis(ClassifierInputEntity classifierInputEntity, PatientInput patientInput, ClassifierOutput classifierOutput) {
-        DifferentialList differentialList = differentialListRepository.save(new DifferentialList(classifierOutput.predictions()));
+    public Diagnosis createDiagnosis(ClassifierInput classifierInput, PatientInput patientInput, ClassifierOutputDTO classifierOutputDTO) {
+        DifferentialList differentialList = differentialListRepository.save(new DifferentialList(classifierOutputDTO.predictions()));
 
-        String swVersion = classifierOutput.version();
+        String swVersion = classifierOutputDTO.version();
         List<DoctorType> doctorToVisit = retrieveDoctorToVisit(differentialList);
         EmergencyType emergency = determineEmergency(patientInput);
 
@@ -58,8 +58,7 @@ public class DiagnosisService implements IDiagnosisService {
                 differentialList,
                 doctorToVisit,
                 emergency,
-                patientInput,
-                classifierInputEntity
+                classifierInput
         );
         save(diagnosis);
         return diagnosis;
@@ -89,7 +88,7 @@ public class DiagnosisService implements IDiagnosisService {
     public void save(Diagnosis diagnosis) {
         try {
             diagnosisRepository.save(diagnosis);
-            logger.info("Saved diagnosis for patient {}", diagnosis.getPatientInput().getPatient().getName());
+            logger.info("Saved diagnosis for patient {}", diagnosis.getClassifierInput().getPatientInput().getPatient().getName());
         } catch (Exception e) {
             logger.error("Error saving diagnosis: {}", e.getMessage());
             throw e;
@@ -100,24 +99,20 @@ public class DiagnosisService implements IDiagnosisService {
         Diagnosis diagnosis = diagnosisRepository.findById(diagnosisId)
                 .orElseThrow(() -> new RuntimeException("Diagnosis not found"));
 
-        ClassifierInputEntity classifierInputEntity = diagnosis.getClassifierInputEntity();
-
-//        PatientInput patientInput = diagnosis.getPatientInput();
-
-//        Patient patient = patientInput.getPatient();
+        ClassifierInput classifierInput = diagnosis.getClassifierInput();
 
         // Save the diagnosis to patient_data table
         PatientData patientData = new PatientData();
 
         patientData.setDisease(disease);
 
-        patientData.setAge(classifierInputEntity.getAge());
-        patientData.setGender(classifierInputEntity.getGender().getDisplayName());
+        patientData.setAge(classifierInput.getAge());
+        patientData.setGender(classifierInput.getGender().getDisplayName());
 
-        patientData.setCholesterolLevel(HealthUtils.convertCholesterolLevel(classifierInputEntity.getCholesterolLevel(), classifierInputEntity.getAge()));
+        patientData.setCholesterolLevel(HealthUtils.convertCholesterolLevel(classifierInput.getCholesterolLevel(), classifierInput.getAge()));
         patientData.setOutcomeVariable("Positive"); // When adding a diagnosis, it is always positive
 
-        Map<String, Double> healthDataAsMap = classifierInputEntity.getHealthDataAsMap();
+        Map<String, Double> healthDataAsMap = classifierInput.getHealthDataAsMap();
 
         // These keys have to align with ClassifierMapper.vitalsToMap
         patientData.setBloodPressure(HealthUtils.convertBloodPressure(healthDataAsMap.get("Blood Pressure")));
@@ -125,7 +120,7 @@ public class DiagnosisService implements IDiagnosisService {
         patientData.setBmi(healthDataAsMap.get("BMI"));
 
         // Base on symptoms set them "Yes" if in patient input and "No" if not
-        List<String> insertedSymptoms = classifierInputEntity.getSymptomsAsList();
+        List<String> insertedSymptoms = classifierInput.getSymptomsAsList();
         for (String symptom : availableSymptoms) {
             patientData.setSymptom(symptom, insertedSymptoms.contains(symptom));
         }
