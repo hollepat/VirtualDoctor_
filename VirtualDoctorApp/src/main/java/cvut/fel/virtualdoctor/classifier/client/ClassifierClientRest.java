@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import cvut.fel.virtualdoctor.classifier.mapper.ClassifierMapper;
 import cvut.fel.virtualdoctor.model.PatientInput;
 import cvut.fel.virtualdoctor.model.HealthData;
+import cvut.fel.virtualdoctor.service.ClassifierInputService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.javapoet.ClassName;
 
 import java.net.URI;
@@ -19,12 +21,10 @@ public class ClassifierClientRest implements IClassifierClient {
 
     private final String url;
     private final ObjectMapper objectMapper;
-    private final ClassifierMapper classifierMapper;
 
-    public ClassifierClientRest(String url, ClassifierMapper classifierMapper) {
+    public ClassifierClientRest(String url) {
         this.url = url;
         this.objectMapper = new ObjectMapper();
-        this.classifierMapper = classifierMapper;
     }
 
     /**
@@ -34,9 +34,8 @@ public class ClassifierClientRest implements IClassifierClient {
      * @param healthData The vital signs of the patient
      * @return The classification result as a JSON string. Wrapped in a CompletableFuture to allow for async processing.
      */
-    public CompletableFuture<ClassifierOutput> getPrediction(PatientInput patientInput, HealthData healthData) {
+    public CompletableFuture<ClassifierOutput> getPrediction(ClassifierInput classifierInput) {
         try {
-            ClassifierInput classifierInput = classifierMapper.mapUserInputToEvaluatorInput(patientInput, healthData);
             String jsonBody = objectMapper.writeValueAsString(classifierInput);
 
             // Create the HTTP request

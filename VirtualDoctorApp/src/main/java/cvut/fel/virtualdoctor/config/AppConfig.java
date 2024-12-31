@@ -18,7 +18,7 @@ public class AppConfig {
     }
 
     @Bean
-    public ClassifierClientRest modelClient(ClassifierMapper classifierMapper) {
-        return new ClassifierClientRest("http://localhost:5500/evaluate", classifierMapper);
+    public ClassifierClientRest modelClient() {
+        return new ClassifierClientRest("http://localhost:5500/evaluate");
     }
 }

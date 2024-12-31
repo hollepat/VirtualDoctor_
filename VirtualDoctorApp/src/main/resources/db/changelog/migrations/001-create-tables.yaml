@@ -290,11 +290,11 @@ databaseChangeLog:
             constraintName: pk_patient_input_symptom
 
   - changeSet:
-      id: 001-011-create-vital-signs-table
+      id: 001-011-create-health-data-table
       author: Patrik Holler
       changes:
         - createTable:
-            tableName: vital_signs
+            tableName: health_data
             schemaName: disease
             columns:
               - column:
@@ -323,8 +323,8 @@ databaseChangeLog:
                   name: bmi
                   type: DOUBLE
         - addForeignKeyConstraint:
-            baseTableName: vital_signs
+            baseTableName: health_data
             baseColumnNames: patient_id
             referencedTableName: patient
             referencedColumnNames: id
-            constraintName: fk_vital_signs_patient
+            constraintName: fk_health_data_patient

@@ -34,7 +34,9 @@ def import_csv_to_postgresql(csv_file_path, table_name):
         with open(csv_file_path, 'r') as f:
             # Skip the header row by setting HEADER = TRUE in COPY command
             cursor.copy_expert(
-                sql.SQL("COPY {} FROM STDIN WITH CSV HEADER").format(sql.Identifier(table_name)),
+                sql.SQL(
+                    "COPY {}(\"Disease\", \"Fever\", \"Cough\", \"Fatigue\", \"Difficulty Breathing\", \"Age\", \"Gender\", \"Blood Pressure\", \"Cholesterol Level\", \"Outcome Variable\", \"Headache\", \"Sore Throat\", \"Runny Nose\", \"Temperature\", \"bmi\") FROM STDIN WITH CSV HEADER").format(
+                    sql.Identifier(table_name)),
                 f
             )
 
@@ -70,6 +72,9 @@ def load_database_data(database_uri, table_name):
         # Fetch all rows and convert to DataFrame
         rows = cursor.fetchall()
         df = pd.DataFrame(rows)
+
+        if 'id' in df.columns:
+            df.drop('id', axis=1, inplace=True)
 
         # Close cursor and connection
         cursor.close()

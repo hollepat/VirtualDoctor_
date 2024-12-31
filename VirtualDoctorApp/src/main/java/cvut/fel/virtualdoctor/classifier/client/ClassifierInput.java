@@ -14,6 +14,6 @@ public record ClassifierInput(
         Location location,
         List<String> symptoms,
         double cholesterolLevel,
-        Map<String, Double> vitalSigns
+        Map<String, Double> healthData
 ) {
 }

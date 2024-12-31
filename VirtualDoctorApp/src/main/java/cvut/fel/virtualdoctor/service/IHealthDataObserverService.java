@@ -19,5 +19,5 @@ public interface IHealthDataObserverService {
      * @param patient name for which vital signs are needed
      * @return vital signs in needed format
      */
-    HealthData provideVitalSigns(Patient patient);
+    HealthData provideHealthData(Patient patient);
 }

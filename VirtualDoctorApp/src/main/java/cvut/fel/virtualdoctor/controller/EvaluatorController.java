@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-@RestController
+@RestController()
 @RequestMapping("api/evaluation")
 @AllArgsConstructor
 public class EvaluatorController implements IEvaluatorController {

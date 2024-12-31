@@ -71,7 +71,7 @@ def evaluate():
 
 # Run the server
 if __name__ == '__main__':
-    # import_csv_to_postgresql(CSV_FILE_PATH, TABLE_NAME)
+    import_csv_to_postgresql(CSV_FILE_PATH, TABLE_NAME)
     data = load_database_data(DATABASE_URI, TABLE_NAME)
 
     if data is None:

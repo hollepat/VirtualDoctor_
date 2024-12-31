@@ -22,6 +22,10 @@ public class Diagnosis {
     @JoinColumn(name = "patient_input_id", referencedColumnName = "id")
     private PatientInput patientInput;
 
+    @ManyToOne
+    @JoinColumn(name = "classifier_input_id", referencedColumnName = "id")
+    private ClassifierInputEntity classifierInputEntity;
+
     private String swVersion;
     private LocalDateTime timeAndDate;
 
@@ -44,7 +48,8 @@ public class Diagnosis {
             DifferentialList differentialList,
             List<DoctorType> doctorsToVisit,
             EmergencyType emergency,
-            PatientInput patientInput
+            PatientInput patientInput,
+            ClassifierInputEntity classifierInputEntity
     ) {
         this.swVersion = swVersion;
         this.timeAndDate = timeAndDate;
@@ -52,6 +57,7 @@ public class Diagnosis {
         this.doctorsToVisit = doctorsToVisit;
         this.emergency = emergency;
         this.patientInput = patientInput;
+        this.classifierInputEntity = classifierInputEntity;
     }
 
     @Override

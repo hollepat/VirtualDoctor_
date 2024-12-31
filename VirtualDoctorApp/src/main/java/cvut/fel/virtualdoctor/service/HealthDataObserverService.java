@@ -3,7 +3,7 @@ package cvut.fel.virtualdoctor.service;
 import cvut.fel.virtualdoctor.exception.MissingHealthData;
 import cvut.fel.virtualdoctor.model.Patient;
 import cvut.fel.virtualdoctor.model.HealthData;
-import cvut.fel.virtualdoctor.repository.VitalSignsRepository;
+import cvut.fel.virtualdoctor.repository.HealthDataRepository;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,43 +19,43 @@ public class HealthDataObserverService implements IHealthDataObserverService {
 
     private final Logger logger = LoggerFactory.getLogger(HealthDataObserverService.class);
 
-    VitalSignsRepository vitalSignsRepository;
+    HealthDataRepository healthDataRepository;
     PatientService patientService;
 
     @Override
     public void update(HealthData healthData) {
-        vitalSignsRepository.save(healthData);
+        healthDataRepository.save(healthData);
         logger.info("Vital signs updated: " + healthData);
     }
 
     /**
-     * Provide vital signs for a name by computing the average of all the vital signs taken for that name
+     * Provide health data for a name by computing the average of all the health data taken for that name
      * from today.
-     * @param patient name for which vital signs are needed
-     * @return average of vital signs taken today
+     * @param patient name for which health data are needed
+     * @return average of health data taken today
      */
     @Override
-    public HealthData provideVitalSigns(Patient patient) throws MissingHealthData {
+    public HealthData provideHealthData(Patient patient) throws MissingHealthData {
         LocalDate today = LocalDate.now();
-        logger.info("Providing vital signs for name: " + patient.toString());
-        List<HealthData> recentVitalSigns = vitalSignsRepository.findByPatientName(patient.getName()).stream()
+        logger.info("Providing health data for name: " + patient.toString());
+        List<HealthData> recentVitalSigns = healthDataRepository.findByPatientName(patient.getName()).stream()
                 .filter(vitalSign -> vitalSign.getLocalDateTime().toLocalDate().equals(today))
                 .toList();
 
 
         if (recentVitalSigns.isEmpty()) {
-            throw new MissingHealthData("No vital signs taken today for name: " + patient.getName());
+            throw new MissingHealthData("No health data taken today for name: " + patient.getName());
         }
 
-        return transformVitalSigns(recentVitalSigns);
+        return transformHealthData(recentVitalSigns);
     }
 
     /**
-     * Transform a list of vital signs into a single vital sign by applying proper transformation functions.
-     * @param vitalSigns list of vital signs to transform
-     * @return transformed vital sign
+     * Transform a list of health data into a single health data by applying proper transformation functions.
+     * @param vitalSigns list of health data to transform
+     * @return transformed health data
      */
-    private HealthData transformVitalSigns(List<HealthData> vitalSigns) {
+    private HealthData transformHealthData(List<HealthData> vitalSigns) {
         return new HealthData(
                 vitalSigns.get(0).getPatient(),
                 LocalDateTime.now(),

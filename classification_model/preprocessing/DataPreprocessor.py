@@ -135,28 +135,28 @@ class DataPreprocessor:
     def _map_symptoms_to_input_dict(self, json_data):
         # Initialize the input_dict with 'No' for all symptoms
         input_dict = {symptom: 'No' for symptom in self.binary_cols}
-        input_dict.update({vital_sign: 'Normal' for vital_sign in self.categorical_ordinal_cols})
+        input_dict.update({clinical_sign: 'Normal' for clinical_sign in self.categorical_ordinal_cols})
 
         # Update the input_dict based on the symptoms in the JSON data
         for symptom in json_data['symptoms']:
             if symptom in input_dict:
                 input_dict[symptom] = 'Yes'
 
-        for vital_sign in json_data['vitalSigns'].keys():
-            if vital_sign in input_dict:  # If classification model considers the vital sign
-                value = json_data['vitalSigns'][vital_sign]
-                input_dict[vital_sign] = convert_vital_sign(vital_sign, value)
+        for clinical_sign in json_data['healthData'].keys():
+            if clinical_sign in input_dict:  # If classification model considers the vital sign
+                value = json_data['healthData'][clinical_sign]
+                input_dict[clinical_sign] = convert_health_data(clinical_sign, value)
 
         # Add other necessary fields from the JSON data
         input_dict['Age'] = json_data['age']
         input_dict['Gender'] = json_data['gender']
-        input_dict['Temperature'] = json_data['vitalSigns']['Temperature']
-        input_dict['BMI'] = json_data['vitalSigns']['BMI']
-        input_dict['Cholesterol Level'] = convert_vital_sign('cholesterolLevel', json_data['cholesterolLevel'], json_data['age'])
+        input_dict['Temperature'] = json_data['healthData']['Temperature']
+        input_dict['BMI'] = json_data['healthData']['BMI']
+        input_dict['Cholesterol Level'] = convert_health_data('cholesterolLevel', json_data['cholesterolLevel'], json_data['age'])
 
         return input_dict
 
-def convert_vital_sign(key, value, age=None):
+def convert_health_data(key, value, age=None):
     if key == "Cholesterol Level":
         return convert_cholesterol_level(value, age)
     elif key == "Blood Pressure":

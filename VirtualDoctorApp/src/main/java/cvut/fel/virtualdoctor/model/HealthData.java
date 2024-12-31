@@ -10,7 +10,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "vital_signs")
+@Table(name = "health_data")
 public class HealthData {
 
     @Id
