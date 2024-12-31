@@ -48,13 +48,13 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: patient_id
+                  name: patient_input_id
                   type: uuid
                   constraints:
                     nullable: false
         - addForeignKeyConstraint:
             baseTableName: classifier_input
-            baseColumnNames: patient_id
+            baseColumnNames: patient_input_id
             referencedTableName: patient_input
             constraintName: fk_classifier_input_patient_id
             referencedColumnNames: id

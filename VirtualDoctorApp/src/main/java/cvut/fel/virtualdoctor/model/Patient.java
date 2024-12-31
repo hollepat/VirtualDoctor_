@@ -32,9 +32,6 @@ public class Patient {
     @Enumerated(EnumType.STRING)
     private Lifestyle lifestyle;
 
-//    @OneToMany(mappedBy = "patient") // TODO fix mapping to have this attribute - not used anyway
-//    private List<Diagnosis> historyOfDiagnoses;
-
 
     public Patient(String name, int age, int height, int weight, Gender gender, Location location, Lifestyle lifestyle) {
         this.name = name;

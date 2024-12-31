@@ -32,7 +32,7 @@ components:
         cholesterolLevel:
           type: number
           example: 37.5
-        vitalSigns:
+        healthData:
           type: object
           properties:
             Temperature:

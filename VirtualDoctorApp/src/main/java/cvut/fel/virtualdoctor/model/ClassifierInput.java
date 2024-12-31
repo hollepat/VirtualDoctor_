@@ -46,7 +46,7 @@ public class ClassifierInput {
     private String healthData; // Stored as JSONB
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "patient_id", nullable = false) // TODO rename to patient_input_id
+    @JoinColumn(name = "patient_input_id", nullable = false)
     private PatientInput patientInput;
 
     public Map<String, Double> getHealthDataAsMap() {
