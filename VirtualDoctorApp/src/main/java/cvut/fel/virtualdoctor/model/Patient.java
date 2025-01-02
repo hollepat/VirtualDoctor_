@@ -47,4 +47,8 @@ public class Patient {
         double height_in_m = (double) height / 100;
         return (double) weight / (height_in_m * height_in_m);
     }
+
+    public String toString() {
+        return name;
+    }
 }

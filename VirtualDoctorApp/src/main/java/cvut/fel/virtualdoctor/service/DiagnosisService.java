@@ -28,6 +28,7 @@ public class DiagnosisService implements IDiagnosisService {
     HealthDataRepository healthDataRepository;
     PatientDataRepository patientDataRepository;
 
+    // TODO move to a configuration file
     private final List<String> availableSymptoms = List.of(
             "Fever",
             "Cough",
@@ -41,7 +42,8 @@ public class DiagnosisService implements IDiagnosisService {
     /**
      * Creates a diagnosis based on the name input and the differential list.
      *
-     * @param patientInput name input
+     * @param classifierInput input to the classifier
+     * @param patientInput input from the patient
      * @param classifierOutputDTO response from the classifier
      * @return the created diagnosis
      */
@@ -95,6 +97,11 @@ public class DiagnosisService implements IDiagnosisService {
         }
     }
 
+    /**
+     * Marks a diagnosis as a specific disease by saving the information to the patient_data table.
+     * @param diagnosisId id of the diagnosis e.g. 123e4567-e89b-12d3-a456-426614174000
+     * @param disease name of the disease e.g. "Influenza"
+     */
     public void markDiagnosis(UUID diagnosisId, String disease) {
         Diagnosis diagnosis = diagnosisRepository.findById(diagnosisId)
                 .orElseThrow(() -> new RuntimeException("Diagnosis not found"));
