@@ -1,24 +1,26 @@
+
+# Test endpoints for the classifier. Values are hardcoded for testing purposes from one training examples.
+
 ### POST request to evaluate classifier
 POST http://localhost:5500/classify
 Content-Type: application/json
 
 {
-  "age": 25,
+  "age": 40,
   "height": 180,
-  "weight": 80,
+  "weight": 60,
   "gender": "MALE",
   "lifestyle": "SEDENTARY",
   "location": "EUROPE",
   "symptoms": [
     "Fever",
-    "Cough",
-    "Difficulty breathing"
+    "Difficulty Breathing"
   ],
-  "cholesterolLevel": 137.5,
+  "cholesterolLevel": 120,
   "healthData": {
-    "Temperature": 36.6,
-    "BMI": 24.7,
-    "Blood Pressure": 120
+    "Temperature": 36.5,
+    "BMI": 22.5,
+    "Blood Pressure": 80
   }
 }
 

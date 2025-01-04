@@ -56,6 +56,10 @@ def evaluate():
         input_data = request.get_json()
         logger.info(f"Received data: {input_data}")
 
+        # validate input data if INVALID return error
+        if not input_data:
+            return jsonify({"error": "Invalid input data."}), 400
+
         # External features (assumed to be in 'features' field)
         encoded_X = data_preprocessing.encode_input(input_data)
         logger.info(f"Encoded input: {encoded_X}")
