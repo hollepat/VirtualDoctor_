@@ -1,5 +1,5 @@
 ### POST request to evaluate classifier
-POST http://localhost:5500/evaluate
+POST http://localhost:5500/classify
 Content-Type: application/json
 
 {
@@ -15,7 +15,7 @@ Content-Type: application/json
     "Difficulty breathing"
   ],
   "cholesterolLevel": 137.5,
-  "vitalSigns": {
+  "healthData": {
     "Temperature": 36.6,
     "BMI": 24.7,
     "Blood Pressure": 120
@@ -23,7 +23,7 @@ Content-Type: application/json
 }
 
 ### POST request to evaluate classifier
-POST http://localhost:5500/evaluate
+POST http://localhost:5500/classify
 Content-Type: application/json
 
 {
@@ -38,7 +38,7 @@ Content-Type: application/json
     "Fatigue"
   ],
   "cholesterolLevel": 250.5,
-  "vitalSigns": {
+  "healthData": {
     "Temperature": 36.6,
     "BMI": 24.7,
     "Blood Pressure": 180

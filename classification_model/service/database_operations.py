@@ -19,6 +19,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Rename columns to match the new database schema
+# The KEYS are DATASET column names and the VALUES are the DATABASE column names
 column_mapping = {
     'Disease': 'disease',
     'Fever': 'fever',
@@ -36,6 +37,25 @@ column_mapping = {
     'Temperature': 'temperature',
     'bmi': 'bmi'
 }
+
+def check_dataset_columns(dataset: pd.DataFrame):
+    """
+    Check if the dataset columns match the expected columns.
+    """
+    expected_columns = set(column_mapping.keys())
+    dataset_columns = set(dataset.columns)
+
+    if dataset_columns != expected_columns:
+        missing_columns = expected_columns - dataset_columns
+        extra_columns = dataset_columns - expected_columns
+        logger.error(f"Dataset columns do not match the expected columns.")
+        logger.error(f"Missing columns: {missing_columns}")
+        logger.error(f"Extra columns: {extra_columns}")
+        return False
+    else:
+        logger.info("Dataset columns match the expected columns.")
+        return True
+
 
 
 def import_csv_to_postgresql(csv_file_path: Path, table_name):
@@ -57,6 +77,10 @@ def import_csv_to_postgresql(csv_file_path: Path, table_name):
 
         # Read the CSV file to get the data
         df = pd.read_csv(csv_file_path)
+
+        # Check if the dataset columns match the expected columns
+        if not check_dataset_columns(df):
+            raise ValueError("Dataset columns do not match the expected columns.")
 
         # Rename the columns in the DataFrame
         df.rename(columns=column_mapping, inplace=True)
@@ -112,6 +136,10 @@ def load_database_data(database_uri, table_name):
         # Query to fetch data from the table
         query = sql.SQL("SELECT * FROM {}").format(sql.Identifier(table_name))
         cursor.execute(query)
+
+        if cursor.rowcount == 0:
+            logger.error(f"No data found in table {table_name}.")
+            return None
 
         # Fetch all rows and convert to DataFrame
         rows = cursor.fetchall()

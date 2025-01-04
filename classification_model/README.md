@@ -1,6 +1,6 @@
 # Classification of medical data using machine learning
 
-This project is a part of my bachelor thesis. The goal is to make application, which can based on input data (symptoms
+This project is a part of my bachelor thesis. The goal is to make application, which can based on the input data (symptoms
 and patient profile) classify the patient's disease.
 
 Classification output should be a list of diseases (sorted by probability) that the patient may have based on the 
@@ -8,12 +8,10 @@ input data.
 
 This repository contains three main parts:
 
-1. `analysis` package which should run different types of classification algorithms on the dataset and provide
-performance metrics for each of them
-2. `datasetGenerator` package which should generate a dataset from the given datasets and add more features to it
+1. `datasets` package containing dataset used in the project and other possible options (not used in the project), it also contains a notebook with data analysis and preprocessing
 3. `classifier` package which should provide one of the classification algorithms and use it to classify the data
 4. `preprocessing` package which should provide preprocessing methods for the dataset
-5. `EvaluatorService` package which should provide a REST API for the classifier
+5. `service` package which should provide a REST API for the classifier
 
 ## Dependencies
 
@@ -73,3 +71,29 @@ Stop docker container:
 ```zsh
 docker stop classifier
 ```
+
+NOTE: currently, there is a __problem__ when running the service in a container. The service is not training the model.
+
+## Datasets
+
+## Multiple Disease Prediction Bot
+
+Url: https://github.com/Sudhanshu-Ambastha/Multiple-Disease-Prediction-Bot
+
+This dataset wasn't used in the project because it does not represent the designed structure of features. It contains
+only symptoms and diseases, but NOT patient profiles and health data (vitals).
+
+## Disease Symptoms and Patient Profiles Dataset
+
+Due to its structure, this dataset was used in the project. It contains patient profiles and health data as well.
+
+'Disease Symptoms and Patient Profiles Dataset_exported.csv' - This dataset is a collection of patient profiles and 
+their symptoms. Url: https://www.kaggle.com/datasets/uom190346a/disease-symptoms-and-patient-profile-dataset
+
+Usage of the dataset: https://www.kaggle.com/code/priyanshusethi/classification-model-comparison-diseases
+
+In the repository you will find the following files:
+  - 'Disease Symptoms and Patient Profiles Dataset_exported.csv' - The original dataset in csv format.
+  - 'Disease Symptoms and Patient Profiles Dataset_exported_updated.csv' - Dataset with filtered classes which have small amount of samples and new features.
+  - '
+

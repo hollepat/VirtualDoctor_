@@ -1,4 +1,4 @@
-Disease,Fever,Cough,Fatigue,Difficulty Breathing,Age,Gender,Blood Pressure,Cholesterol Level,Outcome Variable,Headache,Sore Throat,Runny Nose,Temperature,BMI
+Disease,Fever,Cough,Fatigue,Difficulty Breathing,Age,Gender,Blood Pressure,Cholesterol Level,Outcome Variable,Headache,Sore Throat,Runny Nose,Temperature,bmi
 Influenza,Yes,No,Yes,Yes,19,Female,Low,Normal,Positive,Yes,Yes,Yes,38.0,22.5
 Common Cold,No,Yes,Yes,No,25,Female,Normal,Normal,Negative,No,No,No,36.5,22.5
 Eczema,No,Yes,Yes,No,25,Female,Normal,Normal,Negative,No,No,No,36.5,22.5

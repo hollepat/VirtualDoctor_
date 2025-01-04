@@ -14,6 +14,10 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 
+/**
+ * Observer that sends the data to rest of the system through
+ * REST API once new data is generated.
+ */
 class RestObserver(private val url: String) : Observer {
     private val client = OkHttpClient()
     private val scope = CoroutineScope(Dispatchers.IO)

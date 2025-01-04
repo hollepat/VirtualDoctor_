@@ -29,6 +29,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Create Service and bind it to the activity.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AndroidThreeTen.init(this)

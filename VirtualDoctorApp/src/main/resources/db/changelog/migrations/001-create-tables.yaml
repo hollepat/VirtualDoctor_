@@ -322,3 +322,84 @@ databaseChangeLog:
             referencedTableName: patient
             referencedColumnNames: id
             constraintName: fk_health_data_patient
+
+  - changeSet:
+      id: 001-012-create-table-classifier-input
+      author: Patrik Holler
+      changes:
+        - createTable:
+            tableName: classifier_input
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: age
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: lifestyle
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: gender
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: location
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: symptoms
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: cholesterol_level
+                  type: double precision
+                  constraints:
+                    nullable: false
+              - column:
+                  name: health_data
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: patient_input_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: classifier_input
+            baseColumnNames: patient_input_id
+            referencedTableName: patient_input
+            constraintName: fk_classifier_input_patient_id
+            referencedColumnNames: id
+
+  - changeSet:
+      id: 001-013-add-classifier-input-reference-to-diagnosis
+      author: Patrik Holler
+      changes:
+        - addColumn:
+            tableName: diagnosis
+            columns:
+              - column:
+                  name: classifier_input_id
+                  type: uuid
+                  constraints:
+                    nullable: true
+        - addForeignKeyConstraint:
+            baseTableName: diagnosis
+            baseColumnNames: classifier_input_id
+            referencedTableName: classifier_input
+            referencedColumnNames: id
+            constraintName: fk_diagnosis_classifier_input
+
+

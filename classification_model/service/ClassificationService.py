@@ -1,3 +1,4 @@
+import argparse
 import logging
 import os
 from pathlib import Path
@@ -32,7 +33,7 @@ Angina: 6.08%
 # Output should in total sum up to 100%.
 
 # Step 1: Load the dataset
-CSV_FILE_PATH = Path("../datasets/kaggle/Disease Symptoms and Patient Profile Dataset_filtered.csv")
+CSV_FILE_PATH = Path("../datasets/kaggle/Disease Symptoms and Patient Profile Dataset_updated.csv")
 TABLE_NAME = "patient_data"
 DATABASE_URI = f"postgresql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
 
@@ -47,7 +48,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Route for evaluating external data
-@app.route('/evaluate', methods=['POST'])
+@app.route('/classify', methods=['POST'])
 def evaluate():
     logger.info("Model evaluation request received, computing...")
     try:
@@ -71,7 +72,19 @@ def evaluate():
 
 # Run the server
 if __name__ == '__main__':
-    # import_csv_to_postgresql(CSV_FILE_PATH, TABLE_NAME)
+    parser = argparse.ArgumentParser(description="Run the classifier service.")
+    parser.add_argument(
+        '--import-data',
+        action='store_true',
+        help="Import the CSV data into the PostgreSQL database before starting the service."
+    )
+    args = parser.parse_args()
+
+    # Import data if the flag is set
+    if args.import_data:
+        logger.info(f"Importing data from {CSV_FILE_PATH} to the database table {TABLE_NAME}...")
+        import_csv_to_postgresql(CSV_FILE_PATH, TABLE_NAME)
+
     data = load_database_data(DATABASE_URI, TABLE_NAME)
 
     if data is None:
