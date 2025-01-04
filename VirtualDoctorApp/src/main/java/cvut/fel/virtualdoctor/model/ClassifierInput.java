@@ -3,12 +3,15 @@ package cvut.fel.virtualdoctor.model;
 import jakarta.persistence.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+@NoArgsConstructor
 @Data
 @Entity
 @Table(name = "classifier_input")
@@ -35,7 +38,7 @@ public class ClassifierInput {
 //    @Type(JsonBinaryType.class)
 //    @Column(nullable = false, columnDefinition = "jsonb")
     @Column(name = "symptoms", nullable = false)
-    private String symptoms; // Stored as JSONB
+    private String symptoms; // Stored as JSONB // TODO should be a hash map and conversion handled in postgreSQL, I get unknow error when trying to use jsonb
 
     @Column(name = "cholesterol_level", nullable = false)
     private double cholesterolLevel;
@@ -43,11 +46,22 @@ public class ClassifierInput {
 //    @Type(JsonBinaryType.class)
 //    @Column(name = "health_data", nullable = false, columnDefinition = "jsonb")
     @Column(name = "health_data", nullable = false)
-    private String healthData; // Stored as JSONB
+    private String healthData; // Stored as JSONB // TODO should be a hash map and conversion handled in postgreSQL, I get unknow error when trying to use jsonb
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "patient_input_id", nullable = false)
     private PatientInput patientInput;
+
+    public ClassifierInput(int age, Lifestyle lifestyle, Gender gender, Location location, String symptoms, double cholesterolLevel, String healthData, PatientInput patientInput) {
+        this.age = age;
+        this.lifestyle = lifestyle;
+        this.gender = gender;
+        this.location = location;
+        this.symptoms = symptoms;
+        this.cholesterolLevel = cholesterolLevel;
+        this.healthData = healthData;
+        this.patientInput = patientInput;
+    }
 
     public Map<String, Double> getHealthDataAsMap() {
         try {

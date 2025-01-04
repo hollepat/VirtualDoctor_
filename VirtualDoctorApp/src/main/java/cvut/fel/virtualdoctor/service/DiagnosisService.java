@@ -1,6 +1,7 @@
 package cvut.fel.virtualdoctor.service;
 
 import cvut.fel.virtualdoctor.classifier.client.ClassifierOutputDTO;
+import cvut.fel.virtualdoctor.config.SymptomConfig;
 import cvut.fel.virtualdoctor.model.*;
 import cvut.fel.virtualdoctor.repository.*;
 import lombok.AllArgsConstructor;
@@ -25,19 +26,8 @@ public class DiagnosisService implements IDiagnosisService {
     DiseaseRepository diseaseRepository;
     DiagnosisRepository diagnosisRepository;
     DifferentialListRepository differentialListRepository;
-    HealthDataRepository healthDataRepository;
     PatientDataRepository patientDataRepository;
-
-    // TODO move to a configuration file
-    private final List<String> availableSymptoms = List.of(
-            "Fever",
-            "Cough",
-            "Fatigue",
-            "Difficulty breathing",
-            "Headache",
-            "Sore throat",
-            "Runny nose"
-    );
+    SymptomConfig symptomConfig;
 
     /**
      * Creates a diagnosis based on the name input and the differential list.
@@ -77,7 +67,7 @@ public class DiagnosisService implements IDiagnosisService {
         return differentialList.getDdx().entrySet().stream()
                 .sorted((entry1, entry2) -> Double.compare(entry2.getValue(), entry1.getValue()))
                 .map(entry -> {
-                    Disease disease = diseaseRepository.findDiseaseByName(entry.getKey())
+                    Disease disease = diseaseRepository.findByName(entry.getKey())
                             .orElseThrow(() -> new RuntimeException("Disease not found"));
                     return disease.getDoctor();
                 })
@@ -128,7 +118,7 @@ public class DiagnosisService implements IDiagnosisService {
 
         // Base on symptoms set them "Yes" if in patient input and "No" if not
         List<String> insertedSymptoms = classifierInput.getSymptomsAsList();
-        for (String symptom : availableSymptoms) {
+        for (String symptom : symptomConfig.getAvailableSymptoms()) {
             patientData.setSymptom(symptom, insertedSymptoms.contains(symptom));
         }
 

@@ -12,13 +12,13 @@ public class DiseaseService implements IDiseaseService {
     DiseaseRepository diseaseRepository;
 
     public String getLongDescription(String disease) {
-        return diseaseRepository.findDiseaseByName(disease)
+        return diseaseRepository.findByName(disease)
                 .orElseThrow(() -> new NotFoundException("Disease not found"))
                 .getDescriptionLong();
     }
 
     public String getShortDescription(String disease) {
-        return diseaseRepository.findDiseaseByName(disease)
+        return diseaseRepository.findByName(disease)
                 .orElseThrow(() -> new NotFoundException("Disease not found"))
                 .getDescriptionShort();
     }

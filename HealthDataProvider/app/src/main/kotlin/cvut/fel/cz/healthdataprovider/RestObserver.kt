@@ -18,10 +18,9 @@ import java.net.SocketTimeoutException
  * Observer that sends the data to rest of the system through
  * REST API once new data is generated.
  */
-class RestObserver(private val url: String) : Observer {
+class RestObserver(private val url: String, private val userName: String) : Observer {
     private val client = OkHttpClient()
     private val scope = CoroutineScope(Dispatchers.IO)
-    private val name = "john-doe"
     private val maxRetries = 3
     private val retryDelayMillis = 2000L // 2 seconds
 
@@ -43,7 +42,7 @@ class RestObserver(private val url: String) : Observer {
 
             // Create JSON object to send
             val jsonObject = healthDataSnapshot.toJson()
-            jsonObject.put("name", name) // to match user in dbs
+            jsonObject.put("name", userName) // to match user in dbs
 
             // Convert JSON object to RequestBody
             val mediaType = "application/json; charset=utf-8".toMediaTypeOrNull()

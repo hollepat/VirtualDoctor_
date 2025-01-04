@@ -25,7 +25,7 @@ public class HealthDataObserverService implements IHealthDataObserverService {
     @Override
     public void update(HealthData healthData) {
         healthDataRepository.save(healthData);
-        logger.info("Vital signs updated: " + healthData);
+        logger.info("Health data updated: " + healthData);
     }
 
     /**
