@@ -93,6 +93,9 @@ public class DiagnosisService implements IDiagnosisService {
      * @param disease name of the disease e.g. "Influenza"
      */
     public void markDiagnosis(UUID diagnosisId, String disease) {
+        // TODO here could be add validation for diagnosis already marked (not be included twice)
+        //  probably by adding a feature flag Diagnosis.marked
+
         Diagnosis diagnosis = diagnosisRepository.findById(diagnosisId)
                 .orElseThrow(() -> new RuntimeException("Diagnosis not found"));
 

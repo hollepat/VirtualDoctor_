@@ -22,7 +22,7 @@ public class Disease {
     @Column(unique = true)
     private String name;
     private String descriptionShort;
-    private String descriptionLong;
+    private String descriptionLong; // This could be a CLOB in a real-world application with a lot of information about possible medicament, etc.
 
     @ManyToMany
     @JoinTable(
