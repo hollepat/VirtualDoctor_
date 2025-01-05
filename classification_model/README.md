@@ -55,6 +55,13 @@ export DYLD_LIBRARY_PATH="/opt/homebrew/opt/libomp/lib:$DYLD_LIBRARY_PATH"
 export LIBRARY_PATH="$LIBRARY_PATH:/opt/homebrew/opt/libomp/lib"
 export CPATH="$CPATH:/opt/homebrew/opt/libomp/include"
 ```
+
+## To run the service
+
+1. Entry point is `service/ClassificationService.py`
+2. To insert the dataset, use this flag '--import-data'
+
+
 ## Docker (Run in a container)
 
 Build docker image:

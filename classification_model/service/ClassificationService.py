@@ -14,8 +14,6 @@ load_dotenv()  # This will load the .env file manually
 
 from config import SERVICE_VERSION
 
-# TODO update README to be up to date
-
 """
 Input example:
 Enter values for 'Fever, Cough, Fatigue, Difficulty Breathing, Age, Gender, Blood Pressure, Cholesterol Level, Headache, Sore Throat, Runny Nose, Temperature, BMI':
