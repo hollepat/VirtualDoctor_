@@ -17,7 +17,7 @@ COPY . /app
 COPY .env .env
 
 # Install any needed Python packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements_prod.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Make port 5500 available to the world outside this container
 EXPOSE 5500

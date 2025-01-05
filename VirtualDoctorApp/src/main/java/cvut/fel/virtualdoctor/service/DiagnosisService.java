@@ -1,6 +1,7 @@
 package cvut.fel.virtualdoctor.service;
 
 import cvut.fel.virtualdoctor.classifier.client.ClassifierOutputDTO;
+import cvut.fel.virtualdoctor.config.SymptomConfig;
 import cvut.fel.virtualdoctor.model.*;
 import cvut.fel.virtualdoctor.repository.*;
 import lombok.AllArgsConstructor;
@@ -25,23 +26,14 @@ public class DiagnosisService implements IDiagnosisService {
     DiseaseRepository diseaseRepository;
     DiagnosisRepository diagnosisRepository;
     DifferentialListRepository differentialListRepository;
-    HealthDataRepository healthDataRepository;
     PatientDataRepository patientDataRepository;
-
-    private final List<String> availableSymptoms = List.of(
-            "Fever",
-            "Cough",
-            "Fatigue",
-            "Difficulty breathing",
-            "Headache",
-            "Sore throat",
-            "Runny nose"
-    );
+    SymptomConfig symptomConfig;
 
     /**
      * Creates a diagnosis based on the name input and the differential list.
      *
-     * @param patientInput name input
+     * @param classifierInput input to the classifier
+     * @param patientInput input from the patient
      * @param classifierOutputDTO response from the classifier
      * @return the created diagnosis
      */
@@ -75,7 +67,7 @@ public class DiagnosisService implements IDiagnosisService {
         return differentialList.getDdx().entrySet().stream()
                 .sorted((entry1, entry2) -> Double.compare(entry2.getValue(), entry1.getValue()))
                 .map(entry -> {
-                    Disease disease = diseaseRepository.findDiseaseByName(entry.getKey())
+                    Disease disease = diseaseRepository.findByName(entry.getKey())
                             .orElseThrow(() -> new RuntimeException("Disease not found"));
                     return disease.getDoctor();
                 })
@@ -95,7 +87,15 @@ public class DiagnosisService implements IDiagnosisService {
         }
     }
 
+    /**
+     * Marks a diagnosis as a specific disease by saving the information to the patient_data table.
+     * @param diagnosisId id of the diagnosis e.g. 123e4567-e89b-12d3-a456-426614174000
+     * @param disease name of the disease e.g. "Influenza"
+     */
     public void markDiagnosis(UUID diagnosisId, String disease) {
+        // TODO here could be add validation for diagnosis already marked (not be included twice)
+        //  probably by adding a feature flag Diagnosis.marked
+
         Diagnosis diagnosis = diagnosisRepository.findById(diagnosisId)
                 .orElseThrow(() -> new RuntimeException("Diagnosis not found"));
 
@@ -121,7 +121,7 @@ public class DiagnosisService implements IDiagnosisService {
 
         // Base on symptoms set them "Yes" if in patient input and "No" if not
         List<String> insertedSymptoms = classifierInput.getSymptomsAsList();
-        for (String symptom : availableSymptoms) {
+        for (String symptom : symptomConfig.getAvailableSymptoms()) {
             patientData.setSymptom(symptom, insertedSymptoms.contains(symptom));
         }
 

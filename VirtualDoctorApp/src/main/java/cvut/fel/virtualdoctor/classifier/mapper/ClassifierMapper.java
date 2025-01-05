@@ -12,12 +12,10 @@ import java.util.Map;
 public class ClassifierMapper {
 
     /**
-     * Maps the name input to the classifier input. This allows to adapt the name input to the classifier input e.g.
-     * by adding additional information or by changing the format of the data such as naming.
+     * Maps the classifier input to the classifier input DTO.
      *
-     * @param patientInput input from patient
-     * @param healthData the vital signs of the patient
-     * @return the classifier input
+     * @param classifierInput input from patient
+     * @return the DTO for classifier input
      */
     public static ClassifierInputDTO mapClassifierInputToClassifierInputDTO(ClassifierInput classifierInput) {
 

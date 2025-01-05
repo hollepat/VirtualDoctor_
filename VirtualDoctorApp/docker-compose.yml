@@ -14,16 +14,16 @@ services:
       custom_network:
         ipv4_address: 192.168.1.100
 
-  classifier:
-    image: classification-service
-    container_name: classifier
-    ports:
-      - 5500:5500
-    volumes:
-      - classifier_data:/app/data
-    networks:
-      custom_network:
-        ipv4_address: 192.168.1.101
+#  classifier:
+#    image: classification-service
+#    container_name: classifier
+#    ports:
+#      - 5500:5500
+#    volumes:
+#      - classifier_data:/app/data
+#    networks:
+#      custom_network:
+#        ipv4_address: 192.168.1.101
 
 volumes:
   data: {}

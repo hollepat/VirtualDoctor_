@@ -25,12 +25,12 @@ public class HealthDataObserverService implements IHealthDataObserverService {
     @Override
     public void update(HealthData healthData) {
         healthDataRepository.save(healthData);
-        logger.info("Vital signs updated: " + healthData);
+        logger.info("Health data updated: " + healthData);
     }
 
     /**
-     * Provide health data for a name by computing the average of all the health data taken for that name
-     * from today.
+     * Provide health data for a name by computing the average of all the health data taken for that patient
+     * today.
      * @param patient name for which health data are needed
      * @return average of health data taken today
      */
@@ -38,31 +38,33 @@ public class HealthDataObserverService implements IHealthDataObserverService {
     public HealthData provideHealthData(Patient patient) throws MissingHealthData {
         LocalDate today = LocalDate.now();
         logger.info("Providing health data for name: " + patient.toString());
-        List<HealthData> recentVitalSigns = healthDataRepository.findByPatientName(patient.getName()).stream()
+        List<HealthData> recentHealthData = healthDataRepository.findByPatientName(patient.getName()).stream()
                 .filter(vitalSign -> vitalSign.getLocalDateTime().toLocalDate().equals(today))
                 .toList();
 
 
-        if (recentVitalSigns.isEmpty()) {
+        if (recentHealthData.isEmpty()) {
             throw new MissingHealthData("No health data taken today for name: " + patient.getName());
         }
 
-        return transformHealthData(recentVitalSigns);
+        return transformHealthData(recentHealthData);
     }
 
     /**
-     * Transform a list of health data into a single health data by applying proper transformation functions.
-     * @param vitalSigns list of health data to transform
+     * Transform a list of health data into a single health data by applying proper transformation functions. Transformations
+     * include averaging the skin temperature, blood pressure, and heart rate, and taking the BMI from the last health data entry.
+     *
+     * @param healthData list of health data to transform
      * @return transformed health data
      */
-    private HealthData transformHealthData(List<HealthData> vitalSigns) {
+    private HealthData transformHealthData(List<HealthData> healthData) {
         return new HealthData(
-                vitalSigns.get(0).getPatient(),
-                LocalDateTime.now(),
-                vitalSigns.stream().mapToDouble(HealthData::getSkinTemperature).average().orElse(0),
-                vitalSigns.stream().mapToDouble(HealthData::getBloodPressure).average().orElse(0),
-                vitalSigns.get(vitalSigns.size()-1).getBmi(), 
-                (int) vitalSigns.stream().mapToDouble(HealthData::getHeartRate).average().orElse(0)
+                healthData.get(0).getPatient(),
+                LocalDateTime.now(), // TODO add global timer for the project --> more control and better for testing
+                healthData.stream().mapToDouble(HealthData::getSkinTemperature).average().orElse(0),
+                healthData.stream().mapToDouble(HealthData::getBloodPressure).average().orElse(0),
+                healthData.get(healthData.size()-1).getBmi(),
+                (int) healthData.stream().mapToDouble(HealthData::getHeartRate).average().orElse(0)
         );
     }
 }

@@ -255,3 +255,373 @@ databaseChangeLog:
               - column:
                   name: doctor
                   value: "NEUROLOGY"
+
+  - changeSet:
+      id: 004-002-insert-missing-diseases
+      author: Patrik Holler
+      changes:
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "aed89f4c-76b2-4823-bdfd-6e8475ec1a3f"
+              - column:
+                  name: name
+                  value: "Rheumatoid Arthritis"
+              - column:
+                  name: description_short
+                  value: "An autoimmune disorder that causes inflammation in the joints."
+              - column:
+                  name: description_long
+                  value: "Rheumatoid arthritis is an autoimmune disorder that primarily affects joints, leading to pain, swelling, and potential joint damage."
+              - column:
+                  name: doctor
+                  value: "RHEUMATOLOGY"
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "ec1d2a56-07c3-44fc-bf4b-bc4dd2e542d2"
+              - column:
+                  name: name
+                  value: "Crohn's Disease"
+              - column:
+                  name: description_short
+                  value: "A type of inflammatory bowel disease (IBD)."
+              - column:
+                  name: description_long
+                  value: "Crohn's disease is a chronic inflammatory bowel disease that affects the lining of the digestive tract."
+              - column:
+                  name: doctor
+                  value: "GASTROENTEROLOGY"
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "ad58280b-05bc-4b39-8f91-93f8bb5a3fd3"
+              - column:
+                  name: name
+                  value: "Anxiety Disorders"
+              - column:
+                  name: description_short
+                  value: "Mental health disorders characterized by excessive fear or worry."
+              - column:
+                  name: description_long
+                  value: "Anxiety disorders encompass a range of conditions marked by excessive fear or worry, often accompanied by physical symptoms."
+              - column:
+                  name: doctor
+                  value: "PSYCHIATRIST"
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "20db8c62-02c1-4883-86b6-65b0c6f36fd5"
+              - column:
+                  name: name
+                  value: "Kidney Cancer"
+              - column:
+                  name: description_short
+                  value: "A type of cancer that begins in the kidneys."
+              - column:
+                  name: description_long
+                  value: "Kidney cancer begins in the kidneys and is often detected incidentally through imaging tests."
+              - column:
+                  name: doctor
+                  value: "ONCOLOGY"
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "1d26880a-13cd-4fd4-bf86-6045c6b7df12"
+              - column:
+                  name: name
+                  value: "Kidney Disease"
+              - column:
+                  name: description_short
+                  value: "A condition affecting the kidneys' ability to filter waste."
+              - column:
+                  name: description_long
+                  value: "Kidney disease refers to conditions that damage the kidneys and decrease their ability to filter waste from the blood."
+              - column:
+                  name: doctor
+                  value: "NEPHROLOGY"
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "cdd09835-f84d-4b62-9edc-bf42f7686e76"
+              - column:
+                  name: name
+                  value: "Psoriasis"
+              - column:
+                  name: description_short
+                  value: "An autoimmune disease that causes red, scaly skin patches."
+              - column:
+                  name: description_long
+                  value: "Psoriasis is a chronic autoimmune condition that causes rapid skin cell buildup, leading to scaling on the skin’s surface."
+              - column:
+                  name: doctor
+                  value: "DERMATOLOGY"
+
+  - changeSet:
+      id: 004-003-insert-missing-diseases
+      author: Patrik Holler
+      changes:
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "b5a1d32e-7433-4fc5-8f44-6242be002a0d"
+              - column:
+                  name: name
+                  value: "Parkinson's Disease"
+              - column:
+                  name: description_short
+                  value: "A progressive disorder of the nervous system that affects movement."
+              - column:
+                  name: description_long
+                  value: "Parkinson's disease is a progressive disorder of the nervous system that affects movement. It develops gradually, sometimes starting with a barely noticeable tremor in just one hand."
+              - column:
+                  name: doctor
+                  value: "NEUROLOGY"
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "e3b4d44d-725f-4b6b-8b2e-74c49bfa8e79"
+              - column:
+                  name: name
+                  value: "Urinary Tract Infection"
+              - column:
+                  name: description_short
+                  value: "An infection in any part of the urinary system."
+              - column:
+                  name: description_long
+                  value: "A urinary tract infection (UTI) is an infection in any part of the urinary system — your kidneys, ureters, bladder, and urethra. Most infections involve the lower urinary tract — the bladder and urethra."
+              - column:
+                  name: doctor
+                  value: "UROLOGY"
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "d8b334cf-cc74-4237-9263-41d6395f5c22"
+              - column:
+                  name: name
+                  value: "Liver Cancer"
+              - column:
+                  name: description_short
+                  value: "A type of cancer that begins in the cells of the liver."
+              - column:
+                  name: description_long
+                  value: "Liver cancer begins in the cells of your liver, a football-sized organ in the upper right portion of your abdomen, above your stomach and beneath your diaphragm."
+              - column:
+                  name: doctor
+                  value: "ONCOLOGY"
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "0e4df6b2-81b4-4eb3-8be4-314e3cce3c8e"
+              - column:
+                  name: name
+                  value: "Ulcerative Colitis"
+              - column:
+                  name: description_short
+                  value: "A chronic inflammatory bowel disease that causes inflammation in the digestive tract."
+              - column:
+                  name: description_long
+                  value: "Ulcerative colitis is a chronic inflammatory bowel disease (IBD) that causes long-lasting inflammation and ulcers in your digestive tract."
+              - column:
+                  name: doctor
+                  value: "GASTROENTEROLOGY"
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "a4e33c62-dbb8-4aa8-90cf-44e9a6e70ef2"
+              - column:
+                  name: name
+                  value: "Coronary Artery Disease"
+              - column:
+                  name: description_short
+                  value: "A narrowing or blockage of the coronary arteries, usually caused by atherosclerosis."
+              - column:
+                  name: description_long
+                  value: "Coronary artery disease develops when the major blood vessels that supply your heart with blood, oxygen, and nutrients (coronary arteries) become damaged or diseased."
+              - column:
+                  name: doctor
+                  value: "CARDIOLOGY"
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "4c529d78-90c2-4e64-b221-b6f2a728f1be"
+              - column:
+                  name: name
+                  value: "Multiple Sclerosis"
+              - column:
+                  name: description_short
+                  value: "A disease in which the immune system eats away at the protective covering of nerves."
+              - column:
+                  name: description_long
+                  value: "Multiple sclerosis (MS) is a potentially disabling disease of the brain and spinal cord (central nervous system). In MS, the immune system attacks the protective sheath (myelin) that covers nerve fibers."
+              - column:
+                  name: doctor
+                  value: "NEUROLOGY"
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "8df2a4c6-d7e9-4a45-a532-c23f29c3e322"
+              - column:
+                  name: name
+                  value: "Liver Disease"
+              - column:
+                  name: description_short
+                  value: "Any condition that damages the liver and prevents it from functioning properly."
+              - column:
+                  name: description_long
+                  value: "Liver disease refers to any condition that damages the liver and prevents it from functioning well. It can result from infection, alcohol abuse, or genetic predisposition."
+              - column:
+                  name: doctor
+                  value: "HEPATOLOGY"
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "baf14c4b-62b4-4e85-b715-634f5e3c8cd9"
+              - column:
+                  name: name
+                  value: "Pancreatitis"
+              - column:
+                  name: description_short
+                  value: "An inflammation of the pancreas."
+              - column:
+                  name: description_long
+                  value: "Pancreatitis is an inflammation of the pancreas, which occurs when digestive enzymes are activated before they are released into the small intestine and begin attacking the pancreas."
+              - column:
+                  name: doctor
+                  value: "GASTROENTEROLOGY"
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "f7d6b5a6-8825-4e3c-9a35-653cd3ea4e99"
+              - column:
+                  name: name
+                  value: "Gastroenteritis"
+              - column:
+                  name: description_short
+                  value: "An intestinal infection marked by diarrhea, cramps, nausea, vomiting, and fever."
+              - column:
+                  name: description_long
+                  value: "Gastroenteritis is an inflammation of the lining of the intestines caused by a virus, bacteria, or parasites, resulting in diarrhea, cramps, nausea, vomiting, and fever."
+              - column:
+                  name: doctor
+                  value: "GASTROENTEROLOGY"
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "a6c3e142-8e4b-4ea9-bab5-64c42d6ec67f"
+              - column:
+                  name: name
+                  value: "Hypothyroidism"
+              - column:
+                  name: description_short
+                  value: "A condition in which your thyroid gland doesn't produce enough thyroid hormones."
+              - column:
+                  name: description_long
+                  value: "Hypothyroidism is a condition in which the thyroid gland is underactive and doesn't produce enough thyroid hormones to meet the body's needs."
+              - column:
+                  name: doctor
+                  value: "ENDOCRINOLOGY"
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "c89a6df9-8f43-489c-b98e-5e2b5fc8dcca"
+              - column:
+                  name: name
+                  value: "Alzheimer's Disease"
+              - column:
+                  name: description_short
+                  value: "A progressive disorder that causes brain cells to waste away (degenerate)."
+              - column:
+                  name: description_long
+                  value: "Alzheimer's disease is a progressive disorder that causes brain cells to waste away (degenerate) and die, leading to memory loss and cognitive decline."
+              - column:
+                  name: doctor
+                  value: "NEUROLOGY"
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "9af62e43-5cb4-49b8-b12f-c82b4c9d3e22"
+              - column:
+                  name: name
+                  value: "Osteoarthritis"
+              - column:
+                  name: description_short
+                  value: "A type of arthritis that occurs when flexible tissue at the ends of bones wears down."
+              - column:
+                  name: description_long
+                  value: "Osteoarthritis is the most common form of arthritis, causing the cartilage within a joint to break down over time, leading to pain and stiffness."
+              - column:
+                  name: doctor
+                  value: "ORTHOPEDICS"
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "ae3f52c6-8af9-45b2-9c63-e2f5c7a9d8cd"
+              - column:
+                  name: name
+                  value: "Common Cold"
+              - column:
+                  name: description_short
+                  value: "A viral infection of the nose and throat."
+              - column:
+                  name: description_long
+                  value: "The common cold is a viral infection of the nose and throat (upper respiratory tract). It's usually harmless, although it might not feel that way."
+              - column:
+                  name: doctor
+                  value: "GENERAL_PRACTITIONER"
+        - insert:
+            tableName: disease
+            columns:
+              - column:
+                  name: id
+                  value: "d6c452b3-a45e-4c8d-b962-e4c52f3b9cde"
+              - column:
+                  name: name
+                  value: "Eczema"
+              - column:
+                  name: description_short
+                  value: "A condition that causes the skin to become itchy, red, dry, and cracked."
+              - column:
+                  name: description_long
+                  value: "Eczema, also called atopic dermatitis, is a condition that makes your skin red, inflamed, and itchy. It can flare up periodically and is often related to allergies."
+              - column:
+                  name: doctor
+                  value: "DERMATOLOGY"

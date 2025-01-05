@@ -15,6 +15,11 @@ public class PatientService implements IPatientService {
 
     PatientRepository patientRepository;
 
+    /**
+     * Create a new patient profile with the given name.
+     * @param patient patient to create
+     * @return the created patient
+     */
     public Patient createPatient(Patient patient) {
         if (patientRepository.findByName(patient.getName()).isPresent()) {
             logger.error("Patient with name {} already exists", patient.getName());
@@ -26,7 +31,7 @@ public class PatientService implements IPatientService {
 
     public Patient findByName(String name) {
         return patientRepository.findByName(name).orElseThrow(
-                () -> new RuntimeException("User not found")
+                () -> new RuntimeException("Patient with name " + name + " not found")
         );
     }
 }

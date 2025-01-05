@@ -21,7 +21,8 @@ class MainActivity : AppCompatActivity() {
             healthDataService = binder.getService()
             isBound = true
             val url =  loadUrlFromConfig()
-            healthDataService?.registerObserver(RestObserver(url))
+            val userName = loadUsernameFromConfig()
+            healthDataService?.registerObserver(RestObserver(url, userName))
         }
 
         override fun onServiceDisconnected(arg0: ComponentName) {
@@ -29,6 +30,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Create Service and bind it to the activity.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AndroidThreeTen.init(this)
@@ -58,5 +62,12 @@ class MainActivity : AppCompatActivity() {
         val inputStream = resources.openRawResource(R.raw.config)
         properties.load(inputStream)
         return properties.getProperty("url")
+    }
+
+    private fun loadUsernameFromConfig(): String {
+        val properties = Properties()
+        val inputStream = resources.openRawResource(R.raw.config)
+        properties.load(inputStream)
+        return properties.getProperty("user_name")
     }
 }

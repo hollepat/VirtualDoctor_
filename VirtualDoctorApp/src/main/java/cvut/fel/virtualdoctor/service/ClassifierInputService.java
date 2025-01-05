@@ -18,6 +18,12 @@ public class ClassifierInputService {
 
     private static final Logger logger = LoggerFactory.getLogger(EvaluatorService.class);
 
+    /**
+     * Create a classifier input entity from a patient input and health data.
+     * @param patientInput patient input
+     * @param healthData health data
+     * @return classifier input entity
+     */
     public ClassifierInput createClassifierInput(PatientInput patientInput, HealthData healthData) {
         ClassifierInput classifierInput = ClassifierMapper.mapUserInputToClassifierInputEntity(patientInput, healthData);
 

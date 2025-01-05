@@ -25,10 +25,12 @@ public class EvaluatorService implements IEvaluatorService {
     PatientInputService patientInputService;
     ClassifierInputService classifierInputService;
     ClassifierClientRest classifierClientRest;
-    HealthDataObserverService vitalSignsObserverService;
+    HealthDataObserverService healthDataObserverService;
 
     /**
-     * @param patientInput The name input to evaluate for diagnosis
+     * Evaluate the patient input asynchronously.
+     *
+     * @param patientInput The patient input to evaluate.
      * @return A CompletableFuture that will contain the diagnosis once it is evaluated, since
      * the process is asynchronous.
      */
@@ -40,7 +42,7 @@ public class EvaluatorService implements IEvaluatorService {
 
     private CompletableFuture<Diagnosis> classify(PatientInput patientInput) {
         logger.info("Evaluating diagnosis...");
-        HealthData healthData = vitalSignsObserverService.provideHealthData(patientInput.getPatient());
+        HealthData healthData = healthDataObserverService.provideHealthData(patientInput.getPatient());
 
         ClassifierInput classifierInput = classifierInputService.createClassifierInput(patientInput, healthData);
 

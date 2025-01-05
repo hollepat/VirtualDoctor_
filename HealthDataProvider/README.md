@@ -4,6 +4,10 @@ Purpose: This provider is used to collect vital signs data from the patient. The
 - Heart Rate
 - Step Count
 
+# Dependencies
+
+Install the Android SDK to run the emulator.
+
 ## Configuration
 
 This is only simulation provider, so it's running in wear os emulator. To run the emulator, you need to have 
@@ -20,6 +24,12 @@ You can run the emulator by running the following command:
 cd <path_to_android_sdk>/emulator
 ./emulator -avd wearos_avd
 ```
+
+## Running the application
+
+To run the application you have to have get the emulator up and running. Once the emulator is running, you can run the application by 
+using `play` button in the Android Studio, which should run the application on the emulator as set in `AndroidManifest.xml` file.
+
 ## FAQs
 
 Display running emulators:

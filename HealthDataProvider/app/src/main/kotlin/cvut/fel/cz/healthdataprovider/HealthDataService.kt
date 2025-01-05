@@ -11,6 +11,9 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import kotlin.random.Random
 
+/**
+ * Service that simulates health data and notifies observers about the changes.
+ */
 class HealthDataService : Service(), Subject {
     private val binder = LocalBinder()
     private val random = Random

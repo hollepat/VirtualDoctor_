@@ -1,10 +1,11 @@
 package cvut.fel.virtualdoctor.model;
 
+
 public enum DoctorType {
     GENERAL_PRACTITIONER,
     PEDIATRICIAN,
     DENTIST,
-    ORTHOPEDIC,
+    ORTHOPEDICS,
     PSYCHIATRIST,
     OPHTHALMOLOGY,
     URGENT_CARE_CENTER,
@@ -18,5 +19,9 @@ public enum DoctorType {
     CARDIOLOGY,
     PULMONOLOGY,
     NEUROLOGY,
-    ORL
+    ORL, // Otolaryngology (Ear, Nose, and Throat)
+    UROLOGY,
+    HEPATOLOGY,
+    ONCOLOGY,
+    NEPHROLOGY
 }
