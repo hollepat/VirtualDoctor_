@@ -16,7 +16,7 @@ public class DiseaseController implements IDiseaseController {
     @GetMapping("/long")
     public ResponseEntity<String> getLongDescription(@RequestParam String disease) {
         try {
-            return ResponseEntity.ok(diseaseService.getShortDescription(disease));
+            return ResponseEntity.ok(diseaseService.getLongDescription(disease));
         } catch (NotFoundException e) {
             return ResponseEntity.badRequest().body(String.format("Disease %s not found!", disease));
         }
