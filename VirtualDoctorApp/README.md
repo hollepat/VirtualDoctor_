@@ -18,7 +18,7 @@ database connection. The `liquibase` tool is used to initialize the database wit
 Connection to the database is done as following:
 
 1. Run docker-compose.yml file containing the PostgreSQL database container configuration.
-```java
+```shell
 docker-compose up
 ```
 2. Connect to the database using the following credentials for intelliJ IDEA:
