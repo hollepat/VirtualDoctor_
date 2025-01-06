@@ -22,7 +22,11 @@ public class Disease {
     @Column(unique = true)
     private String name;
     private String descriptionShort;
-    private String descriptionLong; // This could be a CLOB in a real-world application with a lot of information about possible medicament, etc.
+    private String descriptionLong; // TODO This could be a CLOB in a real-world application with a lot of information about possible medicament, etc.
+
+    @OneToOne(cascade = CascadeType.ALL) // Cascade to allow saving details together with disease
+    @JoinColumn(name = "details_id", nullable = true)
+    private DiseaseDetails details;
 
     @ManyToMany
     @JoinTable(
