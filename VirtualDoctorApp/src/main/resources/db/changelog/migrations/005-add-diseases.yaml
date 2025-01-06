@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 004-001-insert-diseases
+      id: 005-001-insert-diseases
       author: Patrik Holler
       changes:
         - insert:
@@ -16,11 +16,11 @@ databaseChangeLog:
                   name: description_short
                   value: "A viral infection that attacks your respiratory system."
               - column:
-                  name: description_long
-                  value: "Influenza is a viral infection that attacks your respiratory system — your nose, throat and lungs."
-              - column:
                   name: doctor
                   value: "GENERAL_PRACTITIONER"
+              - column:
+                  name: details_id
+                  value: "1a9c6a2b-45f3-4f38-9d7a-b70912e9a6b1"
         - insert:
             tableName: disease
             columns:
@@ -33,9 +33,6 @@ databaseChangeLog:
               - column:
                   name: description_short
                   value: "A skin condition that occurs when your hair follicles become plugged with oil and dead skin cells."
-              - column:
-                  name: description_long
-                  value: "Acne is a skin condition that occurs when your hair follicles become plugged with oil and dead skin cells."
               - column:
                   name: doctor
                   value: "DERMATOLOGY"
@@ -52,9 +49,6 @@ databaseChangeLog:
                   name: description_short
                   value: "An allergic reaction to airborne allergens that causes cold-like symptoms."
               - column:
-                  name: description_long
-                  value: "Allergic rhinitis is a collection of symptoms, predominantly in the nose and eyes, caused by airborne particles of dust, dander, or plant pollens in people who are allergic to these substances."
-              - column:
                   name: doctor
                   value: "ALLERGY_AND_IMMUNOLOGY"
         - insert:
@@ -69,9 +63,6 @@ databaseChangeLog:
               - column:
                   name: description_short
                   value: "A disease caused by a plasmodium parasite, transmitted by the bite of infected mosquitoes."
-              - column:
-                  name: description_long
-                  value: "Malaria is a disease caused by a plasmodium parasite, transmitted by the bite of infected mosquitoes."
               - column:
                   name: doctor
                   value: "GENERAL_PRACTITIONER"
@@ -88,9 +79,6 @@ databaseChangeLog:
                   name: description_short
                   value: "A mental health disorder characterized by persistently depressed mood or loss of interest in activities."
               - column:
-                  name: description_long
-                  value: "Depression is a mental health disorder characterized by persistently depressed mood or loss of interest in activities, causing significant impairment in daily life."
-              - column:
                   name: doctor
                   value: "PSYCHIATRIST"
         - insert:
@@ -105,9 +93,6 @@ databaseChangeLog:
               - column:
                   name: description_short
                   value: "A condition in which your airways narrow and swell and may produce extra mucus."
-              - column:
-                  name: description_long
-                  value: "Asthma is a condition in which your airways narrow and swell and may produce extra mucus, making breathing difficult."
               - column:
                   name: doctor
                   value: "PULMONOLOGY"
@@ -124,9 +109,6 @@ databaseChangeLog:
                   name: description_short
                   value: "An inflammation of the lining of your bronchial tubes."
               - column:
-                  name: description_long
-                  value: "Bronchitis is an inflammation of the lining of your bronchial tubes, which carry air to and from your lungs."
-              - column:
                   name: doctor
                   value: "PULMONOLOGY"
         - insert:
@@ -141,9 +123,6 @@ databaseChangeLog:
               - column:
                   name: description_short
                   value: "A disease that occurs when your blood glucose is too high."
-              - column:
-                  name: description_long
-                  value: "Diabetes is a disease that occurs when your blood glucose, also called blood sugar, is too high."
               - column:
                   name: doctor
                   value: "ENDOCRINOLOGY"
@@ -160,9 +139,6 @@ databaseChangeLog:
                   name: description_short
                   value: "A condition in which the force of the blood against your artery walls is too high."
               - column:
-                  name: description_long
-                  value: "Hypertension is a condition in which the force of the blood against your artery walls is high enough that it may eventually cause health problems, such as heart disease."
-              - column:
                   name: doctor
                   value: "CARDIOLOGY"
         - insert:
@@ -177,9 +153,6 @@ databaseChangeLog:
               - column:
                   name: description_short
                   value: "A condition in which the thyroid gland produces too much thyroid hormone."
-              - column:
-                  name: description_long
-                  value: "Hyperthyroidism occurs when the thyroid gland produces too much thyroxine, accelerating your body's metabolism significantly."
               - column:
                   name: doctor
                   value: "ENDOCRINOLOGY"
@@ -196,9 +169,6 @@ databaseChangeLog:
                   name: description_short
                   value: "A headache of varying intensity, often accompanied by nausea and sensitivity to light and sound."
               - column:
-                  name: description_long
-                  value: "A migraine is a headache of varying intensity, often accompanied by nausea and sensitivity to light and sound."
-              - column:
                   name: doctor
                   value: "NEUROLOGY"
         - insert:
@@ -213,9 +183,6 @@ databaseChangeLog:
               - column:
                   name: description_short
                   value: "A condition in which bones become weak and brittle."
-              - column:
-                  name: description_long
-                  value: "Osteoporosis is a condition in which bones become weak and brittle to the point where a fall or even mild stresses such as bending over can cause a fracture."
               - column:
                   name: doctor
                   value: "RHEUMATOLOGY"
@@ -232,9 +199,6 @@ databaseChangeLog:
                   name: description_short
                   value: "An infection that inflames the air sacs in one or both lungs."
               - column:
-                  name: description_long
-                  value: "Pneumonia is an infection that inflames the air sacs in one or both lungs, which may fill with fluid or pus."
-              - column:
                   name: doctor
                   value: "PULMONOLOGY"
         - insert:
@@ -250,14 +214,11 @@ databaseChangeLog:
                   name: description_short
                   value: "A medical emergency that occurs when blood flow to a part of your brain is interrupted or reduced."
               - column:
-                  name: description_long
-                  value: "A stroke occurs when blood flow to a part of your brain is interrupted or reduced, preventing brain tissue from getting oxygen and nutrients."
-              - column:
                   name: doctor
                   value: "NEUROLOGY"
 
   - changeSet:
-      id: 004-002-insert-missing-diseases
+      id: 005-002-insert-missing-diseases
       author: Patrik Holler
       changes:
         - insert:
@@ -272,9 +233,6 @@ databaseChangeLog:
               - column:
                   name: description_short
                   value: "An autoimmune disorder that causes inflammation in the joints."
-              - column:
-                  name: description_long
-                  value: "Rheumatoid arthritis is an autoimmune disorder that primarily affects joints, leading to pain, swelling, and potential joint damage."
               - column:
                   name: doctor
                   value: "RHEUMATOLOGY"
@@ -291,9 +249,6 @@ databaseChangeLog:
                   name: description_short
                   value: "A type of inflammatory bowel disease (IBD)."
               - column:
-                  name: description_long
-                  value: "Crohn's disease is a chronic inflammatory bowel disease that affects the lining of the digestive tract."
-              - column:
                   name: doctor
                   value: "GASTROENTEROLOGY"
         - insert:
@@ -308,9 +263,6 @@ databaseChangeLog:
               - column:
                   name: description_short
                   value: "Mental health disorders characterized by excessive fear or worry."
-              - column:
-                  name: description_long
-                  value: "Anxiety disorders encompass a range of conditions marked by excessive fear or worry, often accompanied by physical symptoms."
               - column:
                   name: doctor
                   value: "PSYCHIATRIST"
@@ -327,9 +279,6 @@ databaseChangeLog:
                   name: description_short
                   value: "A type of cancer that begins in the kidneys."
               - column:
-                  name: description_long
-                  value: "Kidney cancer begins in the kidneys and is often detected incidentally through imaging tests."
-              - column:
                   name: doctor
                   value: "ONCOLOGY"
         - insert:
@@ -344,9 +293,6 @@ databaseChangeLog:
               - column:
                   name: description_short
                   value: "A condition affecting the kidneys' ability to filter waste."
-              - column:
-                  name: description_long
-                  value: "Kidney disease refers to conditions that damage the kidneys and decrease their ability to filter waste from the blood."
               - column:
                   name: doctor
                   value: "NEPHROLOGY"
@@ -363,14 +309,11 @@ databaseChangeLog:
                   name: description_short
                   value: "An autoimmune disease that causes red, scaly skin patches."
               - column:
-                  name: description_long
-                  value: "Psoriasis is a chronic autoimmune condition that causes rapid skin cell buildup, leading to scaling on the skin’s surface."
-              - column:
                   name: doctor
                   value: "DERMATOLOGY"
 
   - changeSet:
-      id: 004-003-insert-missing-diseases
+      id: 005-003-insert-missing-diseases
       author: Patrik Holler
       changes:
         - insert:
@@ -385,9 +328,6 @@ databaseChangeLog:
               - column:
                   name: description_short
                   value: "A progressive disorder of the nervous system that affects movement."
-              - column:
-                  name: description_long
-                  value: "Parkinson's disease is a progressive disorder of the nervous system that affects movement. It develops gradually, sometimes starting with a barely noticeable tremor in just one hand."
               - column:
                   name: doctor
                   value: "NEUROLOGY"
@@ -404,9 +344,6 @@ databaseChangeLog:
                   name: description_short
                   value: "An infection in any part of the urinary system."
               - column:
-                  name: description_long
-                  value: "A urinary tract infection (UTI) is an infection in any part of the urinary system — your kidneys, ureters, bladder, and urethra. Most infections involve the lower urinary tract — the bladder and urethra."
-              - column:
                   name: doctor
                   value: "UROLOGY"
         - insert:
@@ -421,9 +358,6 @@ databaseChangeLog:
               - column:
                   name: description_short
                   value: "A type of cancer that begins in the cells of the liver."
-              - column:
-                  name: description_long
-                  value: "Liver cancer begins in the cells of your liver, a football-sized organ in the upper right portion of your abdomen, above your stomach and beneath your diaphragm."
               - column:
                   name: doctor
                   value: "ONCOLOGY"
@@ -440,9 +374,6 @@ databaseChangeLog:
                   name: description_short
                   value: "A chronic inflammatory bowel disease that causes inflammation in the digestive tract."
               - column:
-                  name: description_long
-                  value: "Ulcerative colitis is a chronic inflammatory bowel disease (IBD) that causes long-lasting inflammation and ulcers in your digestive tract."
-              - column:
                   name: doctor
                   value: "GASTROENTEROLOGY"
         - insert:
@@ -457,9 +388,6 @@ databaseChangeLog:
               - column:
                   name: description_short
                   value: "A narrowing or blockage of the coronary arteries, usually caused by atherosclerosis."
-              - column:
-                  name: description_long
-                  value: "Coronary artery disease develops when the major blood vessels that supply your heart with blood, oxygen, and nutrients (coronary arteries) become damaged or diseased."
               - column:
                   name: doctor
                   value: "CARDIOLOGY"
@@ -476,9 +404,6 @@ databaseChangeLog:
                   name: description_short
                   value: "A disease in which the immune system eats away at the protective covering of nerves."
               - column:
-                  name: description_long
-                  value: "Multiple sclerosis (MS) is a potentially disabling disease of the brain and spinal cord (central nervous system). In MS, the immune system attacks the protective sheath (myelin) that covers nerve fibers."
-              - column:
                   name: doctor
                   value: "NEUROLOGY"
         - insert:
@@ -493,9 +418,6 @@ databaseChangeLog:
               - column:
                   name: description_short
                   value: "Any condition that damages the liver and prevents it from functioning properly."
-              - column:
-                  name: description_long
-                  value: "Liver disease refers to any condition that damages the liver and prevents it from functioning well. It can result from infection, alcohol abuse, or genetic predisposition."
               - column:
                   name: doctor
                   value: "HEPATOLOGY"
@@ -512,9 +434,6 @@ databaseChangeLog:
                   name: description_short
                   value: "An inflammation of the pancreas."
               - column:
-                  name: description_long
-                  value: "Pancreatitis is an inflammation of the pancreas, which occurs when digestive enzymes are activated before they are released into the small intestine and begin attacking the pancreas."
-              - column:
                   name: doctor
                   value: "GASTROENTEROLOGY"
         - insert:
@@ -529,9 +448,6 @@ databaseChangeLog:
               - column:
                   name: description_short
                   value: "An intestinal infection marked by diarrhea, cramps, nausea, vomiting, and fever."
-              - column:
-                  name: description_long
-                  value: "Gastroenteritis is an inflammation of the lining of the intestines caused by a virus, bacteria, or parasites, resulting in diarrhea, cramps, nausea, vomiting, and fever."
               - column:
                   name: doctor
                   value: "GASTROENTEROLOGY"
@@ -548,9 +464,6 @@ databaseChangeLog:
                   name: description_short
                   value: "A condition in which your thyroid gland doesn't produce enough thyroid hormones."
               - column:
-                  name: description_long
-                  value: "Hypothyroidism is a condition in which the thyroid gland is underactive and doesn't produce enough thyroid hormones to meet the body's needs."
-              - column:
                   name: doctor
                   value: "ENDOCRINOLOGY"
         - insert:
@@ -565,9 +478,6 @@ databaseChangeLog:
               - column:
                   name: description_short
                   value: "A progressive disorder that causes brain cells to waste away (degenerate)."
-              - column:
-                  name: description_long
-                  value: "Alzheimer's disease is a progressive disorder that causes brain cells to waste away (degenerate) and die, leading to memory loss and cognitive decline."
               - column:
                   name: doctor
                   value: "NEUROLOGY"
@@ -584,9 +494,6 @@ databaseChangeLog:
                   name: description_short
                   value: "A type of arthritis that occurs when flexible tissue at the ends of bones wears down."
               - column:
-                  name: description_long
-                  value: "Osteoarthritis is the most common form of arthritis, causing the cartilage within a joint to break down over time, leading to pain and stiffness."
-              - column:
                   name: doctor
                   value: "ORTHOPEDICS"
         - insert:
@@ -602,9 +509,6 @@ databaseChangeLog:
                   name: description_short
                   value: "A viral infection of the nose and throat."
               - column:
-                  name: description_long
-                  value: "The common cold is a viral infection of the nose and throat (upper respiratory tract). It's usually harmless, although it might not feel that way."
-              - column:
                   name: doctor
                   value: "GENERAL_PRACTITIONER"
         - insert:
@@ -619,9 +523,6 @@ databaseChangeLog:
               - column:
                   name: description_short
                   value: "A condition that causes the skin to become itchy, red, dry, and cracked."
-              - column:
-                  name: description_long
-                  value: "Eczema, also called atopic dermatitis, is a condition that makes your skin red, inflamed, and itchy. It can flare up periodically and is often related to allergies."
               - column:
                   name: doctor
                   value: "DERMATOLOGY"

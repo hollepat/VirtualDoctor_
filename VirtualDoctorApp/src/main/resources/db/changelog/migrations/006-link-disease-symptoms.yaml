@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 005-001-insert-disease-symptom-links
+      id: 006-001-insert-disease-symptom-links
       author: Patrik Holler
       changes:
         # Influenza - Symptoms: Headache, Fever, Cough

@@ -1,0 +1,63 @@
+databaseChangeLog:
+  - changeSet:
+      id: 004-001-insert-disease-details
+      author: Patrik Holler
+      changes:
+        - insert:
+            tableName: disease_details
+            columns:
+              - column:
+                  name: id
+                  value: "1a9c6a2b-45f3-4f38-9d7a-b70912e9a6b1"
+              - column:
+                  name: description
+                  value: "Influenza is a viral infection that attacks your respiratory system — your nose, throat, and lungs."
+
+        - insert:
+            tableName: disease_treatments
+            columns:
+              - column:
+                  name: details_id
+                  value: "1a9c6a2b-45f3-4f38-9d7a-b70912e9a6b1"
+              - column:
+                  name: treatment
+                  value: "Rest"
+
+        - insert:
+            tableName: disease_precautions
+            columns:
+              - column:
+                  name: details_id
+                  value: "1a9c6a2b-45f3-4f38-9d7a-b70912e9a6b1"
+              - column:
+                  name: precaution
+                  value: "Vaccination"
+
+        - insert:
+            tableName: medication
+            columns:
+              - column:
+                  name: id
+                  value: "fb7123b6-5b89-4f5a-bc0a-1a0b2c7c32f8"
+              - column:
+                  name: name
+                  value: "Oseltamivir"
+              - column:
+                  name: description
+                  value: "Antiviral medication used to treat and prevent influenza."
+              - column:
+                  name: dosage
+                  value: "75 mg orally twice daily for 5 days."
+              - column:
+                  name: side_effects
+                  value: "Nausea, vomiting, headache."
+
+        - insert:
+            tableName: disease_details_medications
+            columns:
+              - column:
+                  name: details_id
+                  value: "1a9c6a2b-45f3-4f38-9d7a-b70912e9a6b1"
+              - column:
+                  name: medication_id
+                  value: "fb7123b6-5b89-4f5a-bc0a-1a0b2c7c32f8"
