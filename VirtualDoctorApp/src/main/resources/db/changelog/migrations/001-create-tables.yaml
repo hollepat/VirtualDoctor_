@@ -196,9 +196,6 @@ databaseChangeLog:
                   name: description_short
                   type: VARCHAR(255)
               - column:
-                  name: description_long
-                  type: TEXT
-              - column:
                   name: doctor
                   type: VARCHAR(255)
 
@@ -401,5 +398,160 @@ databaseChangeLog:
             referencedTableName: classifier_input
             referencedColumnNames: id
             constraintName: fk_diagnosis_classifier_input
+
+  - changeSet:
+      id: 001-014-create-disease-details-table
+      author: Patrik Holler
+      changes:
+        - createTable:
+            tableName: disease_details
+            schemaName: disease
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                  defaultValueComputed: "gen_random_uuid()"
+              - column:
+                  name: description
+                  type: VARCHAR(255)
+
+  - changeSet:
+      id: 001-015-create-medication-table
+      author: Patrik Holler
+      changes:
+        - createTable:
+            tableName: medication
+            schemaName: disease
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                  defaultValueComputed: "gen_random_uuid()"
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  name: dosage
+                  type: VARCHAR(255)
+              - column:
+                  name: side_effects
+                  type: TEXT
+
+  - changeSet:
+      id: 001-016-create-disease-details-medications-table
+      author: Patrik Holler
+      changes:
+        - createTable:
+            tableName: disease_details_medications
+            schemaName: disease
+            columns:
+              - column:
+                  name: details_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: medication_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: disease_details_medications
+            columnNames: details_id, medication_id
+            constraintName: pk_disease_details_medications
+        - addForeignKeyConstraint:
+            baseTableName: disease_details_medications
+            baseColumnNames: details_id
+            referencedTableName: disease_details
+            referencedColumnNames: id
+            constraintName: fk_disease_details_medications_details
+        - addForeignKeyConstraint:
+            baseTableName: disease_details_medications
+            baseColumnNames: medication_id
+            referencedTableName: medication
+            referencedColumnNames: id
+            constraintName: fk_disease_details_medications_medication
+
+  - changeSet:
+      id: 001-017-create-disease-treatments-table
+      author: Patrik Holler
+      changes:
+        - createTable:
+            tableName: disease_treatments
+            schemaName: disease
+            columns:
+              - column:
+                  name: details_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: treatment
+                  type: TEXT
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: disease_treatments
+            baseColumnNames: details_id
+            referencedTableName: disease_details
+            referencedColumnNames: id
+            constraintName: fk_disease_treatments_details
+
+  - changeSet:
+      id: 001-018-create-disease-precautions-table
+      author: Patrik Holler
+      changes:
+        - createTable:
+            tableName: disease_precautions
+            schemaName: disease
+            columns:
+              - column:
+                  name: details_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: precaution
+                  type: TEXT
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: disease_precautions
+            baseColumnNames: details_id
+            referencedTableName: disease_details
+            referencedColumnNames: id
+            constraintName: fk_disease_precautions_details
+
+  - changeSet:
+      id: 001-019-add-details-id-to-disease
+      author: Patrik Holler
+      changes:
+        - addColumn:
+            tableName: disease
+            schemaName: disease
+            columns:
+              - column:
+                  name: details_id
+                  type: UUID
+                  constraints:
+                    nullable: true
+        - addForeignKeyConstraint:
+            baseTableName: disease
+            baseColumnNames: details_id
+            referencedTableName: disease_details
+            referencedColumnNames: id
+            constraintName: fk_disease_details
 
 

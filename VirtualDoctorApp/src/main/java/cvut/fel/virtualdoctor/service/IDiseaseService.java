@@ -1,7 +1,9 @@
 package cvut.fel.virtualdoctor.service;
 
 
+import cvut.fel.virtualdoctor.model.DiseaseDetails;
+
 public interface IDiseaseService {
-    String getLongDescription(String disease);
+    DiseaseDetails getDiseaseDetails(String disease);
     String getShortDescription(String disease);
 }

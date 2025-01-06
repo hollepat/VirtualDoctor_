@@ -22,7 +22,10 @@ public class Disease {
     @Column(unique = true)
     private String name;
     private String descriptionShort;
-    private String descriptionLong; // This could be a CLOB in a real-world application with a lot of information about possible medicament, etc.
+
+    @OneToOne(cascade = CascadeType.ALL) // Cascade to allow saving details together with disease
+    @JoinColumn(name = "details_id")
+    private DiseaseDetails details;
 
     @ManyToMany
     @JoinTable(
@@ -38,7 +41,6 @@ public class Disease {
     public Disease(String name, String descriptionShort, String descriptionLong, List<Symptom> symptoms, DoctorType doctor) {
         this.name = name;
         this.descriptionShort = descriptionShort;
-        this.descriptionLong = descriptionLong;
         this.symptoms = symptoms;
         this.doctor = doctor;
     }

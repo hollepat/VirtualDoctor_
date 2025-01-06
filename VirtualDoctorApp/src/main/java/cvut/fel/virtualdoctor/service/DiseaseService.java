@@ -1,6 +1,7 @@
 package cvut.fel.virtualdoctor.service;
 
 import cvut.fel.virtualdoctor.exception.NotFoundException;
+import cvut.fel.virtualdoctor.model.DiseaseDetails;
 import cvut.fel.virtualdoctor.repository.DiseaseRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,10 +12,10 @@ public class DiseaseService implements IDiseaseService {
 
     DiseaseRepository diseaseRepository;
 
-    public String getLongDescription(String disease) {
+    public DiseaseDetails getDiseaseDetails(String disease) {
         return diseaseRepository.findByName(disease)
                 .orElseThrow(() -> new NotFoundException("Disease not found"))
-                .getDescriptionLong();
+                .getDetails();
     }
 
     public String getShortDescription(String disease) {
