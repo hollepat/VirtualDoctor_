@@ -105,7 +105,7 @@
         <mxCell id="trE6xN5hb7h90PiwSfAd-13" value="send message to service" style="ellipse;whiteSpace=wrap;html=1;" parent="CzoYS67WZs6YstitJpSj-10" vertex="1">
           <mxGeometry x="330" y="420" width="120" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="EKdMt8W0THqJkRr-k4F5-1" value="read disease description long" style="ellipse;whiteSpace=wrap;html=1;" parent="CzoYS67WZs6YstitJpSj-10" vertex="1">
+        <mxCell id="EKdMt8W0THqJkRr-k4F5-1" value="read detailed description of the disease" style="ellipse;whiteSpace=wrap;html=1;" parent="CzoYS67WZs6YstitJpSj-10" vertex="1">
           <mxGeometry x="80" y="160" width="120" height="80" as="geometry" />
         </mxCell>
         <mxCell id="EKdMt8W0THqJkRr-k4F5-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="CzoYS67WZs6YstitJpSj-10" source="EKdMt8W0THqJkRr-k4F5-3" target="EKdMt8W0THqJkRr-k4F5-5" edge="1">
