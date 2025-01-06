@@ -1,5 +1,5 @@
 get:
-  summary: Get short description of a disease
+  summary: Get details of a disease
   tag:
     - Disease
   parameters:
@@ -16,12 +16,4 @@ get:
       content:
         application/json:
           schema:
-            type: string
-          example: "A disease is a abnormal negative condition."
-    "404":
-      description: "Not Found"
-      content:
-        application/json:
-          schema:
-            type: string
-            example: "Disease not found."
+            $ref: 'components.yaml#/components/schemas/DiseaseDetailsDTO'

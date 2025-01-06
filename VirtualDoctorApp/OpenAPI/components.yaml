@@ -3,7 +3,7 @@ components:
     PatientInputDTO:
       type: object
       properties:
-        user:
+        name:
           type: string
           example: john-doe
         symptoms:
@@ -88,3 +88,37 @@ components:
           type: string
           enum: [ NORMAL, STAY_AT_HOME, LIFE_THREATENING ]
           example: NORMAL
+
+    DiseaseDetailsDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: "Unique identifier for the diagnosis."
+          example: "1a9c6a2b-45f3-4f38-9d7a-b70912e9a6b1"
+        description:
+          type: string
+          description: "Detailed description of the diagnosis."
+          example: "Influenza is a viral infection that attacks your respiratory system — your nose, throat, and lungs."
+        medications:
+          type: array
+          description: "List of medications recommended for treatment."
+          items:
+            type: string
+          example:
+            - "Oseltamivir"
+        treatments:
+          type: array
+          description: "List of treatments for the diagnosis."
+          items:
+            type: string
+          example:
+            - "Rest"
+        precautions:
+          type: array
+          description: "List of precautions or preventive measures."
+          items:
+            type: string
+          example:
+            - "Vaccination"

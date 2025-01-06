@@ -3,6 +3,9 @@ info:
   title: VirtualDoctor API
   description: VirtualDoctor API
   version: 1.0.0
+servers:
+  - url: http://localhost:8085
+    description: Local development server
 paths:
   /api/evaluation/evaluate:
     $ref: './evaluator.yaml'
@@ -10,7 +13,7 @@ paths:
     $ref: './patient.yaml'
   /api/disease/short:
     $ref: './disease_short.yaml'
-  /api/disease/long:
-    $ref: './disease_long.yaml'
+  /api/disease/details:
+    $ref: './disease_details.yaml'
   /api/diagnosis/mark-diagnosis:
     $ref: './diagnosis.yaml'
