@@ -17,8 +17,6 @@ public class DiseaseDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Lob
-    @Column(columnDefinition = "TEXT") // Detailed description
     private String description;
 
     @ManyToMany

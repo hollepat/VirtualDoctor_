@@ -17,7 +17,7 @@ public class DiseaseController implements IDiseaseController {
 
     private DiseaseService diseaseService;
 
-    @GetMapping("/long")
+    @GetMapping("/details")
     public ResponseEntity<DiseaseDetailsDTO> getDiseaseDetails(@RequestParam String disease) {
         try {
             DiseaseDetails diseaseDetails = diseaseService.getDiseaseDetails(disease);

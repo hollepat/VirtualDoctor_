@@ -24,7 +24,7 @@ public class Disease {
     private String descriptionShort;
 
     @OneToOne(cascade = CascadeType.ALL) // Cascade to allow saving details together with disease
-    @JoinColumn(name = "details_id", nullable = true)
+    @JoinColumn(name = "details_id")
     private DiseaseDetails details;
 
     @ManyToMany

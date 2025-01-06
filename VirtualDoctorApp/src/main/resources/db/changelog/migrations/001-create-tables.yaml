@@ -416,7 +416,7 @@ databaseChangeLog:
                   defaultValueComputed: "gen_random_uuid()"
               - column:
                   name: description
-                  type: TEXT
+                  type: VARCHAR(255)
 
   - changeSet:
       id: 001-015-create-medication-table
