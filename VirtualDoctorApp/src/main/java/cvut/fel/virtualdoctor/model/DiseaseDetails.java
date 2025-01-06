@@ -36,11 +36,4 @@ public class DiseaseDetails {
     @CollectionTable(name = "disease_precautions", joinColumns = @JoinColumn(name = "details_id"))
     @Column(name = "precaution")
     private List<String> precautions; // Preventive measures or precautions
-
-    public DiseaseDetails(String description, List<Medication> medications, List<String> treatments, List<String> precautions) {
-        this.description = description;
-        this.medications = medications;
-        this.treatments = treatments;
-        this.precautions = precautions;
-    }
 }
