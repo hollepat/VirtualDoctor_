@@ -32,7 +32,7 @@ public class EvaluatorService implements IEvaluatorService {
      *
      * @param patientInput The patient input to evaluate.
      * @return A CompletableFuture that will contain the diagnosis once it is evaluated, since
-     * the process is asynchronous.
+     * the process is asynchronous.`
      */
     @Async
     public CompletableFuture<Diagnosis> evaluatePatientInput(PatientInput patientInput) {
