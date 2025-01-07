@@ -1,5 +1,6 @@
 package cvut.fel.virtualdoctor.service;
 
+import cvut.fel.virtualdoctor.exception.NotFoundException;
 import cvut.fel.virtualdoctor.model.Patient;
 import cvut.fel.virtualdoctor.repository.PatientRepository;
 import lombok.AllArgsConstructor;
@@ -31,7 +32,7 @@ public class PatientService implements IPatientService {
 
     public Patient findByName(String name) {
         return patientRepository.findByName(name).orElseThrow(
-                () -> new RuntimeException("Patient with name " + name + " not found")
+                () -> new NotFoundException("Patient with name " + name + " not found")
         );
     }
 }

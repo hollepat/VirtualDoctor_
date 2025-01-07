@@ -95,7 +95,7 @@ public class DiagnosisServiceTest {
     }
 
     @Test
-    public void createDiagnosis_patientInput_no_symptoms() {
+    public void createDiagnosis_patientInputWithNoSymptoms_defaultEmergencyLevel() {
         // given
         ClassifierInput classifierInput = mock(ClassifierInput.class);
         PatientInput patientInput = mock(PatientInput.class);
@@ -139,7 +139,7 @@ public class DiagnosisServiceTest {
     }
 
     @Test
-    public void createDiagnosis_classifierOutputDTO_no_diseases() {
+    public void createDiagnosis_classifierOutputDTOWithNoDiseases_noDoctorRecommended() {
         // given
         ClassifierInput classifierInput = mock(ClassifierInput.class);
         PatientInput patientInput = mock(PatientInput.class);
@@ -212,7 +212,7 @@ public class DiagnosisServiceTest {
     }
 
     @Test
-    public void markDiagnosis_missing_healthData_key_RuntimeException() {
+    public void markDiagnosis_missingHealthDataKey_RuntimeException() {
         // given
         UUID id = UUID.randomUUID();
         Diagnosis diagnosis = mock(Diagnosis.class);
